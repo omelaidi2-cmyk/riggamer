@@ -1,0 +1,58 @@
+---
+import Base from '../../layouts/Base.astro';
+import HubHeader from '../../components/HubHeader.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Banner from '../../components/Banner.astro';
+import { getByCategory } from '../../data/articles';
+
+const articles = getByCategory('setup');
+---
+
+<Base title="Gaming Setup Guides — RigGamer" description="Best gaming PCs, monitors, keyboards, mice, and peripherals — tested and ranked.">
+
+  <!-- Top leaderboard -->
+  <div style="background:#07080b;padding:22px 0 0;text-align:center;">
+    <div class="banner-desktop" style="display:inline-block;line-height:0;">
+      <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+    </div>
+    <div class="banner-mobile"></div>
+  </div>
+
+  <HubHeader
+    cat="setup"
+    title="Gaming Setup"
+    desc="Best-in-class hardware guides. Tested builds, monitor comparisons, peripheral rankings — no affiliate bias."
+    count={articles.length}
+    bgImg="https://rigpeak.com/wp-content/uploads/2026/08/24/where-winds-meet-news.jpg"
+  />
+
+  <div class="wrap">
+    <div class="page-layout">
+      <div>
+        <div class="articles-grid">
+          {articles.map((a, i) => <ArticleCard {...a} num={i} />)}
+        </div>
+      </div>
+      <aside class="sidebar">
+        <Banner slug="nte" size="box" img="https://rigpeak.com/media/u/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
+        <Banner slug="nte" size="sky" img="https://rigpeak.com/media/u/nte-sky.gif" imgW={160} imgH={600} alt="NTE" />
+        <div class="trending-box">
+          <div class="trending-hd">Top Picks</div>
+          {articles.slice(0, 4).map((a, i) => (
+            <a href={`/setup/${a.slug}/`} class="tr-item">
+              <span class="tr-num">{String(i+1).padStart(2,'0')}</span>
+              <div>
+                <div class="tr-title">{a.title}</div>
+                <span class="tr-cat" style="color:var(--cs);font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.06em;">Setup</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </aside>
+    </div>
+    <div class="mobile-mid-ad">
+      <Banner slug="nte" size="box" img="https://rigpeak.com/media/u/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
+    </div>
+  </div>
+
+</Base>

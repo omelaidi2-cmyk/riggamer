@@ -1,0 +1,48 @@
+---
+export interface Props {
+  title: string;
+  excerpt: string;
+  slug: string;
+  cat: 'guides' | 'news' | 'reviews' | 'setup';
+  date: string;
+  readtime?: number;
+  img?: string;
+  score?: string;
+  num?: number;
+}
+
+const { title, excerpt, slug, cat, date, readtime = 5, img, score, num } = Astro.props;
+
+const badgeCls = { guides: 'bg', news: 'bn', reviews: 'br', setup: 'bs' }[cat];
+const badgeLabel = { guides: 'Guide', news: 'News', reviews: 'Review', setup: 'Setup' }[cat];
+const gameGrad = num !== undefined ? `g${(num % 8) + 1}` : 'g1';
+
+const scoreClass = score
+  ? parseFloat(score) >= 8.5 ? 'sc-s'
+  : parseFloat(score) >= 7.5 ? 'sc-a'
+  : parseFloat(score) >= 6.5 ? 'sc-b'
+  : 'sc-c'
+  : '';
+---
+
+<article class="card">
+  <a href={`/${cat}/${slug}/`} style="display:contents;">
+    <div class={`card-img ${gameGrad}`}>
+      {img && <img class="card-img-real" src={img} alt={title} loading="lazy" referrerpolicy="no-referrer" />}
+      {num !== undefined && <span class="card-num">// {String(num + 1).padStart(3, '0')}</span>}
+      {score && <span class={`score-pill ${scoreClass}`}>{score}</span>}
+    </div>
+    <div class="card-body">
+      <div class="card-meta">
+        <span class={`badge ${badgeCls}`}>{badgeLabel}</span>
+      </div>
+      <h2 class="card-title">{title}</h2>
+      <p class="card-excerpt">{excerpt}</p>
+      <div class="card-foot">
+        <span class="readtime">{readtime} min</span>
+        <span class="dot">·</span>
+        <span class="pdate">{date}</span>
+      </div>
+    </div>
+  </a>
+</article>

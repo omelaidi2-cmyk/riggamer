@@ -1,0 +1,92 @@
+---
+const nav = [
+  { label: 'Guides',  href: '/guides/'  },
+  { label: 'News',    href: '/news/'    },
+  { label: 'Reviews', href: '/reviews/' },
+  { label: 'Setup',   href: '/setup/'   },
+];
+
+const current = Astro.url.pathname;
+---
+
+<header class="navbar">
+  <div class="navbar-inner">
+
+    <!-- Logo -->
+    <a href="/" class="nav-logo" aria-label="RigGamer home">
+      <span class="logo-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="#07080b" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+          <path d="M2 20 L8.5 7 L12.5 13.5 L15.5 8.5 L22 20 Z"/>
+        </svg>
+      </span>
+      <span class="logo-text"><b>Rig</b><span>Gamer</span></span>
+    </a>
+
+    <!-- Nav links desktop -->
+    <ul class="nav-links">
+      {nav.map(({ label, href }) => (
+        <li>
+          <a href={href} class={current.startsWith(href) ? 'active' : ''}>
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Search -->
+    <div class="nav-search" role="button" aria-label="Search">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" width="13" height="13" color="var(--t3)">
+        <circle cx="6" cy="6" r="4.5"/>
+        <line x1="9.5" y1="9.5" x2="13" y2="13"/>
+      </svg>
+      <span>Search</span>
+    </div>
+
+    <!-- Subscribe -->
+    <a href="/guides/" class="btn-sub">Subscribe</a>
+
+    <!-- Mobile hamburger -->
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div class="mobile-nav-overlay" id="mob-overlay"></div>
+<nav class="mobile-nav-drawer" id="mob-drawer">
+  <div class="mobile-nav-header">
+    <span class="logo-text" style="font-family:var(--fd);font-size:15px;font-weight:700;text-transform:uppercase;"><b>Rig</b><span style="color:var(--t3);font-style:normal">Gamer</span></span>
+    <div class="mobile-nav-close" id="mob-close">×</div>
+  </div>
+  <ul class="mobile-nav-links">
+    {nav.map(({ label, href }) => (
+      <li><a href={href} class={current.startsWith(href) ? 'active' : ''}>{label}</a></li>
+    ))}
+  </ul>
+  <div class="mobile-nav-sep"></div>
+  <div class="mobile-nav-sub">// RigGamer.com</div>
+</nav>
+
+<script>
+const ham = document.getElementById('hamburger');
+const overlay = document.getElementById('mob-overlay');
+const drawer = document.getElementById('mob-drawer');
+const close = document.getElementById('mob-close');
+
+function openMenu() {
+  ham?.classList.add('open');
+  overlay?.classList.add('open');
+  drawer?.classList.add('open');
+}
+function closeMenu() {
+  ham?.classList.remove('open');
+  overlay?.classList.remove('open');
+  drawer?.classList.remove('open');
+}
+
+ham?.addEventListener('click', openMenu);
+close?.addEventListener('click', closeMenu);
+overlay?.addEventListener('click', closeMenu);
+</script>

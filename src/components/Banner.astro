@@ -1,0 +1,29 @@
+---
+export interface Props {
+  slug: string;
+  size?: 'wide' | 'box' | 'sky' | 'flow';
+  img?: string;
+  imgW?: number;
+  imgH?: number;
+  alt?: string;
+}
+
+const { slug, size = 'wide', img, imgW, imgH, alt = 'Sponsored' } = Astro.props;
+
+const cls = {
+  wide: 'blassa-wide',
+  box:  'blassa-box',
+  sky:  'blassa-sky',
+  flow: 'blassa-flow',
+}[size];
+---
+
+<div class={`blassa ${cls}${img ? ' filled' : ''}`}>
+  {img ? (
+    <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer sponsored" style="display:inline-block;line-height:0;">
+      <img src={img} alt={alt} width={imgW} height={imgH} style="display:block;max-width:100%;height:auto;" loading="lazy" referrerpolicy="no-referrer" />
+    </a>
+  ) : (
+    <span class="blassa-note">// {slug.toUpperCase()} AD {size.toUpperCase()}</span>
+  )}
+</div>

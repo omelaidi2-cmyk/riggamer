@@ -1,0 +1,34 @@
+---
+export interface Props {
+  cat: 'guides' | 'news' | 'reviews' | 'setup';
+  title: string;
+  desc: string;
+  count: number;
+  bgImg?: string;
+}
+
+const { cat, title, desc, count, bgImg } = Astro.props;
+
+const catLabel = cat.charAt(0).toUpperCase() + cat.slice(1);
+---
+
+<div class="wrap">
+  <div class="hub-header">
+    {bgImg && <img class="hub-header-bg" src={bgImg} alt="" aria-hidden="true" referrerpolicy="no-referrer" />}
+    <div class="hub-header-overlay"></div>
+    <span class="hub-badge">Category</span>
+    <h1 class="hub-title">{title}</h1>
+    <p class="hub-desc">{desc}</p>
+    <div class="hub-stats">
+      <span class="hub-stat-num">{count}</span>
+      <span class="hub-stat-label">Articles</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section-head">
+    <span class="section-head-title">All {catLabel}</span>
+    <span class="section-head-count">{count} Results</span>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+---
+import Base from '../../layouts/Base.astro';
+import HubHeader from '../../components/HubHeader.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Banner from '../../components/Banner.astro';
+import { getByCategory } from '../../data/articles';
+
+const articles = getByCategory('reviews');
+---
+
+<Base title="PC Game Reviews — RigGamer" description="Honest, in-depth PC game reviews with scores. No paid placements.">
+
+  <!-- Top leaderboard -->
+  <div style="background:#07080b;padding:22px 0 0;text-align:center;">
+    <div class="banner-desktop" style="display:inline-block;line-height:0;">
+      <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+    </div>
+    <div class="banner-mobile"></div>
+  </div>
+
+  <HubHeader
+    cat="reviews"
+    title="Game Reviews"
+    desc="Honest, in-depth reviews of the biggest PC and mobile games. Scored 1–10. No paid placements."
+    count={articles.length}
+    bgImg="https://rigpeak.com/wp-content/uploads/2026/08/31/nte-review-keyart.webp"
+  />
+
+  <div class="wrap">
+    <div class="page-layout">
+      <div>
+        <div class="articles-grid">
+          {articles.map((a, i) => <ArticleCard {...a} num={i} />)}
+        </div>
+      </div>
+      <aside class="sidebar">
+        <Banner slug="nte" size="box" img="https://rigpeak.com/media/u/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
+        <Banner slug="nte" size="sky" img="https://rigpeak.com/media/u/nte-sky.gif" imgW={160} imgH={600} alt="NTE" />
+        <div class="trending-box">
+          <div class="trending-hd">Top Rated</div>
+          {articles
+            .filter(a => a.score)
+            .sort((a, b) => parseFloat(b.score!) - parseFloat(a.score!))
+            .slice(0, 4)
+            .map((a, i) => (
+              <a href={`/reviews/${a.slug}/`} class="tr-item">
+                <span class="tr-num">{String(i+1).padStart(2,'0')}</span>
+                <div>
+                  <div class="tr-title">{a.title}</div>
+                  <span class="tr-cat" style="color:var(--cr);font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.06em;">{a.score} / 10</span>
+                </div>
+              </a>
+            ))}
+        </div>
+      </aside>
+    </div>
+    <div class="mobile-mid-ad">
+      <Banner slug="nte" size="box" img="https://rigpeak.com/media/u/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
+    </div>
+  </div>
+
+</Base>

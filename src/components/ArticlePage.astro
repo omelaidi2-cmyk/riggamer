@@ -1,0 +1,278 @@
+---
+import Base from '../layouts/Base.astro';
+import Banner from '../components/Banner.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { ARTICLES } from '../data/articles';
+import type { Article } from '../data/articles';
+
+export interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+const { slug, title, excerpt, cat, date, readtime, img, score, game } = article;
+
+const GAME_SLUGS: Record<string, string> = {
+  'NTE':             'nte',
+  'Arknights':       'arknights-endfield',
+  'Project Entropy': 'project-entropy',
+  'RAID':            'raid-shadow-legends',
+  'Enlisted':        'enlisted',
+  'Once Human':      'once-human',
+  'Rise of Kingdoms':'rise-of-kingdoms',
+  'War Thunder':     'war-thunder',
+  'Where Winds Meet':'where-winds-meet',
+  'Star Trek':       'star-trek-fleet-command',
+};
+const gameSlug = game ? (GAME_SLUGS[game] ?? slug.split('-').slice(0, 3).join('-')) : null;
+
+const catLabel  = { guides:'Guide', news:'News', reviews:'Review', setup:'Setup' }[cat];
+const catPath   = `/${cat}/`;
+const catPlural = { guides:'Guides', news:'News', reviews:'Reviews', setup:'Setup' }[cat];
+const badgeCls  = { guides:'bg', news:'bn', reviews:'br', setup:'bs' }[cat];
+
+const scoreNum = score ? parseFloat(score) : null;
+const scoreClass = scoreNum
+  ? scoreNum >= 8.5 ? 'sc-s'
+  : scoreNum >= 7.5 ? 'sc-a'
+  : scoreNum >= 6.5 ? 'sc-b'
+  : 'sc-c'
+  : '';
+
+const readNext = ARTICLES
+  .filter(a => a.cat === cat && a.slug !== slug)
+  .slice(0, 3);
+
+const tocItems = [
+  { id: 'intro',        label: 'Introduction' },
+  { id: 'key-points',   label: 'Key Points to Know' },
+  { id: 'analysis',     label: 'In-Depth Analysis' },
+  { id: 'tips',         label: 'Tips & Recommendations' },
+  { id: 'verdict',      label: 'Final Verdict' },
+];
+---
+
+<Base title={`${title} — RigGamer`} description={excerpt}>
+
+  <!-- Top leaderboard -->
+  <div style="background:#07080b;padding:22px 0 0;text-align:center;">
+    <div class="banner-desktop" style="display:inline-block;line-height:0;">
+      <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+    </div>
+  </div>
+
+  <div class="rg-article-wrap">
+    <div class="wrap">
+
+      <!-- Breadcrumb -->
+      <nav class="rg-breadcrumb">
+        <a href="/">Home</a>
+        <span class="rg-chev">›</span>
+        <a href={catPath}>{catPlural}</a>
+        <span class="rg-chev">›</span>
+        <span class="rg-bc-current">{title}</span>
+      </nav>
+
+      <!-- Article head (full width) -->
+      <div class="rg-article-head">
+        <div class="rg-head-tags">
+          <span class={`badge ${badgeCls}`}>{catLabel}</span>
+          {score && <span class={`score-pill ${scoreClass}`}>{score} / 10</span>}
+          {game && <span class="rg-game-tag">{game}</span>}
+        </div>
+        <h1 class="rg-article-h1">{title}</h1>
+        <p class="rg-dek">{excerpt}</p>
+        <div class="rg-byline">
+          <span class="rg-who">
+            <span class="rg-mini-av">R</span>
+            <span>RigGamer Staff</span>
+          </span>
+          <span class="rg-sep">·</span>
+          <span>{date}</span>
+          <span class="rg-sep">·</span>
+          <span>{readtime} min read</span>
+        </div>
+      </div>
+
+      <!-- Hero image (full width) -->
+      {img && (
+        <div class="rg-hero-full">
+          <div class="rg-frame">
+            <img src={img} alt={title} loading="eager" referrerpolicy="no-referrer" />
+          </div>
+        </div>
+      )}
+
+      <!-- Article body: prose left + sidebar right -->
+      <div class="rg-article-body">
+
+        <!-- Main content (left) -->
+        <div class="rg-article-main">
+
+          <!-- TOC mobile uniquement (sidebar masquée sur mobile) -->
+          <div class="rg-toc rg-toc-mobile">
+            <span class="rg-toc-title">CONTENTS</span>
+            <ol>
+              {tocItems.map(item => (
+                <li><a href={`#${item.id}`}>{item.label}</a></li>
+              ))}
+            </ol>
+          </div>
+
+          <!-- Prose body -->
+          <div class="rg-prose">
+
+            <h2 id="intro">Introduction</h2>
+            <p>{excerpt}</p>
+            <p>Whether you're a newcomer or a veteran looking to sharpen your approach, this guide breaks down everything into digestible sections so you can apply the knowledge immediately.</p>
+
+            {game && (
+              <div class="rg-cta-card">
+                <a href={`/go/${gameSlug}`} target="_blank" rel="noopener noreferrer sponsored" class="rg-cta-overlay" aria-label={`Play ${game} Free`}></a>
+                <div class="rg-cta-card-left">
+                  <span class="rg-c-label">// Play Free</span>
+                  <p class="rg-cta-card-text">Ready to dive in? <strong>{game}</strong> is free to play on PC. Join millions of players worldwide.</p>
+                </div>
+                <div class="rg-cta-card-right">
+                  <a href={`/go/${gameSlug}`} target="_blank" rel="noopener noreferrer sponsored" class="rg-cta-main-btn">Play {game} Free →</a>
+                  <a href={catPath} class="rg-cta-sec-btn">More {catLabel}s</a>
+                </div>
+              </div>
+            )}
+
+            <h2 id="key-points">Key Points to Know</h2>
+            <p>Before diving deep, here are the most important things to understand about this topic.</p>
+            <ul>
+              <li>Understand the core mechanics before spending any resources</li>
+              <li>Focus on the meta that matters for your playstyle and goals</li>
+              <li>Progression is faster when you follow the right priority order</li>
+              <li>Community knowledge evolves — check back after major updates</li>
+            </ul>
+
+          </div><!-- /rg-prose -->
+
+          <!-- Mid-article banner -->
+          <div class="rg-inline-ad banner-desktop">
+            <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+          </div>
+
+          <div class="rg-prose">
+
+            <h2 id="analysis">In-Depth Analysis</h2>
+            <p>The deeper mechanics here reward players who invest the time to understand them. This section covers what separates average performance from top-tier results.</p>
+            <p>Most players overlook these fundamentals in the early game, which creates bottlenecks later. Addressing them early is the most efficient path forward.</p>
+
+            <div class="rg-callout rg-callout-tip">
+              <span class="rg-c-label">Tip</span>
+              <p>Resource management is the biggest differentiator between average and top-tier players. Prioritize wisely from day one.</p>
+            </div>
+
+            <h2 id="tips">Tips &amp; Recommendations</h2>
+            <p>Based on extensive testing and community feedback, these are the actionable recommendations that will have the biggest impact on your experience.</p>
+            <ul>
+              <li>Prioritize the fundamentals over chasing the latest meta</li>
+              <li>Resource management is the biggest differentiator between players</li>
+              <li>Don't overlook quality-of-life settings — they affect performance</li>
+              <li>Connect with the community to stay up to date on patches</li>
+            </ul>
+
+            <h2 id="verdict">Final Verdict</h2>
+            <p>The content covered here gives you a solid foundation to move forward. Apply these principles consistently and you'll see measurable results in your gameplay or setup.</p>
+            <p>We'll keep this guide updated as the meta evolves. Bookmark it and check back after major patches.</p>
+
+          </div><!-- /rg-prose -->
+
+          <!-- Author bio — fin d'article -->
+          <div class="rg-author-end">
+            <div class="rg-author-end-av">D</div>
+            <div class="rg-author-end-info">
+              <div class="rg-author-end-name">David</div>
+              <div class="rg-author-end-role">Editor</div>
+              <p class="rg-author-end-bio">Gaming writer at RigGamer. We play, we test — every guide and review is grounded in hands-on time with the game.</p>
+            </div>
+          </div>
+
+        </div><!-- /rg-article-main -->
+
+        <!-- Sidebar (right, sticky) -->
+        <aside class="rg-article-side">
+
+          <!-- Box ad -->
+          <Banner slug="nte" size="box" img="https://rigpeak.com/media/u/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
+
+          <!-- Skyscraper ad -->
+          <Banner slug="nte" size="sky" img="https://rigpeak.com/media/u/nte-sky.gif" imgW={160} imgH={600} alt="NTE" />
+
+          <!-- Table of contents -->
+          <div class="rg-toc">
+            <span class="rg-toc-title">CONTENTS</span>
+            <ol>
+              {tocItems.map(item => (
+                <li><a href={`#${item.id}`}>{item.label}</a></li>
+              ))}
+            </ol>
+          </div>
+
+        </aside>
+
+      </div><!-- /rg-article-body -->
+
+      <!-- Read Next -->
+      {readNext.length > 0 && (
+        <section class="rg-article-related">
+          <div class="sec-hd">
+            <div class="sec-title">Read Next</div>
+            <a href={catPath} class="sec-lnk">All {catPlural} →</a>
+          </div>
+          <div class="rg-related-grid">
+            {readNext.map((a, i) => <ArticleCard {...a} num={i} />)}
+          </div>
+        </section>
+      )}
+
+    </div>
+  </div>
+
+</Base>
+
+<script>
+  // Tous les liens TOC (sidebar desktop + mobile)
+  const allTocLinks = Array.from(document.querySelectorAll('.rg-toc a'));
+  const headings    = Array.from(document.querySelectorAll('.rg-prose h2[id]')) as HTMLElement[];
+
+  if (allTocLinks.length && headings.length) {
+
+    function setActive(id: string) {
+      // Retirer active de tous les liens dans tous les TOC
+      allTocLinks.forEach(l => l.classList.remove('active'));
+      // Activer TOUS les liens qui pointent vers cet id (sidebar + mobile)
+      allTocLinks
+        .filter(l => l.getAttribute('href') === `#${id}`)
+        .forEach(l => l.classList.add('active'));
+    }
+
+    function getCurrentId(): string {
+      const scrollY = window.scrollY + 110;
+      let current = headings[0].id;
+      for (const h of headings) {
+        if (h.offsetTop <= scrollY) current = h.id;
+      }
+      return current;
+    }
+
+    // Actif immédiatement au chargement
+    setActive(getCurrentId());
+
+    // Scroll throttlé via requestAnimationFrame
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setActive(getCurrentId());
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+</script>

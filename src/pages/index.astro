@@ -1,0 +1,201 @@
+---
+import Base from '../layouts/Base.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import Banner from '../components/Banner.astro';
+import { ARTICLES, getByCategory } from '../data/articles';
+
+const guides  = getByCategory('guides').slice(0, 4);
+const news    = getByCategory('news').slice(0, 4);
+const hero    = ARTICLES[0];
+const minis   = ARTICLES.slice(1, 4);
+---
+
+<Base>
+
+  <!-- Top leaderboard -->
+  <div style="background:#07080b;padding:22px 0 0;text-align:center;">
+    <div class="banner-desktop" style="display:inline-block;line-height:0;">
+      <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+    </div>
+    <div class="banner-mobile"></div>
+  </div>
+
+  <!-- Featured Hero -->
+  <div class="wrap">
+    <div class="sec-hd">
+      <div class="sec-title">Featured</div>
+    </div>
+  </div>
+
+  <div style="background:#07080b;">
+    <div class="wrap section">
+      <div class="hero-grid">
+        <!-- Big hero card -->
+        {(() => {
+          const heroBadge = { guides:'bg', news:'bn', reviews:'br', setup:'bs' }[hero.cat];
+          const heroLabel = { guides:'Guide', news:'News', reviews:'Review', setup:'Setup' }[hero.cat];
+          return (
+            <a href={`/${hero.cat}/${hero.slug}/`} class="card-hero">
+              {hero.img && <img class="card-hero-bg" src={hero.img} alt={hero.title} referrerpolicy="no-referrer" />}
+              <div class="card-hero-overlay"></div>
+              <div class="card-hero-body">
+                <div class="card-hero-meta">
+                  <span class={`badge ${heroBadge}`}>{heroLabel}</span>
+                </div>
+                <h2 class="card-hero-title">{hero.title}</h2>
+                <div class="card-hero-byline">by RigGamer Staff · {hero.date}</div>
+              </div>
+            </a>
+          );
+        })()}
+
+        <!-- 3 mini cards -->
+        <div class="hero-sidebar">
+          {minis.map((a, i) => {
+            const miniBadge = { guides:'bg', news:'bn', reviews:'br', setup:'bs' }[a.cat];
+            const miniLabel = { guides:'Guide', news:'News', reviews:'Review', setup:'Setup' }[a.cat];
+            const miniGrad  = `g${(i % 8) + 1}`;
+            return (
+              <a href={`/${a.cat}/${a.slug}/`} class="card-mini">
+                <div class={`card-mini-thumb ${miniGrad}`} style="position:relative;">
+                  {a.img && <img src={a.img} alt={a.title} style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" referrerpolicy="no-referrer" />}
+                </div>
+                <div class="card-mini-body">
+                  <div class="card-mini-title">{a.title}</div>
+                  <div class="card-mini-foot">
+                    <span class={`badge ${miniBadge}`}>{miniLabel}</span>
+                    <span class="readtime">{a.readtime} min</span>
+                  </div>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Games Covered -->
+  <div class="wrap">
+    <div class="sec-hd">
+      <div class="sec-title">Games Covered</div>
+      <a href="/guides/" class="sec-lnk">All Guides →</a>
+    </div>
+    <div class="games-grid section" style="margin-top:14px;margin-bottom:18px;">
+      {[
+        { name: 'NTE: Neverness to Everness', slug: 'nte',                   img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/nte-guides.jpg',                      gc: 'g1', count: '4 articles' },
+        { name: 'Arknights: Endfield',         slug: 'arknights-endfield',    img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/arknights-endfield-guides.jpg',        gc: 'g2', count: '3 articles' },
+        { name: 'Enlisted',                    slug: 'enlisted',              img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/enlisted-guides.jpg',                  gc: 'g3', count: '3 articles' },
+        { name: 'Once Human',                  slug: 'once-human',            img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/once-human-guides.jpg',                gc: 'g4', count: '3 articles' },
+        { name: 'Project Entropy',             slug: 'project-entropy',       img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/project-entropy-guides.jpg',           gc: 'g5', count: '3 articles' },
+        { name: 'RAID: Shadow Legends',        slug: 'raid-shadow-legends',   img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/raid-shadow-legends-guides.png',       gc: 'g6', count: '3 articles' },
+        { name: 'Rise of Kingdoms',            slug: 'rise-of-kingdoms',      img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/rise-of-kingdoms-guides.png',          gc: 'g7', count: '3 articles' },
+        { name: 'Star Trek Fleet Command',     slug: 'star-trek-fleet-command', img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/star-trek-fleet-command-guides.webp', gc: 'g8', count: '3 articles' },
+      ].map((g) => (
+        <a href={`/go/${g.slug}`} target="_blank" rel="noopener noreferrer" class="game-tile">
+          <div class={`game-cover ${g.gc}`}>
+            <img src={g.img} alt={g.name} referrerpolicy="no-referrer" />
+          </div>
+          <div class="game-info">
+            <div class="game-name">{g.name}</div>
+            <div class="game-count">{g.count}</div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- Infeed banner -->
+  <div style="background:#07080b;text-align:center;padding:18px 0;border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);">
+    <div class="banner-desktop" style="display:inline-block;line-height:0;">
+      <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+    </div>
+    <div class="banner-mobile"></div>
+  </div>
+
+  <!-- Latest Guides -->
+  <div class="wrap">
+    <div class="sec-hd">
+      <div class="sec-title">Latest Guides</div>
+      <a href="/guides/" class="sec-lnk">All Guides →</a>
+    </div>
+  </div>
+  <div class="wrap section">
+    <div class="page-layout">
+      <div>
+        <div class="articles-grid">
+          {guides.map((a, i) => <ArticleCard {...a} num={i} />)}
+        </div>
+      </div>
+      <aside class="sidebar">
+        <Banner slug="nte" size="box" img="https://rigpeak.com/media/u/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
+        <Banner slug="nte" size="sky" img="https://rigpeak.com/media/u/nte-sky.gif" imgW={160} imgH={600} alt="NTE" />
+        <div class="trending-box">
+          <div class="trending-hd">Trending</div>
+          {guides.map((a, i) => (
+            <a href={`/guides/${a.slug}/`} class="tr-item">
+              <span class="tr-num">{String(i+1).padStart(2,'0')}</span>
+              <div>
+                <div class="tr-title">{a.title}</div>
+                <span class="tr-cat" style="color:var(--cg);font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.06em;">Guide</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Latest News -->
+  <div class="wrap">
+    <div class="sec-hd">
+      <div class="sec-title">Latest News</div>
+      <a href="/news/" class="sec-lnk">All News →</a>
+    </div>
+  </div>
+  <div class="wrap section">
+    <div class="page-layout">
+      <div>
+        <div class="articles-grid">
+          {news.map((a, i) => <ArticleCard {...a} num={i} />)}
+        </div>
+      </div>
+      <aside class="sidebar">
+        <Banner slug="nte" size="box" img="https://rigpeak.com/media/u/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
+        <Banner slug="nte" size="sky" img="https://rigpeak.com/media/u/nte-sky.gif" imgW={160} imgH={600} alt="NTE" />
+        <div class="trending-box">
+          <div class="trending-hd">Trending</div>
+          {news.map((a, i) => (
+            <a href={`/news/${a.slug}/`} class="tr-item">
+              <span class="tr-num">{String(i+1).padStart(2,'0')}</span>
+              <div>
+                <div class="tr-title">{a.title}</div>
+                <span class="tr-cat" style="color:var(--cn);font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.06em;">News</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <p class="nl-tag">// Stay Sharp</p>
+    <h2 class="nl-title">Never Miss a Patch</h2>
+    <p class="nl-sub">Tier lists, patch breakdowns, and setup guides — straight to your inbox.</p>
+    <form class="nl-form" onsubmit="return false;">
+      <input class="nl-input" type="email" placeholder="your@email.com" />
+      <button class="nl-btn" type="submit">Subscribe</button>
+    </form>
+  </section>
+
+  <!-- Bottom banner -->
+  <div style="background:#07080b;text-align:center;padding:28px 0;border-top:1px solid var(--brd);">
+    <div class="banner-desktop" style="display:inline-block;line-height:0;">
+      <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+    </div>
+    <div class="banner-mobile"></div>
+  </div>
+
+</Base>

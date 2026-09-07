@@ -1,0 +1,14 @@
+---
+import ArticlePage from '../../components/ArticlePage.astro';
+import { getByCategory } from '../../data/articles';
+
+export function getStaticPaths() {
+  return getByCategory('guides').map(a => ({
+    params: { slug: a.slug },
+    props:  { article: a },
+  }));
+}
+
+const { article } = Astro.props;
+---
+<ArticlePage article={article} />

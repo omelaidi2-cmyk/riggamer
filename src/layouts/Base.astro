@@ -1,0 +1,102 @@
+---
+import NavBar from '../components/NavBar.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = 'RigGamer — PC Gaming Guides, News & Reviews',
+  description = 'The sharpest PC gaming coverage. Tier-list guides, patch notes, honest reviews, and setup intel — updated daily.',
+  image = '/og-default.jpg',
+  noindex = false,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="no-referrer" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+  {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+  <!-- OG -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={image} />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+
+<NavBar />
+
+<main>
+  <slot />
+</main>
+
+<Footer />
+
+<!-- Sticky bottom CTA -->
+<div class="sticky-cta" id="sticky-cta">
+  <button class="sticky-cta-close" id="sticky-cta-close" aria-label="Close">×</button>
+  <div class="sticky-cta-banner">
+    <span class="sticky-cta-img-desktop">
+      <a href="/go/nte" target="_blank" rel="noopener sponsored">
+        <img src="https://rigpeak.com/media/u/nte-w.gif" alt="NTE — Play Free" width="728" height="146" referrerpolicy="no-referrer" style="display:block;max-width:100%;height:auto;" />
+      </a>
+    </span>
+    <a href="/go/nte" class="sticky-cta-img-mobile" target="_blank" rel="noopener sponsored"></a>
+  </div>
+</div>
+
+<!-- Affiliate links — open in new tab -->
+<script>
+document.addEventListener('click', function(e) {
+  const a = (e.target as Element).closest('a[href^="/go/"]');
+  if (!a) return;
+  e.preventDefault();
+  window.open((a as HTMLAnchorElement).href, '_blank', 'noopener,noreferrer');
+}, true);
+
+/* Sticky CTA — appear on scroll, dismissable */
+(function() {
+  var el    = document.getElementById('sticky-cta');
+  var close = document.getElementById('sticky-cta-close');
+  var closed = false;
+  if (!el || !close) return;
+  window.addEventListener('scroll', function() {
+    if (closed) return;
+    if (window.scrollY > 400) el!.classList.add('visible');
+    else el!.classList.remove('visible');
+  }, { passive: true });
+  close.addEventListener('click', function(e) {
+    e.stopPropagation();
+    el!.classList.remove('visible');
+    closed = true;
+  });
+})();
+</script>
+
+</body>
+</html>
