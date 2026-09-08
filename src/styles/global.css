@@ -1426,13 +1426,6 @@ a{text-decoration:none;color:inherit}
 .sticky-cta-img-desktop { display: inline-block; }
 .sticky-cta-img-mobile  { display: none; }
 @media (max-width: 900px) {
-  .sticky-cta-img-desktop { display: none; }
-  .sticky-cta-img-mobile  {
-    display: flex; align-items: center; justify-content: center;
-    width: 320px; height: 50px; margin: 0 auto;
-    background: var(--surf1); border: 1px dashed var(--brd2);
-    font-family: var(--fm); font-size: 10px; color: var(--t4);
-    text-transform: uppercase; letter-spacing: 0.1em;
-  }
+  .sticky-cta { display: none; }
 }
 
