@@ -59,6 +59,9 @@ const tocItems = [
     <div class="banner-desktop" style="display:inline-block;line-height:0;">
       <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
     </div>
+    <div class="banner-mobile" style="justify-content:center;">
+      <Banner slug="nte" size="box" img="https://rigpeak.com/media/u/nte-b.webp" imgW={300} imgH={250} alt="NTE — Play Free" />
+    </div>
   </div>
 
   <div class="rg-article-wrap">
@@ -152,8 +155,13 @@ const tocItems = [
           </div><!-- /rg-prose -->
 
           <!-- Mid-article banner -->
-          <div class="rg-inline-ad banner-desktop">
-            <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+          <div class="rg-inline-ad">
+            <div class="banner-desktop" style="display:inline-block;line-height:0;">
+              <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+            </div>
+            <div class="banner-mobile" style="justify-content:center;">
+              <Banner slug="nte" size="box" img="https://rigpeak.com/media/u/nte-b.webp" imgW={300} imgH={250} alt="NTE — Play Free" />
+            </div>
           </div>
 
           <div class="rg-prose">
@@ -181,6 +189,11 @@ const tocItems = [
             <p>We'll keep this guide updated as the meta evolves. Bookmark it and check back after major patches.</p>
 
           </div><!-- /rg-prose -->
+
+          <!-- Bannières sidebar — mobile uniquement (sidebar masquée sur mobile) -->
+          <div class="banner-mobile" style="justify-content:center;margin:24px 0;">
+            <Banner slug="nte" size="box" img="https://rigpeak.com/media/u/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
+          </div>
 
           <!-- Author bio — fin d'article -->
           <div class="rg-author-end">
