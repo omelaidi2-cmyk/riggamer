@@ -1375,6 +1375,8 @@ a{text-decoration:none;color:inherit}
   .nav-search { display: none; }
   .btn-sub    { display: none; }
   .nav-hamburger { display: flex; }
+  /* Remove GPU-expensive blur on mobile */
+  .navbar { backdrop-filter: none; -webkit-backdrop-filter: none; }
   .navbar-inner { gap: 0; }
   .nav-logo { margin-right: 0; flex: 1; }
 
@@ -1410,6 +1412,11 @@ a{text-decoration:none;color:inherit}
   .hub-title { font-size: 28px; }
   .hub-header { min-height: 160px; padding: 20px; }
   .hub-desc { font-size: 13px; }
+}
+
+/* Mobile perf — game grid images hidden, CSS gradient shows instead */
+@media (max-width: 768px) {
+  .game-cover img { display: none; }
 }
 
 /* Blassa-box mobile â€” visible sous la grille articles (sidebar cachÃ©e) */

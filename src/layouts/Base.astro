@@ -8,6 +8,7 @@ export interface Props {
   description?: string;
   image?: string;
   noindex?: boolean;
+  preloadImg?: string;
 }
 
 const {
@@ -15,6 +16,7 @@ const {
   description = 'The sharpest PC gaming coverage. Tier-list guides, patch notes, honest reviews, and setup intel — updated daily.',
   image = '/og-default.jpg',
   noindex = false,
+  preloadImg,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -45,6 +47,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" />
   <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" /></noscript>
+
+  <!-- LCP image preload — browser downloads hero before parsing body -->
+  {preloadImg && <link rel="preload" as="image" href={preloadImg} fetchpriority="high" />}
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
