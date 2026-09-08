@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RigGamer — Logo Concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700;800&family=Rajdhani:wght@600;700&family=Orbitron:wght@700;900&family=Exo+2:wght@700;800;900&family=Teko:wght@600;700&family=Russo+One&family=Black+Han+Sans&family=Bebas+Neue&family=Barlow+Condensed:wght@700;800;900&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #07080b; padding: 40px 20px; }
+  h1 { color: #c6ff33; font-family: monospace; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 40px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2px; }
+  .card {
+    background: #0e1116;
+    padding: 40px 30px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+    cursor: pointer; transition: background .2s;
+    min-height: 130px;
+  }
+  .card:hover { background: #141920; outline: 1px solid #c6ff33; }
+  .num { color: #333; font-family: monospace; font-size: 10px; letter-spacing: .12em; align-self: flex-start; }
+</style>
+</head>
+<body>
+<h1>// RIGGAMER — 10 wordmark concepts (click to choose)</h1>
+<div class="grid">
+
+  <!-- 01 Chakra Petch bicolor -->
+  <div class="card">
+    <span class="num">01</span>
+    <svg viewBox="0 0 320 52" height="52" xmlns="http://www.w3.org/2000/svg">
+      <text x="4" y="42" font-family="Chakra Petch, sans-serif" font-size="42" font-weight="700" fill="#ffffff">RIG</text>
+      <text x="115" y="42" font-family="Chakra Petch, sans-serif" font-size="42" font-weight="700" fill="#c6ff33">GAMER</text>
+    </svg>
+  </div>
+
+  <!-- 02 Orbitron full volt -->
+  <div class="card">
+    <span class="num">02</span>
+    <svg viewBox="0 0 320 44" height="44" xmlns="http://www.w3.org/2000/svg">
+      <text x="50%" y="36" font-family="Orbitron, sans-serif" font-size="32" font-weight="900" fill="#c6ff33" text-anchor="middle" letter-spacing="4">RIGGAMER</text>
+    </svg>
+  </div>
+
+  <!-- 03 Bebas Neue white + volt underline -->
+  <div class="card">
+    <span class="num">03</span>
+    <svg viewBox="0 0 320 58" height="58" xmlns="http://www.w3.org/2000/svg">
+      <text x="50%" y="48" font-family="Bebas Neue, sans-serif" font-size="52" fill="#ffffff" text-anchor="middle" letter-spacing="8">RIGGAMER</text>
+      <rect x="20" y="52" width="280" height="3" fill="#c6ff33"/>
+    </svg>
+  </div>
+
+  <!-- 04 Exo 2 italic -->
+  <div class="card">
+    <span class="num">04</span>
+    <svg viewBox="0 0 320 50" height="50" xmlns="http://www.w3.org/2000/svg">
+      <text x="50%" y="40" font-family="Exo 2, sans-serif" font-size="38" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="2" font-style="italic">RIGGAMER</text>
+    </svg>
+  </div>
+
+  <!-- 05 Russo One + glow effect -->
+  <div class="card">
+    <span class="num">05</span>
+    <svg viewBox="0 0 320 50" height="50" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <text x="50%" y="40" font-family="Russo One, sans-serif" font-size="36" fill="#c6ff33" text-anchor="middle" letter-spacing="3" filter="url(#glow)">RIGGAMER</text>
+    </svg>
+  </div>
+
+  <!-- 06 Barlow Condensed split color letter -->
+  <div class="card">
+    <span class="num">06</span>
+    <svg viewBox="0 0 320 56" height="56" xmlns="http://www.w3.org/2000/svg">
+      <text x="50%" y="46" font-family="Barlow Condensed, sans-serif" font-size="50" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">RIG<tspan fill="#c6ff33">G</tspan>AMER</text>
+    </svg>
+  </div>
+
+  <!-- 07 Teko ultra condensed -->
+  <div class="card">
+    <span class="num">07</span>
+    <svg viewBox="0 0 320 60" height="60" xmlns="http://www.w3.org/2000/svg">
+      <text x="50%" y="52" font-family="Teko, sans-serif" font-size="58" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="6">RIGGAMER</text>
+    </svg>
+  </div>
+
+  <!-- 08 Rajdhani with dot separator -->
+  <div class="card">
+    <span class="num">08</span>
+    <svg viewBox="0 0 320 50" height="50" xmlns="http://www.w3.org/2000/svg">
+      <text x="50%" y="40" font-family="Rajdhani, sans-serif" font-size="40" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="5">RIG<tspan fill="#c6ff33">·</tspan>GAMER</text>
+    </svg>
+  </div>
+
+  <!-- 09 JetBrains Mono outline style -->
+  <div class="card">
+    <span class="num">09</span>
+    <svg viewBox="0 0 320 50" height="50" xmlns="http://www.w3.org/2000/svg">
+      <text x="50%" y="38" font-family="JetBrains Mono, monospace" font-size="30" font-weight="800" fill="none" stroke="#c6ff33" stroke-width="1.5" text-anchor="middle" letter-spacing="4">RIGGAMER</text>
+    </svg>
+  </div>
+
+  <!-- 10 Chakra Petch + volt block on RIG -->
+  <div class="card">
+    <span class="num">10</span>
+    <svg viewBox="0 0 320 54" height="54" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="6" width="102" height="48" fill="#c6ff33"/>
+      <text x="53" y="42" font-family="Chakra Petch, sans-serif" font-size="38" font-weight="800" fill="#07080b" text-anchor="middle">RIG</text>
+      <text x="120" y="42" font-family="Chakra Petch, sans-serif" font-size="38" font-weight="700" fill="#ffffff" letter-spacing="1">GAMER</text>
+    </svg>
+  </div>
+
+</div>
+</body>
+</html>
