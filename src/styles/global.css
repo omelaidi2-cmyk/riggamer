@@ -1426,6 +1426,7 @@ a{text-decoration:none;color:inherit}
 .sticky-cta-img-desktop { display: inline-block; }
 .sticky-cta-img-mobile  { display: none; }
 @media (max-width: 900px) {
-  .sticky-cta { display: none; }
+  .sticky-cta-img-desktop { display: none; }
+  .sticky-cta-img-mobile  { display: flex; align-items: center; justify-content: center; }
 }
 
