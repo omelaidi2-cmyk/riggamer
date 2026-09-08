@@ -14,7 +14,7 @@ const catLabel = cat.charAt(0).toUpperCase() + cat.slice(1);
 
 <div class="wrap">
   <div class="hub-header">
-    {bgImg && <img class="hub-header-bg" src={bgImg} alt="" aria-hidden="true" referrerpolicy="no-referrer" />}
+    {bgImg && <img class="hub-header-bg" src={bgImg} alt="" aria-hidden="true" loading="lazy" decoding="async" referrerpolicy="no-referrer" />}
     <div class="hub-header-overlay"></div>
     <span class="hub-badge">Category</span>
     <h1 class="hub-title">{title}</h1>

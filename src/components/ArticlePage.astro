@@ -96,7 +96,7 @@ const tocItems = [
       {img && (
         <div class="rg-hero-full">
           <div class="rg-frame">
-            <img src={img} alt={title} loading="eager" referrerpolicy="no-referrer" />
+            <img src={img} alt={title} loading="eager" fetchpriority="high" decoding="sync" referrerpolicy="no-referrer" />
           </div>
         </div>
       )}

@@ -29,7 +29,7 @@ const minis   = ARTICLES.slice(1, 4);
           const heroLabel = { guides:'Guide', news:'News', reviews:'Review', setup:'Setup' }[hero.cat];
           return (
             <a href={`/${hero.cat}/${hero.slug}/`} class="card-hero">
-              {hero.img && <img class="card-hero-bg" src={hero.img} alt={hero.title} referrerpolicy="no-referrer" />}
+              {hero.img && <img class="card-hero-bg" src={hero.img} alt={hero.title} fetchpriority="high" loading="eager" decoding="sync" referrerpolicy="no-referrer" />}
               <div class="card-hero-overlay"></div>
               <div class="card-hero-body">
                 <div class="card-hero-meta">
@@ -49,7 +49,7 @@ const minis   = ARTICLES.slice(1, 4);
             return (
               <a href={`/${a.cat}/${a.slug}/`} class="card-mini">
                 <div class={`card-mini-thumb ${miniGrad}`} style="position:relative;">
-                  {a.img && <img src={a.img} alt={a.title} style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" referrerpolicy="no-referrer" />}
+                  {a.img && <img src={a.img} alt={a.title} loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" referrerpolicy="no-referrer" />}
                 </div>
                 <div class="card-mini-body">
                   <div class="card-mini-title">{a.title}</div>
@@ -85,7 +85,7 @@ const minis   = ARTICLES.slice(1, 4);
       ].map((g) => (
         <a href={`/go/${g.slug}`} target="_blank" rel="noopener noreferrer" class="game-tile">
           <div class={`game-cover ${g.gc}`}>
-            <img src={g.img} alt={g.name} referrerpolicy="no-referrer" />
+            <img src={g.img} alt={g.name} loading="lazy" decoding="async" referrerpolicy="no-referrer" />
           </div>
           <div class="game-info">
             <div class="game-name">{g.name}</div>
