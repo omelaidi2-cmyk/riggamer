@@ -1360,7 +1360,7 @@ a{text-decoration:none;color:inherit}
   .games-grid { grid-template-columns: repeat(2,1fr); }
   .blassa-sky { display: none; }
   .blassa-wide { width: 100%; }
-  .banner-desktop { display: none; }
+  .banner-desktop { display: none !important; }
   .banner-mobile { display: flex !important; }
 }
 /* Banner mobile — caché par défaut sur desktop, visible seulement mobile */

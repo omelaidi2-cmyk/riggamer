@@ -236,7 +236,40 @@ const tocItems = [
 
 </Base>
 
+<!-- Sticky bottom CTA — articles only -->
+<div class="sticky-cta" id="sticky-cta">
+  <button class="sticky-cta-close" id="sticky-cta-close" aria-label="Close">×</button>
+  <div class="sticky-cta-banner">
+    <span class="sticky-cta-img-desktop">
+      <a href="/go/nte" target="_blank" rel="noopener sponsored">
+        <img src="https://rigpeak.com/media/u/nte-w.gif" alt="NTE — Play Free" width="728" height="146" referrerpolicy="no-referrer" style="display:block;max-width:100%;height:auto;" />
+      </a>
+    </span>
+    <a href="/go/nte" class="sticky-cta-img-mobile" target="_blank" rel="noopener sponsored">
+      <img src="https://rigpeak.com/media/u/nte-w.gif" alt="NTE — Play Free" referrerpolicy="no-referrer" style="width:320px;height:50px;object-fit:cover;object-position:center top;display:block;" />
+    </a>
+  </div>
+</div>
+
 <script>
+  // Sticky CTA
+  (function() {
+    var el    = document.getElementById('sticky-cta');
+    var close = document.getElementById('sticky-cta-close');
+    var closed = false;
+    if (!el || !close) return;
+    window.addEventListener('scroll', function() {
+      if (closed) return;
+      if (window.scrollY > 800) el!.classList.add('visible');
+      else el!.classList.remove('visible');
+    }, { passive: true });
+    close.addEventListener('click', function(e) {
+      e.stopPropagation();
+      el!.classList.remove('visible');
+      closed = true;
+    });
+  })();
+
   // Tous les liens TOC (sidebar desktop + mobile)
   const allTocLinks = Array.from(document.querySelectorAll('.rg-toc a'));
   const headings    = Array.from(document.querySelectorAll('.rg-prose h2[id]')) as HTMLElement[];
