@@ -1363,8 +1363,9 @@ a{text-decoration:none;color:inherit}
   .banner-desktop { display: none; }
   .banner-mobile { display: flex !important; }
 }
-/* Banner mobile 320Ã—50 â€” cachÃ© desktop */
+/* Banner mobile — caché par défaut sur desktop, visible seulement mobile */
 .banner-mobile {
+  display: none;
   letter-spacing: 0.1em;
 }
 

@@ -54,14 +54,9 @@ const tocItems = [
 
 <Base title={`${title} — RigGamer`} description={excerpt}>
 
-  <!-- Top leaderboard -->
+  <!-- ① LEADERBOARD — sous navbar (desktop: 728×146 centré | mobile: wide scalé) -->
   <div style="background:#07080b;padding:22px 0 0;text-align:center;">
-    <div class="banner-desktop" style="display:inline-block;line-height:0;">
-      <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
-    </div>
-    <div class="banner-mobile" style="justify-content:center;">
-      <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
-    </div>
+    <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
   </div>
 
   <div class="rg-article-wrap">
@@ -154,14 +149,9 @@ const tocItems = [
 
           </div><!-- /rg-prose -->
 
-          <!-- Mid-article banner -->
-          <div class="rg-inline-ad">
-            <div class="banner-desktop" style="display:inline-block;line-height:0;">
-              <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
-            </div>
-            <div class="banner-mobile" style="justify-content:center;">
-              <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
-            </div>
+          <!-- ② MID-ARTICLE BANNER (desktop: 728×146 | mobile: wide scalé) -->
+          <div class="rg-inline-ad" style="text-align:center;">
+            <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
           </div>
 
           <div class="rg-prose">
