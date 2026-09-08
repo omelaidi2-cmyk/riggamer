@@ -89,7 +89,7 @@ document.addEventListener('click', function(e) {
   if (!el || !close) return;
   window.addEventListener('scroll', function() {
     if (closed) return;
-    if (window.scrollY > 400) el!.classList.add('visible');
+    if (window.scrollY > 800) el!.classList.add('visible');
     else el!.classList.remove('visible');
   }, { passive: true });
   close.addEventListener('click', function(e) {
