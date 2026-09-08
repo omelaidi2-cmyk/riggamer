@@ -4,8 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "node -e \"try{require('fs').rmSync('node_modules/@astrojs/sitemap',{recursive:true,force:true})}catch(e){}\"",
-    "build": "astro build",
+    "build": "node -e \"const fs=require('fs');const p='node_modules/@astrojs/sitemap';try{if(fs.existsSync(p)){fs.rmSync(p,{recursive:true,force:true});console.log('[build] removed @astrojs/sitemap from cache');}}catch(e){console.log('[build] sitemap not found, ok');}\" && astro build",
     "preview": "astro preview"
   },
   "dependencies": {
