@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage -->
+  <url><loc>https://riggamer.com/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+
+  <!-- Category hubs -->
+  <url><loc>https://riggamer.com/guides/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://riggamer.com/news/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://riggamer.com/reviews/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://riggamer.com/setup/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+
+  <!-- Guides -->
+  <url><loc>https://riggamer.com/guides/nte-tier-list/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/guides/arknights-endfield-best-operators/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/guides/project-entropy-beginner-guide/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/guides/raid-shadow-legends-champion-guide/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/guides/enlisted-beginner-squad-guide/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/guides/once-human-base-building/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/guides/rise-of-kingdoms-beginner/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/guides/war-thunder-best-nation/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/guides/where-winds-meet-weapons/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/guides/star-trek-fleet-command-guide/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- News -->
+  <url><loc>https://riggamer.com/news/nte-patch-notes-1-1/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://riggamer.com/news/arknights-endfield-season-2/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://riggamer.com/news/war-thunder-new-vehicles/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://riggamer.com/news/once-human-season-3/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://riggamer.com/news/project-entropy-global-launch/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://riggamer.com/news/raid-new-champion/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://riggamer.com/news/star-trek-event-recap/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://riggamer.com/news/enlisted-update-air/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://riggamer.com/news/rise-of-kingdoms-kvk/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://riggamer.com/news/where-winds-meet-ps5-launch/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Reviews -->
+  <url><loc>https://riggamer.com/reviews/nte-review/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/reviews/arknights-endfield-review/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/reviews/project-entropy-review/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/reviews/once-human-review/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/reviews/enlisted-review/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/reviews/where-winds-meet-review/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/reviews/star-trek-fleet-command-review/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/reviews/rise-of-kingdoms-review/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/reviews/war-thunder-review/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/reviews/raid-shadow-legends-review/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Setup -->
+  <url><loc>https://riggamer.com/setup/best-gaming-pc-budget-2026/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/setup/best-gaming-monitor-2026/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/setup/gaming-headset-guide/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/setup/mechanical-keyboard-guide/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/setup/gaming-mouse-guide/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://riggamer.com/setup/gpu-upgrade-guide-2026/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+</urlset>
