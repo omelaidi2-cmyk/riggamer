@@ -122,28 +122,8 @@ const minis   = ARTICLES.slice(1, 4);
     </div>
   </div>
   <div class="wrap section">
-    <div class="page-layout">
-      <div>
-        <div class="articles-grid">
-          {guides.map((a, i) => <ArticleCard {...a} num={i} />)}
-        </div>
-      </div>
-      <aside class="sidebar">
-        <Banner slug="nte" size="box" img="https://rigpeak.com/media/u/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
-        <Banner slug="nte" size="sky" img="https://rigpeak.com/media/u/nte-sky.gif" imgW={160} imgH={600} alt="NTE" />
-        <div class="trending-box">
-          <div class="trending-hd">Trending</div>
-          {guides.map((a, i) => (
-            <a href={`/guides/${a.slug}/`} class="tr-item">
-              <span class="tr-num">{String(i+1).padStart(2,'0')}</span>
-              <div>
-                <div class="tr-title">{a.title}</div>
-                <span class="tr-cat" style="color:var(--cg);font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.06em;">Guide</span>
-              </div>
-            </a>
-          ))}
-        </div>
-      </aside>
+    <div class="articles-grid">
+      {guides.map((a, i) => <ArticleCard {...a} num={i} />)}
     </div>
   </div>
 
@@ -160,28 +140,8 @@ const minis   = ARTICLES.slice(1, 4);
     </div>
   </div>
   <div class="wrap section">
-    <div class="page-layout">
-      <div>
-        <div class="articles-grid">
-          {news.map((a, i) => <ArticleCard {...a} num={i} />)}
-        </div>
-      </div>
-      <aside class="sidebar">
-        <Banner slug="nte" size="box" img="https://rigpeak.com/media/u/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
-        <Banner slug="nte" size="sky" img="https://rigpeak.com/media/u/nte-sky.gif" imgW={160} imgH={600} alt="NTE" />
-        <div class="trending-box">
-          <div class="trending-hd">Trending</div>
-          {news.map((a, i) => (
-            <a href={`/news/${a.slug}/`} class="tr-item">
-              <span class="tr-num">{String(i+1).padStart(2,'0')}</span>
-              <div>
-                <div class="tr-title">{a.title}</div>
-                <span class="tr-cat" style="color:var(--cn);font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.06em;">News</span>
-              </div>
-            </a>
-          ))}
-        </div>
-      </aside>
+    <div class="articles-grid">
+      {news.map((a, i) => <ArticleCard {...a} num={i} />)}
     </div>
   </div>
 
