@@ -1414,9 +1414,12 @@ a{text-decoration:none;color:inherit}
   .hub-desc { font-size: 13px; }
 }
 
-/* Mobile perf — game grid images hidden, CSS gradient shows instead */
+/* Mobile perf — heavy external images removed, CSS gradients show instead */
 @media (max-width: 768px) {
   .game-cover img { display: none; }
+  .card-hero-bg { display: none; }
+  .card-hero { background: linear-gradient(160deg, #0e1116 0%, #1c212d 100%); }
+  .card-mini-thumb img { display: none; }
 }
 
 /* Blassa-box mobile â€” visible sous la grille articles (sidebar cachÃ©e) */
