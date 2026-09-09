@@ -52,7 +52,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" /></noscript>
 
   <!-- LCP image preload — browser downloads hero before parsing body -->
-  {preloadImg && <link rel="preload" as="image" href={preloadImg} fetchpriority="high" />}
+  {preloadImg && <link rel="preload" as="image" href={preloadImg} fetchpriority="high" media="(min-width: 769px)" />}
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -66,6 +66,29 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 </main>
 
 <Footer />
+
+<!-- Defer banner images to after LCP — prevents GIFs from being LCP element -->
+<script>
+(function() {
+  function loadBanners() {
+    document.querySelectorAll('img[data-src]').forEach(function(img) {
+      img.src = img.getAttribute('data-src')!;
+      img.removeAttribute('data-src');
+    });
+  }
+  if ('PerformanceObserver' in window) {
+    try {
+      const po = new PerformanceObserver(function() {
+        po.disconnect();
+        requestAnimationFrame(loadBanners);
+      });
+      po.observe({ type: 'largest-contentful-paint', buffered: true });
+    } catch(_) { window.addEventListener('load', loadBanners); }
+  } else {
+    window.addEventListener('load', loadBanners);
+  }
+})();
+</script>
 
 <!-- Affiliate links — open in new tab -->
 <script>

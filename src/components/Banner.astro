@@ -21,7 +21,7 @@ const cls = {
 <div class={`blassa ${cls}${img ? ' filled' : ''}`}>
   {img ? (
     <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer sponsored" style="display:inline-block;line-height:0;">
-      <img src={img} alt={alt} width={imgW} height={imgH} style="display:block;max-width:100%;height:auto;" loading="lazy" referrerpolicy="no-referrer" />
+      <img data-src={img} src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt={alt} width={imgW} height={imgH} style="display:block;max-width:100%;height:auto;" referrerpolicy="no-referrer" />
     </a>
   ) : (
     <span class="blassa-note">// {slug.toUpperCase()} AD {size.toUpperCase()}</span>
