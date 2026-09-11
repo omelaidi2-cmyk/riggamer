@@ -2,14 +2,14 @@
 import Base from '../layouts/Base.astro';
 import Banner from '../components/Banner.astro';
 import ArticleCard from '../components/ArticleCard.astro';
-import { ARTICLES } from '../data/articles';
-import type { Article } from '../data/articles';
+import type { Article } from '../lib/db';
 
 export interface Props {
   article: Article;
+  readNext?: Article[];
 }
 
-const { article } = Astro.props;
+const { article, readNext = [] } = Astro.props;
 const { slug, title, excerpt, cat, date, readtime, img, score, game } = article;
 
 const GAME_SLUGS: Record<string, string> = {
@@ -39,9 +39,6 @@ const scoreClass = scoreNum
   : 'sc-c'
   : '';
 
-const readNext = ARTICLES
-  .filter(a => a.cat === cat && a.slug !== slug)
-  .slice(0, 3);
 
 const tocItems = [
   { id: 'intro',        label: 'Introduction' },
@@ -95,8 +92,8 @@ const tocItems = [
       <!-- Hero image (full width) -->
       {img && (
         <div class="rg-hero-full">
-          <div class="rg-frame">
-            <img src={img} alt={title} loading="eager" fetchpriority="high" decoding="sync" referrerpolicy="no-referrer" />
+          <div class="rg-frame" style="aspect-ratio:16/9;background:#111;overflow:hidden;">
+            <img src={img} alt={title} loading="eager" fetchpriority="high" decoding="sync" referrerpolicy="no-referrer" width="1280" height="720" style="width:100%;height:100%;object-fit:cover;display:block;" />
           </div>
         </div>
       )}
