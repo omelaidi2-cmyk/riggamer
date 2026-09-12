@@ -1,22 +1,25 @@
----
+﻿---
+export const prerender = false;
 import Base from '../../layouts/Base.astro';
 import HubHeader from '../../components/HubHeader.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import Banner from '../../components/Banner.astro';
-import { getByCategory } from '../../data/articles';
+import { getArticlesByCategory } from '../../lib/db';
 
-const articles = getByCategory('guides');
+Astro.response.headers.set('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');
+
+const db = Astro.locals.runtime.env.DB;
+const articles = await getArticlesByCategory(db, 'guides');
 ---
 
 <Base title="PC Gaming Guides — RigGamer" description="Step-by-step guides, tier lists, and beginner roadmaps for the biggest PC games.">
 
-  <!-- Top leaderboard -->
   <div style="background:#07080b;padding:22px 0 0;text-align:center;">
-    <div class="banner-desktop" style="display:inline-block;line-height:0;">
-      <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+    <div class="promo-desktop" style="display:inline-block;line-height:0;">
+      <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
     </div>
-    <div class="banner-mobile" style="justify-content:center;">
-      <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+    <div class="promo-mobile" style="justify-content:center;">
+      <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
     </div>
   </div>
 
@@ -36,8 +39,8 @@ const articles = getByCategory('guides');
         </div>
       </div>
       <aside class="sidebar">
-        <Banner slug="nte" size="box" img="https://rigpeak.com/media/u/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
-        <Banner slug="nte" size="sky" img="https://rigpeak.com/media/u/nte-sky.gif" imgW={160} imgH={600} alt="NTE" />
+        <Banner slug="nte" size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
+        <Banner slug="nte" size="sky" img="/media/nte-sky.gif" imgW={160} imgH={600} alt="NTE" />
         <div class="trending-box">
           <div class="trending-hd">Trending</div>
           {articles.slice(0, 4).map((a, i) => (
@@ -52,8 +55,8 @@ const articles = getByCategory('guides');
         </div>
       </aside>
     </div>
-    <div class="mobile-mid-ad">
-      <Banner slug="nte" size="box" img="https://rigpeak.com/media/u/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
+    <div class="mobile-mid-promo">
+      <Banner slug="nte" size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
     </div>
   </div>
 

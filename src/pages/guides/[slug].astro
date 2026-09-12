@@ -1,14 +1,18 @@
 ---
+export const prerender = false;
 import ArticlePage from '../../components/ArticlePage.astro';
-import { getByCategory } from '../../data/articles';
+import { getArticleBySlug, getArticlesByCategory } from '../../lib/db';
 
-export function getStaticPaths() {
-  return getByCategory('guides').map(a => ({
-    params: { slug: a.slug },
-    props:  { article: a },
-  }));
-}
+Astro.response.headers.set('Cache-Control', 'public, max-age=86400, stale-while-revalidate=604800');
 
-const { article } = Astro.props;
+const { slug } = Astro.params;
+const db = Astro.locals.runtime.env.DB;
+
+const article = await getArticleBySlug(db, slug!);
+if (!article) return Astro.redirect('/');
+
+const readNext = (await getArticlesByCategory(db, article.cat))
+  .filter(a => a.slug !== slug)
+  .slice(0, 3);
 ---
-<ArticlePage article={article} />
+<ArticlePage article={article} readNext={readNext} />

@@ -294,7 +294,7 @@ a{text-decoration:none;color:inherit}
   position: relative;
 }
 .blassa::before {
-  content: "// SPONSORED";
+  content: "// FEATURED";
   font-family: var(--fm);
   letter-spacing: .14em;
   color: var(--t4);
@@ -524,7 +524,7 @@ a{text-decoration:none;color:inherit}
 }
 
 /* banniÃ¨re in-feed dans la grille articles â€” span 2 colonnes */
-.infeed-banner {
+.infeed-promo {
   grid-column: 1 / -1;
   background: #07080b;
   text-align: center;
@@ -533,7 +533,7 @@ a{text-decoration:none;color:inherit}
   border-bottom: 1px solid var(--brd);
 }
 /* banniÃ¨re bas de page (hors grille) */
-.bottom-banner {
+.bottom-promo {
   background: #07080b;
   text-align: center;
   padding: 28px 0;
@@ -1031,15 +1031,15 @@ a{text-decoration:none;color:inherit}
 }
 .sticky-cta.visible { transform: translateY(0); }
 
-.sticky-cta-banner {
+.sticky-cta-promo {
   display: inline-block;
   line-height: 0;
 }
-.sticky-cta-banner a {
+.sticky-cta-promo a {
   display: inline-block;
   line-height: 0;
 }
-.sticky-cta-banner img {
+.sticky-cta-promo img {
   display: block;
   max-width: 100%;
   height: auto;
@@ -1206,7 +1206,7 @@ a{text-decoration:none;color:inherit}
 .rg-callout p { margin:0; font-size:14.5px; color:var(--t1); line-height:1.55; }
 
 /* Inline ad */
-.rg-inline-ad { margin:32px 0; text-align:center; background:#07080b; padding:18px 0; border-top:1px solid var(--brd); border-bottom:1px solid var(--brd); }
+.rg-inline-promo { margin:32px 0; text-align:center; background:#07080b; padding:18px 0; border-top:1px solid var(--brd); border-bottom:1px solid var(--brd); }
 
 /* Author bio — fin d'article */
 .rg-author-end {
@@ -1360,11 +1360,11 @@ a{text-decoration:none;color:inherit}
   .games-grid { grid-template-columns: repeat(2,1fr); }
   .blassa-sky { display: none; }
   .blassa-wide { width: 100%; }
-  .banner-desktop { display: none !important; }
-  .banner-mobile { display: flex !important; }
+  .promo-desktop { display: none !important; }
+  .promo-mobile { display: flex !important; }
 }
 /* Banner mobile — caché par défaut sur desktop, visible seulement mobile */
-.banner-mobile {
+.promo-mobile {
   display: none;
   letter-spacing: 0.1em;
 }
@@ -1423,14 +1423,14 @@ a{text-decoration:none;color:inherit}
 }
 
 /* Blassa-box mobile â€” visible sous la grille articles (sidebar cachÃ©e) */
-.mobile-mid-ad {
+.mobile-mid-promo {
   display: none;
   justify-content: center;
   padding: 24px 0;
   background: #07080b;
 }
 @media (max-width: 900px) {
-  .mobile-mid-ad { display: flex; }
+  .mobile-mid-promo { display: flex; }
 }
 
 /* Sticky CTA mobile â€” swap image 728 â†’ 320Ã—50 */

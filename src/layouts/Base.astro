@@ -101,7 +101,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- Affiliate links — open in new tab -->
 <script>
 document.addEventListener('click', function(e) {
-  const a = (e.target as Element).closest('a[href^="/go/"]');
+  const a = (e.target as Element).closest('a[href^="/play/"]');
   if (!a) return;
   e.preventDefault();
   window.open((a as HTMLAnchorElement).href, '_blank', 'noopener,noreferrer');

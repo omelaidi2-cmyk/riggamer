@@ -23,5 +23,5 @@
   Cache-Control: public, max-age=86400, no-transform
 
 # 4. Redirects affiliés — jamais cachés (302 frais à chaque clic)
-/go/*
+/play/*
   Cache-Control: no-store

@@ -1,4 +1,4 @@
----
+﻿---
 import Base from '../layouts/Base.astro';
 import Banner from '../components/Banner.astro';
 import ArticleCard from '../components/ArticleCard.astro';
@@ -53,7 +53,7 @@ const tocItems = [
 
   <!-- ① LEADERBOARD — sous navbar (desktop: 728×146 centré | mobile: wide scalé) -->
   <div style="background:#07080b;padding:22px 0 0;text-align:center;">
-    <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+    <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
   </div>
 
   <div class="rg-article-wrap">
@@ -123,13 +123,13 @@ const tocItems = [
 
             {game && (
               <div class="rg-cta-card">
-                <a href={`/go/${gameSlug}`} target="_blank" rel="noopener noreferrer sponsored" class="rg-cta-overlay" aria-label={`Play ${game} Free`}></a>
+                <a href={`/play/${gameSlug}`} target="_blank" rel="noopener noreferrer" class="rg-cta-overlay" aria-label={`Play ${game} Free`}></a>
                 <div class="rg-cta-card-left">
                   <span class="rg-c-label">// Play Free</span>
                   <p class="rg-cta-card-text">Ready to dive in? <strong>{game}</strong> is free to play on PC. Join millions of players worldwide.</p>
                 </div>
                 <div class="rg-cta-card-right">
-                  <a href={`/go/${gameSlug}`} target="_blank" rel="noopener noreferrer sponsored" class="rg-cta-main-btn">Play {game} Free →</a>
+                  <a href={`/play/${gameSlug}`} target="_blank" rel="noopener noreferrer" class="rg-cta-main-btn">Play {game} Free →</a>
                   <a href={catPath} class="rg-cta-sec-btn">More {catLabel}s</a>
                 </div>
               </div>
@@ -147,8 +147,8 @@ const tocItems = [
           </div><!-- /rg-prose -->
 
           <!-- ② MID-ARTICLE BANNER (desktop: 728×146 | mobile: wide scalé) -->
-          <div class="rg-inline-ad" style="text-align:center;">
-            <Banner slug="nte" size="wide" img="https://rigpeak.com/media/u/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+          <div class="rg-inline-promo" style="text-align:center;">
+            <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
           </div>
 
           <div class="rg-prose">
@@ -193,13 +193,13 @@ const tocItems = [
         <aside class="rg-article-side">
 
           <!-- Box ad #1 — niveau titre -->
-          <Banner slug="nte" size="box" img="https://rigpeak.com/media/u/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
+          <Banner slug="nte" size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
 
           <!-- Box ad #2 — niveau image hero -->
-          <Banner slug="nte" size="box" img="https://rigpeak.com/media/u/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
+          <Banner slug="nte" size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
 
           <!-- Skyscraper ad -->
-          <Banner slug="nte" size="sky" img="https://rigpeak.com/media/u/nte-sky.gif" imgW={160} imgH={600} alt="NTE" />
+          <Banner slug="nte" size="sky" img="/media/nte-sky.gif" imgW={160} imgH={600} alt="NTE" />
 
           <!-- Table of contents -->
           <div class="rg-toc">
@@ -236,14 +236,14 @@ const tocItems = [
 <!-- Sticky bottom CTA — articles only -->
 <div class="sticky-cta" id="sticky-cta">
   <button class="sticky-cta-close" id="sticky-cta-close" aria-label="Close">×</button>
-  <div class="sticky-cta-banner">
+  <div class="sticky-cta-promo">
     <span class="sticky-cta-img-desktop">
-      <a href="/go/nte" target="_blank" rel="noopener sponsored">
-        <img src="https://rigpeak.com/media/u/nte-w.gif" alt="NTE — Play Free" width="728" height="146" referrerpolicy="no-referrer" style="display:block;max-width:100%;height:auto;" />
+      <a href="/play/nte" target="_blank" rel="noopener noreferrer">
+        <img src="/media/nte-w.gif" alt="NTE — Play Free" width="728" height="146" referrerpolicy="no-referrer" style="display:block;max-width:100%;height:auto;" />
       </a>
     </span>
-    <a href="/go/nte" class="sticky-cta-img-mobile" target="_blank" rel="noopener sponsored">
-      <img src="https://rigpeak.com/media/u/nte-w.gif" alt="NTE — Play Free" referrerpolicy="no-referrer" style="width:320px;height:50px;object-fit:cover;object-position:center top;display:block;" />
+    <a href="/play/nte" class="sticky-cta-img-mobile" target="_blank" rel="noopener noreferrer">
+      <img src="/media/nte-w.gif" alt="NTE — Play Free" referrerpolicy="no-referrer" style="width:320px;height:50px;object-fit:cover;object-position:center top;display:block;" />
     </a>
   </div>
 </div>

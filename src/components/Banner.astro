@@ -8,7 +8,7 @@ export interface Props {
   alt?: string;
 }
 
-const { slug, size = 'wide', img, imgW, imgH, alt = 'Sponsored' } = Astro.props;
+const { slug, size = 'wide', img, imgW, imgH, alt = '' } = Astro.props;
 
 const cls = {
   wide: 'blassa-wide',
@@ -20,7 +20,7 @@ const cls = {
 
 <div class={`blassa ${cls}${img ? ' filled' : ''}`}>
   {img ? (
-    <a href={`/go/${slug}`} target="_blank" rel="noopener noreferrer sponsored" style="display:inline-block;line-height:0;">
+    <a href={`/play/${slug}`} target="_blank" rel="noopener noreferrer" style="display:inline-block;line-height:0;">
       <img data-src={img} src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt={alt} width={imgW} height={imgH} style="display:block;max-width:100%;height:auto;" referrerpolicy="no-referrer" />
     </a>
   ) : (
