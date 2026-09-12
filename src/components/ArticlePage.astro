@@ -1,4 +1,4 @@
-﻿---
+---
 import Base from '../layouts/Base.astro';
 import Banner from '../components/Banner.astro';
 import ArticleCard from '../components/ArticleCard.astro';
@@ -25,6 +25,7 @@ const GAME_SLUGS: Record<string, string> = {
   'Star Trek':       'star-trek-fleet-command',
 };
 const gameSlug = game ? (GAME_SLUGS[game] ?? slug.split('-').slice(0, 3).join('-')) : null;
+const playUrl  = gameSlug ? `/play/${gameSlug}` : null;
 
 const catLabel  = { guides:'Guide', news:'News', reviews:'Review', setup:'Setup' }[cat];
 const catPath   = `/${cat}/`;
@@ -39,21 +40,24 @@ const scoreClass = scoreNum
   : 'sc-c'
   : '';
 
+const isReview = cat === 'reviews';
 
 const tocItems = [
-  { id: 'intro',        label: 'Introduction' },
-  { id: 'key-points',   label: 'Key Points to Know' },
-  { id: 'analysis',     label: 'In-Depth Analysis' },
-  { id: 'tips',         label: 'Tips & Recommendations' },
-  { id: 'verdict',      label: 'Final Verdict' },
+  { id: 'feature-1', label: isReview ? 'First Look'              : 'Getting Started'       },
+  { id: 'feature-2', label: isReview ? 'Core Gameplay'           : 'Core Mechanics'        },
+  { id: 'feature-3', label: isReview ? 'Standout Features'       : 'Advanced Strategy'     },
+  { id: 'feature-4', label: isReview ? 'Progression & Systems'   : 'Tips & Tricks'         },
+  { id: 'feature-5', label: isReview ? 'New Player Rewards'      : 'Common Mistakes'       },
+  { id: 'verdict',   label: isReview ? `Is ${game ?? 'It'} Worth Playing?` : 'Final Verdict' },
+  { id: 'cta-final', label: isReview ? `Ready to Try ${game ?? 'It'}?`     : 'Start Now'    },
 ];
 ---
 
 <Base title={`${title} — RigGamer`} description={excerpt} preloadImg={img}>
 
-  <!-- ① LEADERBOARD — sous navbar (desktop: 728×146 centré | mobile: wide scalé) -->
+  <!-- ① LEADERBOARD — sous navbar -->
   <div style="background:#07080b;padding:22px 0 0;text-align:center;">
-    <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+    <Banner slug={gameSlug ?? 'nte'} size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt={`${game ?? 'Game'} — Play Free`} />
   </div>
 
   <div class="rg-article-wrap">
@@ -68,7 +72,7 @@ const tocItems = [
         <span class="rg-bc-current">{title}</span>
       </nav>
 
-      <!-- Article head (full width) -->
+      <!-- Article head -->
       <div class="rg-article-head">
         <div class="rg-head-tags">
           <span class={`badge ${badgeCls}`}>{catLabel}</span>
@@ -79,8 +83,8 @@ const tocItems = [
         <p class="rg-dek">{excerpt}</p>
         <div class="rg-byline">
           <span class="rg-who">
-            <span class="rg-mini-av">R</span>
-            <span>RigGamer Staff</span>
+            <span class="rg-mini-av">D</span>
+            <span>David — RigGamer</span>
           </span>
           <span class="rg-sep">·</span>
           <span>{date}</span>
@@ -89,22 +93,24 @@ const tocItems = [
         </div>
       </div>
 
-      <!-- Hero image (full width) -->
+      <!-- Hero image -->
       {img && (
         <div class="rg-hero-full">
           <div class="rg-frame" style="aspect-ratio:16/9;background:#111;overflow:hidden;">
-            <img src={img} alt={title} loading="eager" fetchpriority="high" decoding="sync" referrerpolicy="no-referrer" width="1280" height="720" style="width:100%;height:100%;object-fit:cover;display:block;" />
+            <img src={img} alt={title} loading="eager" fetchpriority="high" decoding="sync"
+              referrerpolicy="no-referrer" width="1280" height="720"
+              style="width:100%;height:100%;object-fit:cover;display:block;" />
           </div>
         </div>
       )}
 
-      <!-- Article body: prose left + sidebar right -->
+      <!-- Article body -->
       <div class="rg-article-body">
 
-        <!-- Main content (left) -->
+        <!-- Main content -->
         <div class="rg-article-main">
 
-          <!-- TOC mobile uniquement (sidebar masquée sur mobile) -->
+          <!-- TOC mobile -->
           <div class="rg-toc rg-toc-mobile">
             <span class="rg-toc-title">CONTENTS</span>
             <ol>
@@ -114,94 +120,134 @@ const tocItems = [
             </ol>
           </div>
 
-          <!-- Prose body -->
           <div class="rg-prose">
 
-            <h2 id="intro">Introduction</h2>
+            <!-- INTRO -->
             <p>{excerpt}</p>
-            <p>Whether you're a newcomer or a veteran looking to sharpen your approach, this guide breaks down everything into digestible sections so you can apply the knowledge immediately.</p>
+            <p>Whether you're deciding if it's worth your time or looking for a reason to jump in,
+              this {catLabel.toLowerCase()} covers everything you need to know before playing.</p>
 
-            {game && (
-              <div class="rg-cta-card">
-                <a href={`/play/${gameSlug}`} target="_blank" rel="noopener noreferrer" class="rg-cta-overlay" aria-label={`Play ${game} Free`}></a>
-                <div class="rg-cta-card-left">
-                  <span class="rg-c-label">// Play Free</span>
-                  <p class="rg-cta-card-text">Ready to dive in? <strong>{game}</strong> is free to play on PC. Join millions of players worldwide.</p>
-                </div>
-                <div class="rg-cta-card-right">
-                  <a href={`/play/${gameSlug}`} target="_blank" rel="noopener noreferrer" class="rg-cta-main-btn">Play {game} Free →</a>
-                  <a href={catPath} class="rg-cta-sec-btn">More {catLabel}s</a>
-                </div>
+          </div>
+
+          <!-- ② CTA immédiat après intro — "Play free →" -->
+          {playUrl && (
+            <div class="rg-cta-card">
+              <a href={playUrl} target="_blank" rel="noopener noreferrer" class="rg-cta-overlay" aria-label={`Play ${game} Free`}></a>
+              <div class="rg-cta-card-left">
+                <span class="rg-c-label">// Free to Play</span>
+                <p class="rg-cta-card-text"><strong>{game}</strong> is free on PC — no subscription, no upfront cost. <a href={playUrl} target="_blank" rel="noopener noreferrer">Jump in now →</a></p>
               </div>
-            )}
+              <div class="rg-cta-card-right">
+                <a href={playUrl} target="_blank" rel="noopener noreferrer" class="rg-cta-main-btn">Play {game} Free →</a>
+                <a href={catPath} class="rg-cta-sec-btn">More {catLabel}s</a>
+              </div>
+            </div>
+          )}
 
-            <h2 id="key-points">Key Points to Know</h2>
-            <p>Before diving deep, here are the most important things to understand about this topic.</p>
-            <ul>
-              <li>Understand the core mechanics before spending any resources</li>
-              <li>Focus on the meta that matters for your playstyle and goals</li>
-              <li>Progression is faster when you follow the right priority order</li>
-              <li>Community knowledge evolves — check back after major updates</li>
-            </ul>
+          <div class="rg-prose">
 
-          </div><!-- /rg-prose -->
+            <!-- H2 #1 — Feature 1 -->
+            <h2 id="feature-1">{tocItems[0].label}</h2>
+            <p>From the moment you load in, the scope of what {game ?? 'the game'} offers becomes clear.
+              The world is designed to pull you in immediately — whether it's the visual style, the
+              opening missions, or the sheer amount of content waiting to be explored.</p>
+            <p>Most players are surprised by how polished the experience is right out of the gate.
+              {game ?? 'The game'} sets a high bar early, and for the most part, it clears it. If you've been on the
+              fence, <a href={playUrl ?? catPath} target="_blank" rel="noopener noreferrer">this is a strong reason to start now</a>.</p>
 
-          <!-- ② MID-ARTICLE BANNER (desktop: 728×146 | mobile: wide scalé) -->
+            <!-- H2 #2 — Feature 2 -->
+            <h2 id="feature-2">{tocItems[1].label}</h2>
+            <p>The core loop is where {game ?? 'the game'} earns its reputation. Combat is fluid,
+              progression feels rewarding, and the systems build on each other in ways that keep
+              sessions feeling fresh well past the first few hours.</p>
+            <p>What separates it from competitors is the accessibility — new players can get up to speed
+              quickly, while veterans have enough depth to stay engaged long-term.
+              {playUrl && <a href={playUrl} target="_blank" rel="noopener noreferrer">Play free and see for yourself →</a>}</p>
+
+            <!-- H2 #3 — Feature 3 -->
+            <h2 id="feature-3">{tocItems[2].label}</h2>
+            <p>Beyond the basics, {game ?? 'the game'} has a handful of standout features that push it
+              above similar titles in the genre. These are the elements that keep players coming back
+              and the ones most often mentioned in community discussions.</p>
+            <p>The developers clearly put significant effort into the areas that matter most to long-term
+              retention — and it shows in how the community has responded since launch.</p>
+
+          </div>
+
+          <!-- ③ MID-ARTICLE BANNER -->
           <div class="rg-inline-promo" style="text-align:center;">
-            <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+            <Banner slug={gameSlug ?? 'nte'} size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt={`${game ?? 'Game'} — Play Free`} />
           </div>
 
           <div class="rg-prose">
 
-            <h2 id="analysis">In-Depth Analysis</h2>
-            <p>The deeper mechanics here reward players who invest the time to understand them. This section covers what separates average performance from top-tier results.</p>
-            <p>Most players overlook these fundamentals in the early game, which creates bottlenecks later. Addressing them early is the most efficient path forward.</p>
-
-            <div class="rg-callout rg-callout-tip">
-              <span class="rg-c-label">Tip</span>
-              <p>Resource management is the biggest differentiator between average and top-tier players. Prioritize wisely from day one.</p>
-            </div>
-
-            <h2 id="tips">Tips &amp; Recommendations</h2>
-            <p>Based on extensive testing and community feedback, these are the actionable recommendations that will have the biggest impact on your experience.</p>
+            <!-- H2 #4 — Feature 4 -->
+            <h2 id="feature-4">{tocItems[3].label}</h2>
+            <p>Progression in {game ?? 'the game'} is handled well — there's always a clear next goal,
+              resources are meaningful, and the upgrade paths give you genuine choices rather than
+              obvious correct answers.</p>
             <ul>
-              <li>Prioritize the fundamentals over chasing the latest meta</li>
-              <li>Resource management is the biggest differentiator between players</li>
-              <li>Don't overlook quality-of-life settings — they affect performance</li>
-              <li>Connect with the community to stay up to date on patches</li>
+              <li>Prioritise the story missions first — they unlock the core systems fastest</li>
+              <li>Don't overspend early resources — the mid-game is where they matter most</li>
+              <li>Check community tier lists before committing to a build or character</li>
+              <li>Login daily even for short sessions — the passive rewards add up significantly</li>
             </ul>
 
-            <h2 id="verdict">Final Verdict</h2>
-            <p>The content covered here gives you a solid foundation to move forward. Apply these principles consistently and you'll see measurable results in your gameplay or setup.</p>
-            <p>We'll keep this guide updated as the meta evolves. Bookmark it and check back after major patches.</p>
+            <!-- H2 #5 — Feature 5 (rewards / new players) -->
+            <h2 id="feature-5">{tocItems[4].label}</h2>
+            <p>{game ?? 'The game'} is currently offering an exceptional new player package — one of the
+              more generous we've seen from a title in this genre. The onboarding rewards alone give
+              you a real head start compared to players who joined at launch.</p>
+            <p>If you've been waiting for the right moment, <a href={playUrl ?? catPath} target="_blank" rel="noopener noreferrer">now is genuinely a good time to start</a>.
+              The rewards window won't last forever.</p>
 
-          </div><!-- /rg-prose -->
+            <!-- H2 #6 — VERDICT -->
+            <h2 id="verdict">{tocItems[5].label}</h2>
+            <p>{isReview ? `For the right player — absolutely.` : `This is exactly what you need to level up.`}
+              {game ?? 'The game'} delivers on its core promise, and the experience is polished enough
+              to recommend without hesitation to anyone interested in the genre.</p>
+            <ul>
+              <li><strong>World design</strong> — immersive, detailed, and genuinely fun to explore</li>
+              <li><strong>Core systems</strong> — accessible for newcomers, deep enough for veterans</li>
+              <li><strong>Progression</strong> — rewarding without being predatory or grindy</li>
+              <li><strong>New player value</strong> — strong onboarding rewards and a generous free-play model</li>
+              <li><strong>Community</strong> — active, helpful, and well-supported by the developers</li>
+            </ul>
+            {score && <p>Our score: <strong>{score} / 10</strong></p>}
 
-          <!-- Author bio — fin d'article -->
+          </div>
+
+          <!-- ④ SECTION "Ready to Try?" — CTA FINAL -->
+          {playUrl && (
+            <div class="rg-ready-box">
+              <h2 id="cta-final" class="rg-ready-title">Ready to Try {game}?</h2>
+              <p class="rg-ready-sub">{game} is free to play on PC. No subscription, no upfront cost — just download and start playing.</p>
+              <div class="rg-ready-btns">
+                <a href={playUrl} target="_blank" rel="noopener noreferrer" class="rg-cta-main-btn rg-ready-primary">Play {game} Free →</a>
+                <a href={catPath} class="rg-cta-sec-btn">Browse More {catPlural}</a>
+              </div>
+            </div>
+          )}
+
+          <!-- Author bio -->
           <div class="rg-author-end">
             <div class="rg-author-end-av">D</div>
             <div class="rg-author-end-info">
               <div class="rg-author-end-name">David</div>
-              <div class="rg-author-end-role">Editor</div>
+              <div class="rg-author-end-role">Editor — RigGamer</div>
               <p class="rg-author-end-bio">Gaming writer at RigGamer. We play, we test — every guide and review is grounded in hands-on time with the game.</p>
             </div>
           </div>
 
         </div><!-- /rg-article-main -->
 
-        <!-- Sidebar (right, sticky) -->
+        <!-- Sidebar -->
         <aside class="rg-article-side">
 
-          <!-- Box ad #1 — niveau titre -->
-          <Banner slug="nte" size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
+          <Banner slug={gameSlug ?? 'nte'} size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt={game ?? 'Game'} />
+          <Banner slug={gameSlug ?? 'nte'} size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt={game ?? 'Game'} />
+          <Banner slug={gameSlug ?? 'nte'} size="sky" img="/media/nte-sky.gif" imgW={160} imgH={600} alt={game ?? 'Game'} />
 
-          <!-- Box ad #2 — niveau image hero -->
-          <Banner slug="nte" size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
-
-          <!-- Skyscraper ad -->
-          <Banner slug="nte" size="sky" img="/media/nte-sky.gif" imgW={160} imgH={600} alt="NTE" />
-
-          <!-- Table of contents -->
           <div class="rg-toc">
             <span class="rg-toc-title">CONTENTS</span>
             <ol>
@@ -215,7 +261,7 @@ const tocItems = [
 
       </div><!-- /rg-article-body -->
 
-      <!-- Read Next -->
+      <!-- Read Next — 3 articles -->
       {readNext.length > 0 && (
         <section class="rg-article-related">
           <div class="sec-hd">
@@ -223,7 +269,7 @@ const tocItems = [
             <a href={catPath} class="sec-lnk">All {catPlural} →</a>
           </div>
           <div class="rg-related-grid">
-            {readNext.map((a, i) => <ArticleCard {...a} num={i} />)}
+            {readNext.slice(0, 3).map((a, i) => <ArticleCard {...a} num={i} />)}
           </div>
         </section>
       )}
@@ -233,23 +279,24 @@ const tocItems = [
 
 </Base>
 
-<!-- Sticky bottom CTA — articles only -->
+<!-- Sticky bottom CTA -->
 <div class="sticky-cta" id="sticky-cta">
   <button class="sticky-cta-close" id="sticky-cta-close" aria-label="Close">×</button>
   <div class="sticky-cta-promo">
     <span class="sticky-cta-img-desktop">
-      <a href="/play/nte" target="_blank" rel="noopener noreferrer">
-        <img src="/media/nte-w.gif" alt="NTE — Play Free" width="728" height="146" referrerpolicy="no-referrer" style="display:block;max-width:100%;height:auto;" />
+      <a href={playUrl ?? `/play/nte`} target="_blank" rel="noopener noreferrer">
+        <img src="/media/nte-w.gif" alt={`${game ?? 'Game'} — Play Free`} width="728" height="146"
+          referrerpolicy="no-referrer" style="display:block;max-width:100%;height:auto;" />
       </a>
     </span>
-    <a href="/play/nte" class="sticky-cta-img-mobile" target="_blank" rel="noopener noreferrer">
-      <img src="/media/nte-w.gif" alt="NTE — Play Free" referrerpolicy="no-referrer" style="width:320px;height:50px;object-fit:cover;object-position:center top;display:block;" />
+    <a href={playUrl ?? `/play/nte`} class="sticky-cta-img-mobile" target="_blank" rel="noopener noreferrer">
+      <img src="/media/nte-w.gif" alt={`${game ?? 'Game'} — Play Free`} referrerpolicy="no-referrer"
+        style="width:320px;height:50px;object-fit:cover;object-position:center top;display:block;" />
     </a>
   </div>
 </div>
 
 <script>
-  // Sticky CTA
   (function() {
     var el    = document.getElementById('sticky-cta');
     var close = document.getElementById('sticky-cta-close');
@@ -267,21 +314,16 @@ const tocItems = [
     });
   })();
 
-  // Tous les liens TOC (sidebar desktop + mobile)
   const allTocLinks = Array.from(document.querySelectorAll('.rg-toc a'));
-  const headings    = Array.from(document.querySelectorAll('.rg-prose h2[id]')) as HTMLElement[];
+  const headings    = Array.from(document.querySelectorAll('.rg-prose h2[id], .rg-ready-box h2[id]')) as HTMLElement[];
 
   if (allTocLinks.length && headings.length) {
-
     function setActive(id: string) {
-      // Retirer active de tous les liens dans tous les TOC
       allTocLinks.forEach(l => l.classList.remove('active'));
-      // Activer TOUS les liens qui pointent vers cet id (sidebar + mobile)
       allTocLinks
         .filter(l => l.getAttribute('href') === `#${id}`)
         .forEach(l => l.classList.add('active'));
     }
-
     function getCurrentId(): string {
       const scrollY = window.scrollY + 110;
       let current = headings[0].id;
@@ -290,18 +332,11 @@ const tocItems = [
       }
       return current;
     }
-
-    // Actif immédiatement au chargement
     setActive(getCurrentId());
-
-    // Scroll throttlé via requestAnimationFrame
     let ticking = false;
     window.addEventListener('scroll', () => {
       if (!ticking) {
-        requestAnimationFrame(() => {
-          setActive(getCurrentId());
-          ticking = false;
-        });
+        requestAnimationFrame(() => { setActive(getCurrentId()); ticking = false; });
         ticking = true;
       }
     }, { passive: true });

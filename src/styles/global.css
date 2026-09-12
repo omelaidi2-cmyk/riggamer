@@ -1196,6 +1196,46 @@ a{text-decoration:none;color:inherit}
   .rg-cta-main-btn, .rg-cta-sec-btn { width:100%; justify-content:center; }
 }
 
+/* Ready-to-try box */
+.rg-ready-box {
+  background: linear-gradient(135deg, rgba(198,255,51,.08) 0%, rgba(198,255,51,.03) 100%);
+  border: 1px solid rgba(198,255,51,.25);
+  border-radius: 12px;
+  padding: 36px 32px;
+  margin: 40px 0;
+  text-align: center;
+}
+.rg-ready-title {
+  font-family: var(--fm);
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  font-weight: 800;
+  color: var(--volt);
+  margin: 0 0 12px;
+  letter-spacing: -.02em;
+  text-transform: none;
+}
+.rg-ready-sub {
+  color: var(--t2);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 0 24px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.rg-ready-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.rg-ready-primary { min-width: 200px; }
+@media (max-width: 480px) {
+  .rg-ready-box { padding: 24px 18px; }
+  .rg-ready-btns .rg-cta-main-btn,
+  .rg-ready-btns .rg-cta-sec-btn { width: 100%; justify-content: center; }
+}
+
 /* Callout boxes */
 .rg-callout { background:rgba(198,255,51,.06); border-left:3px solid var(--volt); padding:15px 18px 15px 20px; margin:28px 0; }
 .rg-callout.rg-callout-tip { background:rgba(0,255,136,.05); border-left-color:#00ff88; }
