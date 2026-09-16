@@ -1120,6 +1120,7 @@ a{text-decoration:none;color:inherit}
 .rg-prose strong { color:#fff; font-weight:600; }
 .rg-prose a { color:var(--volt); border-bottom:1px solid rgba(198,255,51,.3); }
 .rg-prose a:hover { border-bottom-color:var(--volt); }
+.rg-prose .rg-volt-link { color:var(--volt); font-weight:700; border-bottom:2px solid var(--volt); }
 .rg-prose ul { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px; }
 .rg-prose ul li { display:flex; gap:10px; align-items:baseline; }
 .rg-prose ul li::before { content:"▸"; color:var(--volt); flex-shrink:0; font-size:12px; }
