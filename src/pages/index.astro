@@ -84,16 +84,16 @@ const latestNews   = news.slice(0, 4);
     </div>
     <div class="games-grid section" style="margin-top:14px;margin-bottom:18px;">
       {[
-        { name: 'NTE: Neverness to Everness',  slug: 'nte',                    img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/nte-guides.jpg',                       gc: 'g1', count: '4 articles' },
-        { name: 'Arknights: Endfield',          slug: 'arknights-endfield',     img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/arknights-endfield-guides.jpg',         gc: 'g2', count: '3 articles' },
-        { name: 'Enlisted',                     slug: 'enlisted',               img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/enlisted-guides.jpg',                   gc: 'g3', count: '3 articles' },
-        { name: 'Once Human',                   slug: 'once-human',             img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/once-human-guides.jpg',                 gc: 'g4', count: '3 articles' },
-        { name: 'Project Entropy',              slug: 'project-entropy',        img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/project-entropy-guides.jpg',            gc: 'g5', count: '3 articles' },
-        { name: 'RAID: Shadow Legends',         slug: 'raid-shadow-legends',    img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/raid-shadow-legends-guides.png',        gc: 'g6', count: '3 articles' },
-        { name: 'Rise of Kingdoms',             slug: 'rise-of-kingdoms',       img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/rise-of-kingdoms-guides.png',           gc: 'g7', count: '3 articles' },
-        { name: 'Star Trek Fleet Command',      slug: 'star-trek-fleet-command', img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/star-trek-fleet-command-guides.webp',  gc: 'g8', count: '3 articles' },
+        { name: 'NTE: Neverness to Everness',  url: '/guides/nte-pc-download-guide',              img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/nte-guides.jpg',                       gc: 'g1', count: '4 articles' },
+        { name: 'Arknights: Endfield',          url: '/guides/arknights-endfield-best-operators',  img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/arknights-endfield-guides.jpg',         gc: 'g2', count: '3 articles' },
+        { name: 'Enlisted',                     url: '/guides/enlisted-beginner-squad-guide',       img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/enlisted-guides.jpg',                   gc: 'g3', count: '3 articles' },
+        { name: 'Project Entropy',              url: '/guides/project-entropy-beginner-guide',      img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/project-entropy-guides.jpg',            gc: 'g4', count: '3 articles' },
+        { name: 'RAID: Shadow Legends',         url: '/guides/raid-shadow-legends-champion-guide',  img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/raid-shadow-legends-guides.png',        gc: 'g5', count: '3 articles' },
+        { name: 'Rise of Kingdoms',             url: '/guides/rise-of-kingdoms-beginner',           img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/rise-of-kingdoms-guides.png',           gc: 'g6', count: '3 articles' },
+        { name: 'Star Trek Fleet Command',      url: '/guides/star-trek-fleet-command-guide',       img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/star-trek-fleet-command-guides.webp',   gc: 'g7', count: '3 articles' },
+        { name: 'War Thunder',                  url: '/guides/war-thunder-best-nation',             img: 'https://rigpeak.com/wp-content/uploads/2026/08/24/war-thunder-guides.jpg',                gc: 'g8', count: '3 articles' },
       ].map((g) => (
-        <a href={`/play/${g.slug}`} target="_blank" rel="noopener noreferrer" class="game-tile">
+        <a href={g.url} class="game-tile">
           <div class={`game-cover ${g.gc}`}>
             <img src={g.img} alt={g.name} loading="lazy" decoding="async" referrerpolicy="no-referrer" />
           </div>
