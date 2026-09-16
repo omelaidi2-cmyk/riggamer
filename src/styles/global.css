@@ -1104,8 +1104,8 @@ a{text-decoration:none;color:inherit}
 .rg-toc-mobile { display: none; }
 .rg-toc-title { display:block; font-family:var(--fm); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--volt); margin-bottom:13px; }
 .rg-toc ol { display:flex; flex-direction:column; gap:1px; margin:0; padding:0; list-style:none; counter-reset:toc; }
-.rg-toc li { counter-increment:toc; }
-.rg-toc a { display:flex; gap:11px; padding:8px 10px; font-size:13.5px; color:var(--t2); border-left:2px solid var(--brd); transition:background 120ms,color 120ms,border-color 120ms; }
+.rg-toc li { counter-increment:toc; display:flex; }
+.rg-toc a { display:flex; gap:11px; padding:8px 10px; width:100%; font-size:13.5px; color:var(--t2); border-left:2px solid var(--brd); transition:background 120ms,color 120ms,border-color 120ms; }
 .rg-toc a::before { content:counter(toc,decimal-leading-zero); font-family:var(--fm); font-size:10px; color:var(--t4); flex-shrink:0; padding-top:2px; }
 .rg-toc a:hover, .rg-toc a.active { background:var(--surf2); color:var(--volt); border-left-color:var(--volt); }
 .rg-toc a.active::before { color:var(--volt); }
@@ -1204,7 +1204,9 @@ a{text-decoration:none;color:inherit}
   padding: 36px 32px;
   margin: 40px 0;
   text-align: center;
+  position: relative;
 }
+.rg-ready-box:hover { border-color: rgba(198,255,51,.5); background: linear-gradient(135deg, rgba(198,255,51,.12) 0%, rgba(198,255,51,.05) 100%); }
 .rg-ready-title {
   font-family: var(--fm);
   font-size: clamp(1.3rem, 3vw, 1.8rem);
@@ -1228,6 +1230,8 @@ a{text-decoration:none;color:inherit}
   gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
 }
 .rg-ready-primary { min-width: 200px; }
 @media (max-width: 480px) {

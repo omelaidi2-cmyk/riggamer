@@ -220,6 +220,7 @@ const tocItems = [
           <!-- ④ SECTION "Ready to Try?" — CTA FINAL -->
           {playUrl && (
             <div class="rg-ready-box">
+              <a href={playUrl} target="_blank" rel="noopener noreferrer" class="rg-cta-overlay" aria-label={`Play ${game} Free`}></a>
               <h2 id="cta-final" class="rg-ready-title">Ready to Try {game}?</h2>
               <p class="rg-ready-sub">{game} is free to play on PC. No subscription, no upfront cost — just download and start playing.</p>
               <div class="rg-ready-btns">
@@ -289,10 +290,6 @@ const tocItems = [
           referrerpolicy="no-referrer" style="display:block;max-width:100%;height:auto;" />
       </a>
     </span>
-    <a href={playUrl ?? `/play/nte`} class="sticky-cta-img-mobile" target="_blank" rel="noopener noreferrer">
-      <img src="/media/nte-w.gif" alt={`${game ?? 'Game'} — Play Free`} referrerpolicy="no-referrer"
-        style="width:320px;height:50px;object-fit:cover;object-position:center top;display:block;" />
-    </a>
   </div>
 </div>
 
