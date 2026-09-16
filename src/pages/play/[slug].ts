@@ -29,6 +29,7 @@ const REDIRECTS: Record<string, string> = {
   'nte-steam':              'https://to.dordir.com/5C3A/2J2D6/',
   'ragnarok-steam':         'https://to.dordir.com/5C3A/2J2E6/',
   'rise-of-kingdoms':       'https://to.dordir.com/5C3A/2J2C5/',
+  'once-human':             'https://to.dordir.com/5C3A/2J2B7/',
 };
 
 export const GET: APIRoute = ({ params }) => {
