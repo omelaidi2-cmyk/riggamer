@@ -58,6 +58,9 @@ const GTM_ID = Astro.locals.runtime?.env?.GTM_ID ?? 'GTM-58ZBC3HB';
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+  <!-- Critical CSS inline — prevents dark-bg flash before external CSS loads -->
+  <style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{background:#07080b}body{background:#07080b;color:#f2f4f8;font-family:'Inter',sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}main{display:block}</style>
+
   <!-- Google Tag Manager — deferred after load to reduce TBT -->
   <script is:inline define:vars={{ GTM_ID }}>window.addEventListener('load',function(){(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',GTM_ID);});</script>
 </head>
@@ -105,7 +108,7 @@ document.addEventListener('click', function(e) {
   if (!a) return;
   e.preventDefault();
   window.open((a as HTMLAnchorElement).href, '_blank', 'noopener,noreferrer');
-}, true);
+});
 </script>
 
 </body>
