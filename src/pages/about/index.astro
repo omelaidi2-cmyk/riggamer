@@ -1,0 +1,76 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base
+  title="About RigGamer — PC Gaming Guides, Reviews & News"
+  description="RigGamer is a PC gaming media site. Honest reviews, practical guides, and setup intel — all grounded in hands-on testing."
+>
+<div class="legal-wrap">
+  <div class="legal-inner">
+
+    <div class="legal-hero">
+      <div class="legal-kicker">// About</div>
+      <h1>About RigGamer</h1>
+      <p class="legal-meta"><strong>riggamer.com</strong> &nbsp;·&nbsp; PC Gaming Guides, Reviews &amp; News</p>
+    </div>
+
+    <div class="legal-body">
+
+      <h2>What We Do</h2>
+      <p>RigGamer is a PC gaming media site focused on helping players find, start, and get better at the games they actually want to play. We publish honest reviews, practical beginner guides, tier lists, news, and setup recommendations — all grounded in real hands-on time with each game.</p>
+      <p>Our editorial focus is on free-to-play PC games, with an emphasis on the open-world RPG and action genres. We cover titles across PC, PS5, and mobile where cross-platform play is relevant.</p>
+
+      <h2>Our Editorial Standards</h2>
+      <p>Every review and guide on RigGamer is written after spending real time with the game. We don't publish press kit summaries or AI-generated filler. Our scoring reflects genuine gameplay experience — including the parts that don't work well.</p>
+      <p>We disclose our affiliate relationships clearly. See our <a href="/disclosure/">Affiliate Disclosure</a> for how we earn revenue and how that does (and doesn't) affect our coverage.</p>
+
+      <h2>The Team</h2>
+      <div class="about-team">
+        <div class="team-card">
+          <div class="team-av">D</div>
+          <div class="team-info">
+            <div class="team-name">David</div>
+            <div class="team-role">Editor — RigGamer</div>
+            <p>Open-world RPG specialist. Wuthering Waves veteran, former Genshin Impact player. Covers gacha mechanics, PC performance, and free-to-play game reviews.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2>Contact &amp; Partnerships</h2>
+      <p>For editorial enquiries, partnership proposals, or press access: <a href="mailto:contact@riggamer.com">contact@riggamer.com</a></p>
+      <p>For advertising opportunities: <a href="/advertise/">Advertise with RigGamer</a></p>
+
+    </div>
+
+    <div class="legal-footer-nav">
+      <a href="/contact/">Contact</a>
+      <a href="/advertise/">Advertise</a>
+      <a href="/disclosure/">Affiliate Disclosure</a>
+      <a href="/privacy/">Privacy</a>
+    </div>
+
+  </div>
+</div>
+</Base>
+
+<style>
+.legal-wrap { background: var(--bg); padding: 48px 0 80px; }
+.legal-inner { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+.legal-hero { margin-bottom: 40px; padding-bottom: 28px; border-bottom: 1px solid var(--brd); }
+.legal-kicker { font-family: var(--fm); font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--volt); margin-bottom: 12px; }
+.legal-hero h1 { font-family: var(--fd); font-size: clamp(28px, 4vw, 40px); font-weight: 700; color: #fff; margin-bottom: 12px; }
+.legal-meta { font-family: var(--fm); font-size: 13px; color: var(--t4); }
+.legal-body h2 { font-family: var(--fd); font-size: 18px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: .03em; margin: 2em 0 .7em; padding-bottom: 6px; border-bottom: 1px solid var(--brd); }
+.legal-body p { color: var(--t2); font-size: 15px; line-height: 1.75; margin-bottom: 1em; }
+.legal-body a { color: var(--volt); border-bottom: 1px solid rgba(198,255,51,.3); transition: border-color .15s; }
+.legal-body a:hover { border-color: var(--volt); }
+.about-team { margin: 1em 0 1.5em; }
+.team-card { display: flex; gap: 18px; align-items: flex-start; padding: 20px; background: var(--surf1); border: 1px solid var(--brd); border-top: 3px solid var(--volt); }
+.team-av { display: grid; place-items: center; width: 52px; height: 52px; flex: none; background: linear-gradient(120deg,#dcff77,#c6ff33 55%,#9ad400); clip-path: polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px); font-family: var(--fd); font-size: 20px; font-weight: 700; color: #07080b; }
+.team-name { font-family: var(--fd); font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+.team-role { font-family: var(--fm); font-size: 11px; color: var(--volt); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 8px; }
+.team-info p { color: var(--t3); font-size: 14px; line-height: 1.6; margin: 0; }
+.legal-footer-nav { display: flex; gap: 20px; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--brd); flex-wrap: wrap; }
+.legal-footer-nav a { font-family: var(--fm); font-size: 12px; color: var(--t3); text-transform: uppercase; letter-spacing: .06em; transition: color .15s; }
+.legal-footer-nav a:hover { color: var(--volt); }
+</style>
