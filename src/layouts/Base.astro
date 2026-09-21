@@ -78,26 +78,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <Footer />
 
-<!-- Defer banner images to after LCP — prevents GIFs from being LCP element -->
+<!-- Load banner images immediately after DOM ready -->
 <script>
 (function() {
   function loadBanners() {
     document.querySelectorAll('img[data-src]').forEach(function(img) {
-      img.src = img.getAttribute('data-src')!;
+      img.setAttribute('src', img.getAttribute('data-src')!);
       img.removeAttribute('data-src');
     });
   }
-  if ('PerformanceObserver' in window) {
-    try {
-      const po = new PerformanceObserver(function() {
-        po.disconnect();
-        requestAnimationFrame(loadBanners);
-      });
-      po.observe({ type: 'largest-contentful-paint', buffered: true });
-    } catch(_) { window.addEventListener('load', loadBanners); }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadBanners);
   } else {
-    window.addEventListener('load', loadBanners);
+    loadBanners();
   }
+  window.addEventListener('load', loadBanners);
 })();
 </script>
 
