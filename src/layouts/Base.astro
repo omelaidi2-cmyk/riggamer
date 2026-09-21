@@ -28,7 +28,7 @@ const GTM_ID = Astro.locals.runtime?.env?.GTM_ID ?? 'GTM-58ZBC3HB';
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="referrer" content="no-referrer" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalURL} />
@@ -102,7 +102,7 @@ document.addEventListener('click', function(e) {
   const a = (e.target as Element).closest('a[href^="/play/"]');
   if (!a) return;
   e.preventDefault();
-  window.open((a as HTMLAnchorElement).href, '_blank', 'noopener,noreferrer');
+  window.open((a as HTMLAnchorElement).href, '_blank', 'noopener');
 });
 </script>
 
