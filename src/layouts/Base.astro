@@ -78,24 +78,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <Footer />
 
-<!-- Load banner images immediately after DOM ready -->
-<script>
-(function() {
-  function loadBanners() {
-    document.querySelectorAll('img[data-src]').forEach(function(img) {
-      img.setAttribute('src', img.getAttribute('data-src')!);
-      img.removeAttribute('data-src');
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', loadBanners);
-  } else {
-    loadBanners();
-  }
-  window.addEventListener('load', loadBanners);
-})();
-</script>
-
 <!-- Affiliate links — open in new tab -->
 <script>
 document.addEventListener('click', function(e) {

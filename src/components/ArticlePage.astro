@@ -279,9 +279,11 @@ const tocItems = [
   <div class="sticky-cta-promo">
     <span class="sticky-cta-img-desktop">
       <a href={playUrl ?? `/play/nte`} target="_blank" rel="noopener noreferrer">
-        <img data-src="/media/nte-w.gif" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-          alt={`${game ?? 'Game'} — Play Free`} width="728" height="146"
-          referrerpolicy="no-referrer" style="display:block;max-width:100%;height:auto;min-height:75px;" />
+        <video autoplay loop muted playsinline width="728" height="146"
+          style="display:block;max-width:100%;aspect-ratio:728/146;">
+          <source src="/media/nte-w.webm" type="video/webm" />
+          <source src="/media/nte-w.mp4" type="video/mp4" />
+        </video>
       </a>
     </span>
   </div>
