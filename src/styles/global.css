@@ -348,16 +348,17 @@ a{text-decoration:none;color:inherit}
 }
 .blassa.filled::before { content: none !important; }
 .blassa.filled a {
-  display: inline-block;   /* shrink-to-content = exactement l'image */
+  display: block;
   line-height: 0;
   font-size: 0;
   background: none;
   border: none;
   outline: none;
-  vertical-align: top;
 }
-.blassa.filled img {
+.blassa.filled img,
+.blassa.filled video {
   display: block;
+  width: 100%;
   max-width: 100%;
   height: auto;
 }
