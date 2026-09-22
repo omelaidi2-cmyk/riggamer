@@ -151,8 +151,15 @@ const latestNews   = news.slice(0, 4);
     </div>
   </div>
   <div class="wrap section">
-    <div class="articles-grid">
-      {latestNews.map((a, i) => <ArticleCard {...a} num={i} />)}
+    <div class="page-layout">
+      <div>
+        <div class="articles-grid">
+          {latestNews.map((a, i) => <ArticleCard {...a} num={i} />)}
+        </div>
+      </div>
+      <aside class="sidebar">
+        <Banner slug="nte" size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
+      </aside>
     </div>
   </div>
 
