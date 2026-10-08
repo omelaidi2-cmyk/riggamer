@@ -1,0 +1,100 @@
+# RigGamer — llms.txt
+# Gaming reviews, guides and news for free-to-play PC games
+# Updated: 2026-10-08
+
+> RigGamer covers free-to-play PC and mobile games with honest reviews, tier lists and beginner guides.
+> Every article is written by a player with 1000+ hours. Scores use the RigGamer /10 scale.
+> Affiliate links use /play/[game] redirects (CPI model). No paid placements.
+
+---
+
+## NTE: Neverness to Everness
+
+- Is Neverness to Everness Worth Playing in 2026? Honest Review: /reviews/neverness-to-everness-worth-playing (Review · NTE · 8.0/10)
+- NTE: Neverness to Everness Is Free on PC — How to Download: /guides/nte-pc-download-guide (Guide · NTE)
+- NTE Tier List: Best Characters Ranked (September 2026): /guides/nte-tier-list (Guide · NTE)
+- NTE Patch 1.1 Notes: New Character, Map Expansion, Balance Changes: /news/nte-patch-notes-1-1 (News · NTE)
+
+---
+
+## War Thunder
+
+- War Thunder Review 2026 — The Grind vs The Glory: /reviews/war-thunder-review (Review · War Thunder · 7.6/10)
+- War Thunder: Best Nation to Grind in 2026: /guides/war-thunder-best-nation (Guide · War Thunder)
+- War Thunder Dev Server: New Vehicles and Top-Tier Changes Datamined: /news/war-thunder-new-vehicles (News · War Thunder)
+
+---
+
+## RAID Shadow Legends
+
+- RAID: Shadow Legends Review — Polished Gacha, Familiar Traps: /reviews/raid-shadow-legends-review (Review · RAID · 8.0/10)
+- RAID: Shadow Legends Champion Building Guide 2026: /guides/raid-shadow-legends-champion-guide (Guide · RAID)
+- RAID Shadow Legends: New Void Legendary Revealed for Fusion Event: /news/raid-new-champion (News · RAID)
+
+---
+
+## Star Trek Fleet Command
+
+- Star Trek Fleet Command Review — Strategy or Pay-to-Win?: /reviews/star-trek-fleet-command-review (Review · Star Trek · 6.4/10)
+- Star Trek Fleet Command: Complete Beginner Roadmap: /guides/star-trek-fleet-command-guide (Guide · Star Trek)
+- Star Trek Fleet Command: Borg Arc Event Guide and Milestones: /news/star-trek-event-recap (News · Star Trek)
+
+---
+
+## Arknights: Endfield
+
+- Arknights: Endfield Review — Worth the Four-Year Wait?: /reviews/arknights-endfield-review (Review · Arknights · score pending)
+- Arknights: Endfield — Best Operators for New Players: /guides/arknights-endfield-best-operators (Guide · Arknights)
+- Arknights Endfield Season 2 Release Date and Roadmap Confirmed: /news/arknights-endfield-season-2 (News · Arknights)
+
+---
+
+## Project Entropy
+
+- Project Entropy Review — The Dark Horse PC Gacha of 2026: /reviews/project-entropy-review (Review · Project Entropy · 7.2/10)
+- Project Entropy: Beginner's Guide — First Week Roadmap: /guides/project-entropy-beginner-guide (Guide · Project Entropy)
+- Project Entropy Global Launch: Day One Server Performance & Issues: /news/project-entropy-global-launch (News · Project Entropy)
+
+---
+
+## Enlisted
+
+- Enlisted Review 2026 — Still the Best Free WWII Shooter?: /reviews/enlisted-review (Review · Enlisted · 6.8/10)
+- Enlisted Squad Building Guide: Best Soldiers for Each Mode: /guides/enlisted-beginner-squad-guide (Guide · Enlisted)
+- Enlisted Air Superiority Update: Full Changelog and New Maps: /news/enlisted-update-air (News · Enlisted)
+
+---
+
+## Rise of Kingdoms
+
+- Rise of Kingdoms Review — Best 4X Mobile Strategy of 2026?: /reviews/rise-of-kingdoms-review (Review · Rise of Kingdoms · 7.8/10)
+- Rise of Kingdoms Beginner Guide: Best Civilization Tier List: /guides/rise-of-kingdoms-beginner (Guide · Rise of Kingdoms)
+- Rise of Kingdoms KvK Season 5 Meta Analysis: Best Commanders: /news/rise-of-kingdoms-kvk (News · Rise of Kingdoms)
+
+---
+
+## Where Winds Meet
+
+- Where Winds Meet Review — A Wuxia World Worth Getting Lost In: /reviews/where-winds-meet-review (Review · Where Winds Meet · 6.4/10)
+- Where Winds Meet Beginner's Guide: Weapons, Inner Power & Jianghu: /guides/where-winds-meet-weapons (Guide · Where Winds Meet)
+- Where Winds Meet PS5 Launch: Cross-Save, Frame Rate Modes Detailed: /news/where-winds-meet-ps5-launch (News · Where Winds Meet)
+
+---
+
+## Hardware Setup (cross-game)
+
+- Best Budget Gaming PC Build 2026 — $600 That Runs Everything: /setup/best-gaming-pc-budget-2026 (Setup · Hardware)
+- Best Gaming Monitor 2026: 1440p vs 4K vs 240Hz: /setup/best-gaming-monitor-2026 (Setup · Hardware)
+- Best Gaming Headset 2026 — PC, PS5, and Cross-Platform Picks: /setup/gaming-headset-guide (Setup · Hardware)
+- Best Mechanical Keyboard for Gaming 2026 — Switch Guide Included: /setup/mechanical-keyboard-guide (Setup · Hardware)
+- Best Gaming Mouse 2026 — Lightweight vs Ergo vs Ambidextrous: /setup/gaming-mouse-guide (Setup · Hardware)
+- GPU Upgrade Guide 2026: When to Upgrade and What to Buy: /setup/gpu-upgrade-guide-2026 (Setup · Hardware)
+
+---
+
+## About RigGamer
+
+RigGamer is an independent gaming media focused on free-to-play PC and mobile games.
+All reviews are written by players with verified hours. The RigGamer score is /10:
+Gameplay/2 + F2P/2 + Monetization/2 + Progression/2 + Stability/1 + Community/1.
+No pay-to-review. No sponsored scores.

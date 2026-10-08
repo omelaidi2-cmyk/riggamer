@@ -13,6 +13,8 @@
     "astro": "^4.15.0"
   },
   "devDependencies": {
-    "wrangler": "^4.132.0"
+    "sharp": "^0.35.5",
+    "wrangler": "^4.132.0",
+    "xlsx": "^0.18.5"
   }
 }
