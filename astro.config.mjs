@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
+import sitemap from '@astrojs/sitemap';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 
 // Fix @astrojs/sitemap crash in hybrid mode (pages=undefined bug)
@@ -22,6 +23,7 @@ export default defineConfig({
   adapter: cloudflare({
     platformProxy: { enabled: true },
   }),
+  integrations: [sitemap()],
   site: 'https://riggamer.com',
   compressHTML: true,
   vite: {
