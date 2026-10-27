@@ -3,7 +3,7 @@ import type { APIRoute } from 'astro';
 export const prerender = false;
 
 const REDIRECTS: Record<string, string> = {
-  'nte':                    'https://to.dordir.com/5C3A/2J2B7/',
+  'nte':                    'https://to.dordir.com/5C3A/2J2D6/',
   'star-trek-fleet-command':'https://to.dordir.com/5C3A/2J2C7/',
   'war-thunder':            'https://to.dordir.com/5C3A/2J2E9/',
   'enlisted':               'https://to.dordir.com/5C3A/2J2E8/',
@@ -17,7 +17,7 @@ const REDIRECTS: Record<string, string> = {
   'wuthering-waves':        'https://to.dordir.com/5C3A/2J2I8/',
   'delta-force':            'https://to.dordir.com/5C3A/2J2I0/',
   'soul-land':              'https://to.dordir.com/5C3A/2J2G0/',
-  'arknights-endfield':     'https://to.dordir.com/5C3A/2J1A6/',
+  'arknights-endfield':     'https://to.dordir.com/5C3A/2J3C1/',
   'project-entropy':        'https://to.dordir.com/5C3A/2J1A0/',
   'raid-shadow-legends':    'https://to.dordir.com/5C3A/2J2D3/',
   'where-winds-meet':       'https://to.dordir.com/5C3A/2J1J9/',
