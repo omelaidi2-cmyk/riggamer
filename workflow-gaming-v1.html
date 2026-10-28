@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Workflow Gaming V1 — RIGGAMER</title>
+<style>
+:root{
+  --bg:#000;--bg2:#0a0a0a;--bg3:#111;--bg4:#181818;
+  --border:#1f2937;--border2:#111827;
+  --txt:#e5e5e5;--txt2:#b0b8c8;--txt3:#6b7280;
+  --blue:#137cf0;--blue-lt:rgba(19,124,240,.12);--blue-bd:rgba(19,124,240,.3);
+  --green:#22c55e;--green-lt:rgba(34,197,94,.1);--green-bd:rgba(34,197,94,.3);
+  --orange:#f97316;--orange-lt:rgba(249,115,22,.1);--orange-bd:rgba(249,115,22,.3);
+  --red:#ef4444;--red-lt:rgba(239,68,68,.1);--red-bd:rgba(239,68,68,.3);
+  --yellow:#f59e0b;--yellow-lt:rgba(245,158,11,.1);--yellow-bd:rgba(245,158,11,.3);
+  --purple:#a855f7;--purple-lt:rgba(168,85,247,.1);--purple-bd:rgba(168,85,247,.3);
+  --cyan:#06b6d4;--cyan-lt:rgba(6,182,212,.1);--cyan-bd:rgba(6,182,212,.3);
+  --teal:#14b8a6;--teal-lt:rgba(20,184,166,.1);--teal-bd:rgba(20,184,166,.3);
+  --pink:#ec4899;--pink-lt:rgba(236,72,153,.1);--pink-bd:rgba(236,72,153,.3);
+  --mono:'JetBrains Mono','Consolas',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.65;display:flex;min-height:100vh;}
+.sidebar{width:256px;min-width:256px;background:var(--bg2);border-right:1px solid var(--border);position:sticky;top:0;height:100vh;overflow-y:auto;padding:20px 0;flex-shrink:0;scrollbar-width:thin;}
+.sb-logo{padding:0 20px 16px;border-bottom:1px solid var(--border);margin-bottom:10px;}
+.sb-brand{font-size:15px;font-weight:800;color:#fff;}
+.sb-brand span{color:var(--red);}
+.sb-sub{font-size:9px;color:var(--txt3);margin-top:3px;text-transform:uppercase;letter-spacing:1.2px;}
+.sb-v{display:inline-block;margin-top:6px;font-size:9px;font-weight:700;font-family:var(--mono);padding:2px 8px;border-radius:3px;background:var(--orange-lt);color:var(--orange);border:1px solid var(--orange-bd);}
+.nav-group{margin-bottom:4px;}
+.nav-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--txt3);padding:7px 20px 2px;}
+.nav-link{display:flex;align-items:center;gap:7px;padding:5px 20px;color:var(--txt3);text-decoration:none;font-size:11px;border-left:2px solid transparent;transition:all .1s;}
+.nav-link:hover,.nav-link.active{color:#fff;border-left-color:var(--orange);background:var(--orange-lt);}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.main{flex:1;max-width:990px;padding:44px 50px;}
+.hero{background:linear-gradient(135deg,#0d0000,#1a0500 40%,#2d0a00);border-radius:14px;padding:44px;margin-bottom:48px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 82% 30%,rgba(239,68,68,.35),transparent 68%);pointer-events:none;}
+.hero-chip{display:inline-block;background:rgba(239,68,68,.18);border:1px solid var(--red-bd);color:var(--red);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 11px;border-radius:20px;margin-bottom:14px;}
+.hero h1{font-size:28px;font-weight:900;color:#fff;margin-bottom:8px;line-height:1.2;}
+.hero .lead{font-size:13px;color:rgba(255,255,255,.6);max-width:600px;margin-bottom:24px;}
+.hero-stats{display:flex;gap:28px;flex-wrap:wrap;}
+.stat-n{font-size:26px;font-weight:800;color:#fff;display:block;line-height:1;}
+.stat-l{font-size:9px;color:rgba(255,255,255,.42);text-transform:uppercase;letter-spacing:1px;margin-top:3px;}
+.pbar{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:44px;}
+.pb{border-radius:10px;padding:18px 20px;position:relative;overflow:hidden;}
+.pb.arb{background:linear-gradient(135deg,rgba(239,68,68,.07),rgba(249,115,22,.04));border:1px solid rgba(239,68,68,.22);}
+.pb.seo{background:linear-gradient(135deg,rgba(19,124,240,.05),transparent);border:1px solid rgba(19,124,240,.16);opacity:.72;}
+.pb-num{font-size:36px;font-weight:900;line-height:1;margin-bottom:6px;}
+.pb.arb .pb-num{color:var(--red);}
+.pb.seo .pb-num{color:var(--blue);}
+.pb-title{font-size:14px;font-weight:800;color:#fff;margin-bottom:3px;}
+.pb-desc{font-size:11px;color:var(--txt2);line-height:1.5;}
+.pb-tag{position:absolute;top:14px;right:14px;font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:2px 7px;border-radius:3px;}
+.pb.arb .pb-tag{background:var(--red-lt);color:var(--red);border:1px solid var(--red-bd);}
+.pb.seo .pb-tag{background:var(--blue-lt);color:var(--blue);border:1px solid var(--blue-bd);}
+.pl-wrap{overflow-x:auto;padding-bottom:6px;margin-bottom:44px;scrollbar-width:thin;}
+.pl-pipe{display:flex;align-items:center;gap:0;min-width:max-content;}
+.ppn{border-radius:7px;padding:7px 11px;text-align:center;min-width:80px;border:1px solid var(--border);background:var(--bg3);}
+.ppn .n{font-size:8px;font-weight:700;font-family:var(--mono);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:2px;}
+.ppn .l{font-size:10px;font-weight:600;color:#fff;display:block;line-height:1.3;}
+.ppn .t{font-size:9px;color:var(--txt3);display:block;margin-top:1px;}
+.ppn.scout{background:var(--teal-lt);border-color:var(--teal-bd);} .ppn.scout .n{color:var(--teal);}
+.ppn.roi{background:var(--red-lt);border-color:var(--red-bd);} .ppn.roi .n{color:var(--red);}
+.ppn.g{background:var(--green-lt);border-color:var(--green-bd);} .ppn.g .n{color:var(--green);}
+.ppn.b{background:var(--blue-lt);border-color:var(--blue-bd);} .ppn.b .n{color:var(--blue);}
+.ppn.o{background:var(--orange-lt);border-color:var(--orange-bd);} .ppn.o .n{color:var(--orange);}
+.ppn.y{background:var(--yellow-lt);border-color:var(--yellow-bd);} .ppn.y .n{color:var(--yellow);}
+.ppn.p{background:var(--purple-lt);border-color:var(--purple-bd);} .ppn.p .n{color:var(--purple);}
+.ppn.c{background:var(--cyan-lt);border-color:var(--cyan-bd);} .ppn.c .n{color:var(--cyan);}
+.ppn.pk{background:var(--pink-lt);border-color:var(--pink-bd);} .ppn.pk .n{color:var(--pink);}
+.ppa{color:var(--txt3);font-size:12px;padding:0 3px;flex-shrink:0;}
+section{margin-bottom:52px;scroll-margin-top:20px;}
+.sec-title{font-size:17px;font-weight:800;color:#fff;margin-bottom:5px;padding-bottom:11px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.sec-lead{color:var(--txt2);font-size:13px;margin-bottom:20px;line-height:1.65;}
+.src{font-size:9px;font-weight:700;font-family:var(--mono);padding:2px 7px;border-radius:3px;letter-spacing:.5px;}
+.src-g{background:var(--red-lt);color:var(--red);border:1px solid var(--red-bd);}
+.src-v{background:var(--blue-lt);color:var(--blue);border:1px solid var(--blue-bd);}
+.src-f{background:var(--green-lt);color:var(--green);border:1px solid var(--green-bd);}
+.card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:12px;}
+.card-header{display:flex;align-items:center;gap:12px;padding:15px 20px;cursor:pointer;user-select:none;}
+.card-header:hover{background:rgba(255,255,255,.02);}
+.cnum{font-size:10px;font-family:var(--mono);font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 9px;border-radius:4px;flex-shrink:0;white-space:nowrap;}
+.cn-teal{background:var(--teal-lt);color:var(--teal);border:1px solid var(--teal-bd);}
+.cn-red{background:var(--red-lt);color:var(--red);border:1px solid var(--red-bd);}
+.cn-blue{background:var(--blue-lt);color:var(--blue);border:1px solid var(--blue-bd);}
+.cn-green{background:var(--green-lt);color:var(--green);border:1px solid var(--green-bd);}
+.cn-orange{background:var(--orange-lt);color:var(--orange);border:1px solid var(--orange-bd);}
+.cn-yellow{background:var(--yellow-lt);color:var(--yellow);border:1px solid var(--yellow-bd);}
+.cn-purple{background:var(--purple-lt);color:var(--purple);border:1px solid var(--purple-bd);}
+.cn-cyan{background:var(--cyan-lt);color:var(--cyan);border:1px solid var(--cyan-bd);}
+.cn-pink{background:var(--pink-lt);color:var(--pink);border:1px solid var(--pink-bd);}
+.card-title{flex:1;}
+.card-title h3{font-size:14px;font-weight:700;color:#fff;margin-bottom:2px;}
+.card-title p{font-size:11px;color:var(--txt3);}
+.cbadge{font-size:9px;font-family:var(--mono);font-weight:700;text-transform:uppercase;padding:2px 7px;border-radius:3px;flex-shrink:0;white-space:nowrap;}
+.cb-stop{background:var(--red-lt);color:var(--red);border:1px solid var(--red-bd);}
+.cb-gate{background:var(--yellow-lt);color:var(--yellow);border:1px solid var(--yellow-bd);}
+.cb-auto{background:var(--blue-lt);color:var(--blue);border:1px solid var(--blue-bd);}
+.cb-new{background:var(--green-lt);color:var(--green);border:1px solid var(--green-bd);}
+.toggle{color:var(--txt3);font-size:16px;flex-shrink:0;transition:transform .18s;}
+.card.open .toggle{transform:rotate(90deg);}
+.card-body{display:none;padding:0 20px 20px;border-top:1px solid var(--border);}
+.card.open .card-body{display:block;}
+.sl{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:12px;}
+.sl li{font-size:13px;color:var(--txt2);padding-left:20px;position:relative;line-height:1.55;}
+.sl li::before{content:'→';position:absolute;left:0;color:var(--txt3);font-size:11px;top:2px;}
+.sl li strong{color:#fff;}
+.sl li.stop::before{content:'🛑';top:0;}
+.sl li.ok::before{content:'✓';color:var(--green);font-size:12px;}
+.sl li.warn::before{content:'⚠';top:0;}
+.sl li.new::before{content:'✦';color:var(--orange);font-size:11px;}
+.sl li.key::before{content:'🔑';top:0;}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+.three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:12px;}
+.box{background:var(--bg4);border:1px solid var(--border2);border-radius:8px;padding:13px 15px;}
+.box h4{font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--txt3);margin-bottom:9px;}
+.hl{border-radius:7px;padding:11px 15px;font-size:13px;line-height:1.6;margin-top:11px;}
+.hl strong{color:#fff;}
+.hl-red{background:var(--red-lt);border:1px solid var(--red-bd);color:var(--txt2);}
+.hl-green{background:var(--green-lt);border:1px solid var(--green-bd);color:var(--txt2);}
+.hl-orange{background:var(--orange-lt);border:1px solid var(--orange-bd);color:var(--txt2);}
+.hl-blue{background:var(--blue-lt);border:1px solid var(--blue-bd);color:var(--txt2);}
+.hl-yellow{background:var(--yellow-lt);border:1px solid var(--yellow-bd);color:var(--txt2);}
+.hl-teal{background:var(--teal-lt);border:1px solid var(--teal-bd);color:var(--txt2);}
+.hl-purple{background:var(--purple-lt);border:1px solid var(--purple-bd);color:var(--txt2);}
+.out{background:rgba(34,197,94,.04);border:1px solid rgba(34,197,94,.2);border-radius:7px;padding:13px 17px;margin-top:14px;}
+.out h4{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:9px;}
+.out ul{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.out li::before{content:"✅ ";}
+.out li{font-size:12px;color:var(--txt);}
+.rb{background:var(--bg4);border:1px solid var(--border2);border-radius:7px;padding:13px 17px;margin-top:12px;font-size:13px;}
+.rb pre{background:#000;border:1px solid var(--border2);border-radius:6px;padding:11px;margin-top:9px;overflow-x:auto;font-family:var(--mono);font-size:11px;color:#c9d1d9;line-height:1.65;}
+.ic{background:var(--bg4);border:1px solid var(--border2);font-family:var(--mono);font-size:11px;padding:1px 6px;border-radius:3px;color:var(--txt2);}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px;}
+th{text-align:left;padding:7px 13px;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--txt3);border-bottom:1px solid var(--border);background:var(--bg4);}
+td{padding:8px 13px;border-bottom:1px solid rgba(31,41,55,.45);color:var(--txt2);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+.tw{overflow-x:auto;margin-top:12px;}
+.tag{display:inline-flex;align-items:center;padding:2px 7px;border-radius:3px;font-size:9px;font-weight:700;font-family:var(--mono);}
+.tg{background:var(--green-lt);color:var(--green);border:1px solid var(--green-bd);}
+.tr{background:var(--red-lt);color:var(--red);border:1px solid var(--red-bd);}
+.ty{background:var(--yellow-lt);color:var(--yellow);border:1px solid var(--yellow-bd);}
+.tb{background:var(--blue-lt);color:var(--blue);border:1px solid var(--blue-bd);}
+.to{background:var(--orange-lt);color:var(--orange);border:1px solid var(--orange-bd);}
+.tt{background:var(--teal-lt);color:var(--teal);border:1px solid var(--teal-bd);}
+.pass{color:var(--green);font-weight:700;}
+.warn-c{color:var(--yellow);font-weight:700;}
+.fail{color:var(--red);font-weight:700;}
+.orch-wrap{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:16px;}
+.orch-flow{display:flex;flex-direction:column;align-items:center;gap:0;}
+.orch-actor{border-radius:10px;padding:14px 32px;text-align:center;min-width:280px;}
+.orch-actor.you{background:linear-gradient(135deg,#001a40,#002d6b);border:2px solid var(--blue);}
+.orch-actor.manager{background:linear-gradient(135deg,#1a0500,#3b0d00);border:2px solid var(--orange);}
+.actor-label{font-size:10px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+.orch-actor.you .actor-label{color:var(--blue);}
+.orch-actor.manager .actor-label{color:var(--orange);}
+.actor-name{font-size:15px;font-weight:700;color:#fff;}
+.actor-sub{font-size:11px;color:var(--txt3);margin-top:4px;}
+.orch-arrow{color:var(--txt3);font-size:14px;padding:7px 0;display:flex;flex-direction:column;align-items:center;gap:2px;}
+.orch-arrow span{font-size:10px;font-family:var(--mono);color:var(--txt3);}
+.clusters-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:10px 0;}
+.cl-box{border-radius:8px;padding:12px 16px;text-align:center;min-width:130px;}
+.cl-box.analyst{background:var(--blue-lt);border:1px solid var(--blue-bd);}
+.cl-box.producer{background:var(--green-lt);border:1px solid var(--green-bd);}
+.cl-box.correcteur{background:var(--purple-lt);border:1px solid var(--purple-bd);}
+.cl-box.publisher{background:var(--orange-lt);border:1px solid var(--orange-bd);}
+.cl-label{font-size:9px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+.cl-box.analyst .cl-label{color:var(--blue);}
+.cl-box.producer .cl-label{color:var(--green);}
+.cl-box.correcteur .cl-label{color:var(--purple);}
+.cl-box.publisher .cl-label{color:var(--orange);}
+.cl-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:3px;}
+.cl-phases{font-size:10px;color:var(--txt3);font-family:var(--mono);}
+.cp{background:linear-gradient(135deg,rgba(245,158,11,.07),rgba(249,115,22,.03));border:1px solid rgba(245,158,11,.32);border-radius:12px;padding:22px 24px;margin-bottom:16px;position:relative;}
+.cp::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--yellow),var(--orange));border-radius:12px 0 0 12px;}
+.cp-badge{background:rgba(245,158,11,.14);border:1px solid rgba(245,158,11,.38);color:var(--yellow);font-size:10px;font-weight:800;font-family:var(--mono);padding:4px 12px;border-radius:5px;letter-spacing:.8px;text-transform:uppercase;display:inline-block;margin-bottom:10px;}
+.cp-title{font-size:14px;font-weight:800;color:#fff;margin-bottom:4px;}
+.cp-sub{font-size:11px;color:var(--txt3);margin-bottom:14px;}
+.cp-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.cp-q{background:rgba(0,0,0,.25);border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-size:12px;color:var(--txt2);display:flex;align-items:flex-start;gap:8px;}
+.cp-q::before{content:'?';color:var(--yellow);font-weight:800;font-size:11px;flex-shrink:0;margin-top:1px;}
+.cp-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.cp-go{background:rgba(34,197,94,.13);border:1px solid rgba(34,197,94,.38);color:var(--green);font-size:11px;font-weight:800;font-family:var(--mono);padding:6px 16px;border-radius:6px;}
+.cp-stop{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.32);color:var(--red);font-size:11px;font-weight:800;font-family:var(--mono);padding:6px 16px;border-radius:6px;}
+.cp-opt{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:var(--yellow);font-size:11px;font-weight:800;font-family:var(--mono);padding:6px 16px;border-radius:6px;}
+.loop-box{background:var(--bg4);border:1px solid var(--border2);border-radius:8px;padding:16px;margin-top:14px;}
+.loop-box h4{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--orange);margin-bottom:12px;}
+.loop-flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.loop-step{font-size:11px;font-family:var(--mono);padding:5px 12px;border-radius:5px;}
+.ls-fail{background:var(--red-lt);color:var(--red);border:1px solid var(--red-bd);}
+.ls-mgr{background:var(--orange-lt);color:var(--orange);border:1px solid var(--orange-bd);}
+.ls-prod{background:var(--green-lt);color:var(--green);border:1px solid var(--green-bd);}
+.ls-audit{background:var(--purple-lt);color:var(--purple);border:1px solid var(--purple-bd);}
+.ls-esc{background:var(--yellow-lt);color:var(--yellow);border:1px solid var(--yellow-bd);}
+.loop-arr{color:var(--txt3);font-size:12px;}
+.st-table{background:var(--bg3);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:12px;}
+.st-row{display:grid;grid-template-columns:200px 1fr;border-bottom:1px solid var(--border2);}
+.st-row:last-child{border-bottom:none;}
+.st-row.hd{background:var(--bg4);}
+.st-cell{padding:9px 16px;font-size:12px;color:var(--txt2);}
+.st-row.hd .st-cell{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--txt3);}
+.sts{font-size:10px;font-family:var(--mono);padding:2px 8px;border-radius:3px;display:inline-block;}
+.sts.planned{background:var(--blue-lt);color:var(--blue);border:1px solid var(--blue-bd);}
+.sts.active{background:var(--orange-lt);color:var(--orange);border:1px solid var(--orange-bd);}
+.sts.cp{background:var(--yellow-lt);color:var(--yellow);border:1px solid var(--yellow-bd);}
+.sts.live{background:var(--green-lt);color:var(--green);border:1px solid var(--green-bd);}
+.sts.fail{background:var(--red-lt);color:var(--red);border:1px solid var(--red-bd);}
+.sts.pause{background:rgba(107,114,128,.2);color:var(--txt3);border:1px solid var(--border);}
+.sc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;}
+.sc-card{background:var(--bg4);border:1px solid var(--border2);border-radius:7px;padding:11px 13px;}
+.sc-pts{font-size:20px;font-weight:800;margin-bottom:3px;}
+.sc-name{font-size:10px;font-weight:700;color:#fff;margin-bottom:3px;}
+.sc-desc{font-size:10px;color:var(--txt3);line-height:1.4;}
+.sc-card.a .sc-pts{color:var(--teal);}
+.sc-card.b .sc-pts{color:var(--orange);}
+.sc-card.c .sc-pts{color:var(--blue);}
+.sc-card.d .sc-pts{color:var(--purple);}
+.sc-card.e .sc-pts{color:var(--yellow);}
+.sc-card.f .sc-pts{color:var(--green);}
+.sc-card.g .sc-pts{color:var(--red);}
+.au-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;}
+.au-card{background:var(--bg4);border:1px solid var(--border2);border-radius:7px;padding:12px 14px;}
+.au-name{font-size:12px;font-weight:700;color:#fff;margin-bottom:2px;}
+.au-role{font-size:10px;color:var(--txt3);margin-bottom:6px;}
+.au-fav{font-size:10px;color:var(--green);line-height:1.5;margin-bottom:4px;}
+.au-ban{font-size:10px;color:var(--red);line-height:1.5;margin-bottom:4px;}
+.au-ex{font-size:10px;color:var(--blue);line-height:1.5;font-style:italic;}
+.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;}
+.score-card{background:var(--bg4);border:1px solid var(--border2);border-radius:7px;padding:11px 13px;text-align:center;}
+.score-pts{font-size:22px;font-weight:800;margin-bottom:4px;}
+.score-name{font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;}
+.score-desc{font-size:10px;color:var(--txt3);}
+.ml-list{display:flex;flex-direction:column;gap:7px;margin-top:12px;}
+.ml-row{display:flex;align-items:center;gap:9px;background:var(--bg4);border-radius:7px;padding:9px 13px;font-size:12px;}
+.ml-ok{border-left:3px solid var(--green);}
+.ml-no{border-left:3px solid var(--red);}
+.ml-special{border-left:3px solid var(--orange);}
+.fw-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px;}
+.fw{background:var(--red-lt);border:1px solid var(--red-bd);color:#fb7185;padding:3px 8px;border-radius:5px;font-size:10px;font-weight:600;}
+footer{border-top:1px solid var(--border);margin-top:52px;padding-top:16px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+footer p{font-size:11px;color:var(--txt3);}
+footer span{font-size:10px;color:var(--txt3);font-family:var(--mono);}
+@media(max-width:900px){.sidebar{display:none;}.main{padding:28px 20px;}.two,.three{grid-template-columns:1fr;}.cp-grid{grid-template-columns:1fr;}.sc-grid{grid-template-columns:1fr 1fr;}.score-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-logo">
+    <div class="sb-brand">RIG<span>GAMER</span></div>
+    <div class="sb-sub">Workflow Gaming V1</div>
+    <div class="sb-v">GAMING · V1 · 27/10/2026</div>
+  </div>
+  <nav>
+    <div class="nav-group">
+      <div class="nav-label">Fondation</div>
+      <a href="#philosophie" class="nav-link active"><span class="dot" style="background:var(--red)"></span>Philosophie Arbitrage-First</a>
+      <a href="#injection" class="nav-link"><span class="dot" style="background:var(--orange)"></span>Bloc Injection RIGGAMER</a>
+      <a href="#agents" class="nav-link"><span class="dot" style="background:var(--purple)"></span>5 Agents · 11 Jeux</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Architecture</div>
+      <a href="#architecture" class="nav-link"><span class="dot" style="background:var(--orange)"></span>Manager · Relay Unique</a>
+      <a href="#machine-etat" class="nav-link"><span class="dot" style="background:var(--cyan)"></span>Machine d'État · 15 Statuts</a>
+      <a href="#correction" class="nav-link"><span class="dot" style="background:var(--green)"></span>Boucle Correction Interne</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Gates Gaming</div>
+      <a href="#scout" class="nav-link"><span class="dot" style="background:var(--teal)"></span>SCOUT Gaming · Jeu Actif</a>
+      <a href="#roi" class="nav-link"><span class="dot" style="background:var(--red)"></span>ROI Gate · CPI Hard Stop</a>
+      <a href="#score" class="nav-link"><span class="dot" style="background:var(--yellow)"></span>Score RIGGAMER /10</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">4 Checkpoints</div>
+      <a href="#cp0" class="nav-link"><span class="dot" style="background:var(--yellow)"></span>C0 — Validation SCOUT</a>
+      <a href="#cp1" class="nav-link"><span class="dot" style="background:var(--yellow)"></span>C1 — Brief + Titre</a>
+      <a href="#cp2" class="nav-link"><span class="dot" style="background:var(--yellow)"></span>C2 — Draft V1 (optionnel)</a>
+      <a href="#cp3" class="nav-link"><span class="dot" style="background:var(--yellow)"></span>C3 — Approbation Finale</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Clusters Production</div>
+      <a href="#analyst" class="nav-link"><span class="dot" style="background:var(--blue)"></span>ANALYST · Phases 00→03</a>
+      <a href="#producer" class="nav-link"><span class="dot" style="background:var(--green)"></span>PRODUCER · Phases 04→06</a>
+      <a href="#correcteur" class="nav-link"><span class="dot" style="background:var(--purple)"></span>CORRECTEUR · Phases 07→09</a>
+      <a href="#publisher" class="nav-link"><span class="dot" style="background:var(--orange)"></span>PUBLISHER · Phases 10→12</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Règles</div>
+      <a href="#types" class="nav-link"><span class="dot" style="background:var(--cyan)"></span>4 Types d'Articles</a>
+      <a href="#maillage" class="nav-link"><span class="dot" style="background:var(--green)"></span>Maillage Gaming</a>
+      <a href="#news-budget" class="nav-link"><span class="dot" style="background:var(--orange)"></span>News · Budget CPI Event</a>
+      <a href="#d1-pub" class="nav-link"><span class="dot" style="background:var(--teal)"></span>Publication D1 · Wrangler</a>
+      <a href="#orchestrateur" class="nav-link"><span class="dot" style="background:var(--green)"></span>orchestrateur-gaming.py</a>
+    </div>
+  </nav>
+</aside>
+
+<main class="main">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-chip">Workflow Gaming V1 · RIGGAMER · 27/10/2026</div>
+  <h1>Arbitrage-First Gaming<br>CPI/CPP/CPA · Mobile-FIRST · D1 SQL</h1>
+  <p class="lead">Backbone Fusion V5 (Manager, boucle correction, machine d'état, 4 checkpoints) adapté Gaming. CPI $22-35/install · 5 agents · 11 jeux · Score RIGGAMER /10 · Publication Cloudflare D1.</p>
+  <div class="hero-stats">
+    <div><span class="stat-n">5</span><span class="stat-l">Agents pipeline</span></div>
+    <div><span class="stat-n">11</span><span class="stat-l">Jeux / clusters</span></div>
+    <div><span class="stat-n">14</span><span class="stat-l">Phases</span></div>
+    <div><span class="stat-n">4</span><span class="stat-l">Checkpoints</span></div>
+    <div><span class="stat-n">15</span><span class="stat-l">Statuts</span></div>
+    <div><span class="stat-n">/10</span><span class="stat-l">Score RIGGAMER</span></div>
+    <div><span class="stat-n">$35</span><span class="stat-l">CPI max (Star Trek)</span></div>
+    <div><span class="stat-n">90%</span><span class="stat-l">Audience mobile</span></div>
+  </div>
+</div>
+
+<!-- PRIORITY BAR -->
+<div class="pbar">
+  <div class="pb arb">
+    <span class="pb-tag">Priorité 1</span>
+    <div class="pb-num">CPI</div>
+    <div class="pb-title">Arbitrage — CPI rate × conv rate</div>
+    <div class="pb-desc">CPI rate × conv rate &gt; CPC × 1000 ? Jeu actif ≥ 6 mois ? CGU store valides ? Score RIGGAMER ≥ 6/10 ? Validé avant la première ligne. Sans marge → on ne rédige pas.</div>
+  </div>
+  <div class="pb seo">
+    <span class="pb-tag">Priorité 2</span>
+    <div class="pb-num">SEO</div>
+    <div class="pb-title">SEO — Mobile-FIRST critique</div>
+    <div class="pb-desc">90%+ audience gaming = mobile. H1 unique · maillage cluster · empreinte auteur. S'applique toujours — après validation CPI gate.</div>
+  </div>
+</div>
+
+<!-- PIPELINE GLOBAL -->
+<p style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--txt3);margin-bottom:12px;">Pipeline complet — Gaming V1 (tous articles, y compris NEWS)</p>
+<div class="pl-wrap">
+  <div class="pl-pipe">
+    <div class="ppn scout"><span class="n">SCOUT</span><span class="l">Jeu Actif</span><span class="t">30 min</span></div><div class="ppa">›</div>
+    <div class="ppn roi"><span class="n">ROI Gate</span><span class="l">CPI Hard Stop</span><span class="t">10 min</span></div><div class="ppa">›</div>
+    <div class="ppn y"><span class="n">C0</span><span class="l">Validation</span><span class="t">CP</span></div><div class="ppa">›</div>
+    <div class="ppn b"><span class="n">Ph.00</span><span class="l">Qualif ROI</span><span class="t">15 min</span></div><div class="ppa">›</div>
+    <div class="ppn b"><span class="n">Ph.01</span><span class="l">Brief Gaming</span><span class="t">30 min</span></div><div class="ppa">›</div>
+    <div class="ppn o"><span class="n">Ph.02</span><span class="l">Kai Voss</span><span class="t">H1+H2s</span></div><div class="ppa">›</div>
+    <div class="ppn c"><span class="n">Ph.03</span><span class="l">Research</span><span class="t">45 min</span></div><div class="ppa">›</div>
+    <div class="ppn y"><span class="n">C1</span><span class="l">Brief+Titre</span><span class="t">CP</span></div><div class="ppa">›</div>
+    <div class="ppn g"><span class="n">Ph.04</span><span class="l">Rédacteur</span><span class="t">2-3h</span></div><div class="ppa">›</div>
+    <div class="ppn roi"><span class="n">Ph.05</span><span class="l">CTAs+CPI</span><span class="t">30 min</span></div><div class="ppa">›</div>
+    <div class="ppn pk"><span class="n">Ph.06</span><span class="l">Images in-game</span><span class="t">45 min</span></div><div class="ppa">›</div>
+    <div class="ppn y"><span class="n">C2</span><span class="l">Draft (opt)</span><span class="t">CP</span></div><div class="ppa">›</div>
+    <div class="ppn p"><span class="n">Ph.07</span><span class="l">Alex Mercer</span><span class="t">Anti-IA</span></div><div class="ppa">›</div>
+    <div class="ppn roi"><span class="n">Ph.07b</span><span class="l">Victor Kane</span><span class="t">12 pts</span></div><div class="ppa">›</div>
+    <div class="ppn b"><span class="n">Ph.08</span><span class="l">Expert SEO</span><span class="t">JSON-LD</span></div><div class="ppa">›</div>
+    <div class="ppn y"><span class="n">C3</span><span class="l">Final GO</span><span class="t">CP</span></div><div class="ppa">›</div>
+    <div class="ppn o"><span class="n">Ph.10</span><span class="l">D1 INSERT</span><span class="t">wrangler</span></div><div class="ppa">›</div>
+    <div class="ppn scout"><span class="n">Ph.11</span><span class="l">J+7/J+14</span><span class="t">30 min</span></div><div class="ppa">›</div>
+    <div class="ppn y"><span class="n">Ph.12</span><span class="l">Ads CPI + P&L</span><span class="t">Continu</span></div>
+  </div>
+</div>
+
+<!-- PHILOSOPHIE -->
+<section id="philosophie">
+  <h2 class="sec-title">Philosophie Arbitrage-First <span class="src src-g">Gaming</span></h2>
+  <p class="sec-lead">Une seule règle guide tout : le CPI rate couvre le coût d'acquisition avant d'écrire un seul mot. Le SEO renforce — il ne justifie pas.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Question SEO-first (avant)</th><th>Question Arbitrage-first Gaming (maintenant)</th></tr></thead>
+      <tbody>
+        <tr><td>Est-ce que ça va ranker ?</td><td><strong style="color:#fff;">CPI rate × conv rate > CPC × 1000 ? Jeu actif ? CGU store OK ?</strong></td></tr>
+        <tr><td>Est-ce que le contenu est bon ?</td><td><strong style="color:#fff;">Est-ce qu'un joueur mobile convertit en 1 visite vers le store ?</strong></td></tr>
+        <tr><td>Est-ce que le H1 est optimisé ?</td><td><strong style="color:#fff;">Est-ce que le titre fait cliquer depuis une recherche "jeu worth playing" ?</strong></td></tr>
+        <tr><td>Est-ce que le maillage est correct ?</td><td><strong style="color:#fff;">CTA download visible sans scroll (mobile) · lien /play/[slug] présent ?</strong></td></tr>
+        <tr><td>Audit éditorial uniquement</td><td><strong style="color:#fff;">Double audit : éditorial (Alex Mercer) + Score RIGGAMER /10 (Victor Kane)</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- BLOC INJECTION -->
+<section id="injection">
+  <h2 class="sec-title">Bloc Injection Agent — OBLIGATOIRE <span class="src src-g">RIGGAMER</span></h2>
+  <p class="sec-lead">Copier en tête de chaque prompt agent. Sans ce bloc, les agents produisent du contenu générique gaming sans voix ni gate CPI.</p>
+  <div class="rb">
+    <pre>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DIRECTIVES RIGGAMER — OBLIGATOIRES POUR TOUT AGENT
+Source : M. Abdelrahim · Ad-Arbitrage PRO · Workflow Gaming V1
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PROJET
+riggamer.com · Blog gaming comparatif · EN · Audience mobile 90%+
+Modèle : Arbitrage-First (CPI/CPP/CPA $22-35/install) + Display Ads
+Monétisation : /play/[slug] (302 redirect vers store) · CTA mobile-first
+
+PRIORITÉ 1 — ARBITRAGE CPI
+- Hook &lt; 3 phrases · CTA download visible SANS scroll (mobile 375px)
+- Score RIGGAMER /10 affiché dans le pilier (Gameplay/F2P/Monét/Progress/Stab/Commu)
+- Lien CPI via /play/[slug] UNIQUEMENT · jamais lien store direct
+- Disclosure affilié visible · sinon HARD STOP
+- CGU Google Play + App Store vérifiées avant tout budget ads
+- Jeu actif ≥ 6 mois · dernière update &lt; 60 jours · pas d'annonce shutdown
+
+PRIORITÉ 2 — SEO GAMING
+- H1 unique · ≤ 65 chars · inclut l'année ou "review" · mot-clé dedans
+- Pilier 2000-3000w · Satellite 1500-2500w · News 400-700w · Setup 1000-2000w
+- Flesch ≥ 50 · Phrases ≤ 25 mots · Paragraphes ≤ 4 lignes
+- Maillage : max 3 liens · Satellite→Pilier OBLIGATOIRE
+- Cross-cluster Pilier→Pilier : autorisé max 1-2 liens (ex: FPS Mobile → Battle Royale)
+- Pilier→Satellite : INTERDIT
+
+CHAÎNE ÉDITORIALE
+- Alex Mercer : passe 1 anti-IA + passe 2 voix communauté gaming
+- Victor Kane : audit 12 points qualité + Score RIGGAMER /10
+- Expert SEO : Schema JSON-LD GameReview + llms.txt + technique
+- Décision Victor Kane : Validé ✅ ou Renvoyé ❌ (jamais "à améliorer")
+
+PUBLICATION
+- Cloudflare D1 via wrangler d1 execute riggamer-db --remote --command "INSERT..."
+- JAMAIS de push GitHub avant go explicite M. Abdelrahim
+
+MOTS UNIVERSELLEMENT INTERDITS
+❌ epic · legendary · insane · crazy · overpowered · game-changing
+❌ must-play · addictive · totally free · no pay-to-win (sans preuve)
+❌ best game ever · revolutionary · groundbreaking · mindblowing
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</pre>
+  </div>
+</section>
+
+<!-- 5 AGENTS -->
+<section id="agents">
+  <h2 class="sec-title">5 Agents Pipeline + 11 Jeux <span class="src src-g">RIGGAMER</span></h2>
+  <p class="sec-lead">2 agents dédiés par jeu (Expert Titres + Rédacteur) + 3 agents globaux. Tous les articles passent par les 5 agents — y compris les News.</p>
+
+  <div class="hl hl-orange" style="margin-bottom:16px;">
+    <strong>Ordre strict :</strong> ① Expert Titres → ② Rédacteur → ③ Alex Mercer → ④ Victor Kane → ⑤ Expert SEO. Aucun saut d'étape autorisé.
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Agent</th><th>Rôle</th><th>Scope</th><th>Output</th></tr></thead>
+      <tbody>
+        <tr><td><strong style="color:#fff;">① Expert Titres</strong><br><span style="color:var(--txt3);font-size:10px;">ex: Kai Voss (NTE)</span></td><td>Valide données jeu · produit H1 + tous les H2</td><td>Par jeu (dédié)</td><td>H1 validé · liste H2 · score /10 provisoire</td></tr>
+        <tr><td><strong style="color:#fff;">② Rédacteur</strong><br><span style="color:var(--txt3);font-size:10px;">ex: Ash Reeves (NTE)</span></td><td>Corps de l'article avec voix gaming</td><td>Par jeu (dédié)</td><td>Body HTML complet · CTAs /play/ placés</td></tr>
+        <tr><td><strong style="color:#fff;">③ Alex Mercer</strong><br><span style="color:var(--txt3);font-size:10px;">Agent global</span></td><td>Passe 1 anti-IA · Passe 2 voix communauté</td><td>Global (tous jeux)</td><td>Marqueurs IA corrigés · 3+ injections communauté</td></tr>
+        <tr><td><strong style="color:#fff;">④ Victor Kane</strong><br><span style="color:var(--txt3);font-size:10px;">Agent global</span></td><td>Audit 12 points qualité + Score RIGGAMER final</td><td>Global (tous jeux)</td><td>Audit 12/12 · score /10 définitif · GO ou RENVOI</td></tr>
+        <tr><td><strong style="color:#fff;">⑤ Expert SEO</strong><br><span style="color:var(--txt3);font-size:10px;">Agent global</span></td><td>Schema JSON-LD GameReview · llms.txt · technique</td><td>Global (tous jeux)</td><td>Schema injecté · meta tags · score SEO ≥ 85/100</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:20px;">
+    <div class="box">
+      <h4>Agents par jeu — 11 clusters</h4>
+      <div style="overflow-x:auto;margin-top:8px;">
+        <table>
+          <thead><tr><th>Jeu</th><th>Expert Titres</th><th>Rédacteur</th><th>CPI</th></tr></thead>
+          <tbody>
+            <tr><td><strong style="color:#fff;">Neverness to Everness</strong></td><td>Kai Voss</td><td>Ash Reeves</td><td><span class="tag tb">$28</span></td></tr>
+            <tr><td><strong style="color:#fff;">War Thunder</strong></td><td>Panzer Ace</td><td>Viktor Lenz</td><td><span class="tag tt">$22</span></td></tr>
+            <tr><td><strong style="color:#fff;">RAID Shadow Legends</strong></td><td>Doc Champion</td><td>Cole Merritt</td><td><span class="tag to">$30</span></td></tr>
+            <tr><td><strong style="color:#fff;">Star Trek Fleet Command</strong></td><td>Commander Vega</td><td>Marcus Steel</td><td><span class="tag tg">$35</span></td></tr>
+            <tr><td><strong style="color:#fff;">Arknights Endfield</strong></td><td>Rhodes Intel</td><td>Dr. Vance</td><td><span class="tag tb">$28</span></td></tr>
+            <tr><td><strong style="color:#fff;">Project Entropy</strong></td><td>Entropy Scout</td><td>Jake Cipher</td><td><span class="tag tt">$25</span></td></tr>
+            <tr><td><strong style="color:#fff;">Enlisted</strong></td><td>Sergeant Rex</td><td>Owen Nash</td><td><span class="tag tt">$22</span></td></tr>
+            <tr><td><strong style="color:#fff;">Once Human</strong></td><td>Survivor Zero</td><td>Colt Rivers</td><td><span class="tag tb">$26</span></td></tr>
+            <tr><td><strong style="color:#fff;">Rise of Kingdoms</strong></td><td>Kingdom Watcher</td><td>Ethan Vale</td><td><span class="tag to">$30</span></td></tr>
+            <tr><td><strong style="color:#fff;">Where Winds Meet</strong></td><td>Jade Wanderer</td><td>River Stone</td><td><span class="tag tb">$28</span></td></tr>
+            <tr><td><strong style="color:#fff;">Setup Hardware</strong></td><td>Benchmarker</td><td>Nathan Pierce</td><td><span class="tag ty">Display</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <h2 class="sec-title">Architecture Manager — Relay Unique <span class="src src-f">Fusion+</span></h2>
+  <p class="sec-lead">Tu ne parles qu'au Manager. Manager traduit, route, et remonte les résultats. Les clusters s'exécutent en autonomie entre les checkpoints.</p>
+  <div class="orch-wrap">
+    <div class="orch-flow">
+      <div class="orch-actor you">
+        <div class="actor-label">Toi</div>
+        <div class="actor-name">M. Abdelrahim</div>
+        <div class="actor-sub">Seul point d'entrée · GO / STOP / AJUST</div>
+      </div>
+      <div class="orch-arrow">↕<span>Instructions / Livrables</span></div>
+      <div class="orch-actor manager">
+        <div class="actor-label">Manager Gaming</div>
+        <div class="actor-name">Relay Unique</div>
+        <div class="actor-sub">Traduit · Route · Remonte · Escalade</div>
+      </div>
+      <div class="orch-arrow">↕<span>Tasks / Results</span></div>
+      <div class="clusters-row">
+        <div class="cl-box analyst">
+          <div class="cl-label">Cluster 1</div>
+          <div class="cl-name">ANALYST</div>
+          <div class="cl-phases">Ph.00 → Ph.03</div>
+        </div>
+        <div class="cl-box producer">
+          <div class="cl-label">Cluster 2</div>
+          <div class="cl-name">PRODUCER</div>
+          <div class="cl-phases">Ph.04 → Ph.06</div>
+        </div>
+        <div class="cl-box correcteur">
+          <div class="cl-label">Cluster 3</div>
+          <div class="cl-name">CORRECTEUR</div>
+          <div class="cl-phases">Ph.07 → Ph.09</div>
+        </div>
+        <div class="cl-box publisher">
+          <div class="cl-label">Cluster 4</div>
+          <div class="cl-name">PUBLISHER</div>
+          <div class="cl-phases">Ph.10 → Ph.12</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hl hl-orange">
+    <strong>Règle Manager :</strong> Le Manager ne rédige jamais. Il coordonne uniquement. Si un agent échoue 2× la boucle correction → escalade vers toi obligatoire.
+  </div>
+</section>
+
+<!-- MACHINE D'ÉTAT -->
+<section id="machine-etat">
+  <h2 class="sec-title">Machine d'État — 15 Statuts <span class="src src-f">Fusion+</span></h2>
+  <p class="sec-lead">Chaque article dans orchestrateur-gaming.py porte un statut précis. Aucun article ne saute de statut.</p>
+  <div class="st-table">
+    <div class="st-row hd">
+      <div class="st-cell">Statut</div>
+      <div class="st-cell">Description</div>
+    </div>
+    <div class="st-row"><div class="st-cell"><span class="sts planned">PLANNED</span></div><div class="st-cell">Jeu identifié, pas encore scouted</div></div>
+    <div class="st-row"><div class="st-cell"><span class="sts active">SCOUTING</span></div><div class="st-cell">SCOUT gaming en cours (jeu actif + CGU store)</div></div>
+    <div class="st-row"><div class="st-cell"><span class="sts fail">SCOUT_FAIL</span></div><div class="st-cell">Jeu éliminé (fin de vie / CGU ko / CPI insuffisant)</div></div>
+    <div class="st-row"><div class="st-cell"><span class="sts cp">ROI_GATE</span></div><div class="st-cell">En attente validation CPI rate × conv rate</div></div>
+    <div class="st-row"><div class="st-cell"><span class="sts cp">AWAITING_C0</span></div><div class="st-cell">En attente de ta validation C0</div></div>
+    <div class="st-row"><div class="st-cell"><span class="sts active">BRIEFING</span></div><div class="st-cell">Ph.00→03 en cours (brief + titres + research)</div></div>
+    <div class="st-row"><div class="st-cell"><span class="sts cp">AWAITING_C1</span></div><div class="st-cell">En attente de ta validation C1 (brief + H1)</div></div>
+    <div class="st-row"><div class="st-cell"><span class="sts active">WRITING</span></div><div class="st-cell">Ph.04→06 en cours (rédaction + CTAs + images)</div></div>
+    <div class="st-row"><div class="st-cell"><span class="sts cp">AWAITING_C2</span></div><div class="st-cell">En attente validation C2 draft (optionnel)</div></div>
+    <div class="st-row"><div class="st-cell"><span class="sts active">REVIEWING</span></div><div class="st-cell">Ph.07→09 en cours (Alex Mercer + Victor Kane + SEO)</div></div>
+    <div class="st-row"><div class="st-cell"><span class="sts fail">REVIEW_FAIL</span></div><div class="st-cell">Victor Kane renvoi ❌ · en boucle correction (max 2 iter)</div></div>
+    <div class="st-row"><div class="st-cell"><span class="sts cp">AWAITING_C3</span></div><div class="st-cell">En attente de ton GO final C3</div></div>
+    <div class="st-row"><div class="st-cell"><span class="sts active">PUBLISHING</span></div><div class="st-cell">Ph.10 en cours · INSERT D1 via wrangler</div></div>
+    <div class="st-row"><div class="st-cell"><span class="sts live">LIVE</span></div><div class="st-cell">Article publié · published=1 en D1</div></div>
+    <div class="st-row"><div class="st-cell"><span class="sts pause">MONITORING</span></div><div class="st-cell">Ph.11→12 · J+7/J+14 · Ads CPI actives</div></div>
+  </div>
+</section>
+
+<!-- BOUCLE CORRECTION -->
+<section id="correction">
+  <h2 class="sec-title">Boucle Correction Interne — Max 2 Itérations <span class="src src-f">Fusion+</span></h2>
+  <p class="sec-lead">Victor Kane rend un verdict binaire. Si ❌, le Manager déclenche la boucle. Au-delà de 2 itérations → escalade obligatoire vers toi.</p>
+  <div class="loop-box">
+    <h4>Boucle correction gaming</h4>
+    <div class="loop-flow">
+      <div class="loop-step ls-fail">Victor Kane ❌</div>
+      <div class="loop-arr">→</div>
+      <div class="loop-step ls-mgr">Manager · Diagnostic</div>
+      <div class="loop-arr">→</div>
+      <div class="loop-step ls-prod">Rédacteur (Ph.04)</div>
+      <div class="loop-arr">→</div>
+      <div class="loop-step ls-audit">Alex Mercer (Ph.07)</div>
+      <div class="loop-arr">→</div>
+      <div class="loop-step ls-audit">Victor Kane (Ph.07b)</div>
+      <div class="loop-arr">→</div>
+      <div class="loop-step ls-esc">Iter 2 max · sinon Escalade</div>
+    </div>
+  </div>
+  <div class="hl hl-red" style="margin-top:12px;">
+    <strong>Règle absolue :</strong> Si Victor Kane ❌ après 2 itérations → STOP. Manager remonte le rapport d'échec. Tu décides : modifier le brief ou abandonner l'article.
+  </div>
+</section>
+
+<!-- SCOUT GAMING -->
+<section id="scout">
+  <h2 class="sec-title">SCOUT Gaming — Jeu Actif + CGU Store <span class="src src-g">Gaming</span></h2>
+  <p class="sec-lead">8 critères scorés. Seuil minimum : 60/100. Tout jeu en dessous → SCOUT_FAIL, pas de rédaction.</p>
+
+  <div class="sc-grid">
+    <div class="sc-card a">
+      <div class="sc-pts">20 pts</div>
+      <div class="sc-name">Jeu actif ≥ 6 mois</div>
+      <div class="sc-desc">Lancé officiellement depuis ≥ 6 mois. Évite les soft-launch instables.</div>
+    </div>
+    <div class="sc-card b">
+      <div class="sc-pts">20 pts</div>
+      <div class="sc-name">Dernière update &lt; 60 jours</div>
+      <div class="sc-desc">Développement actif. Pas de jeu abandonné par l'éditeur.</div>
+    </div>
+    <div class="sc-card c">
+      <div class="sc-pts">15 pts</div>
+      <div class="sc-name">Pas d'annonce shutdown</div>
+      <div class="sc-desc">Aucune annonce de fermeture dans les 90 derniers jours.</div>
+    </div>
+    <div class="sc-card d">
+      <div class="sc-pts">15 pts</div>
+      <div class="sc-name">CGU store valides</div>
+      <div class="sc-desc">Google Play + App Store : CGU paid traffic acceptées. Pas de ban/retrait.</div>
+    </div>
+    <div class="sc-card e">
+      <div class="sc-pts">15 pts</div>
+      <div class="sc-name">CPI rate ≥ $22/install</div>
+      <div class="sc-desc">Taux CPI réseau vérifié. En dessous → marge insuffisante.</div>
+    </div>
+    <div class="sc-card f">
+      <div class="sc-pts">10 pts</div>
+      <div class="sc-name">Reviews store ≥ 4.0/5</div>
+      <div class="sc-desc">Note Google Play ou App Store. Rétention signal qualité.</div>
+    </div>
+    <div class="sc-card g">
+      <div class="sc-pts">5 pts</div>
+      <div class="sc-name">Communauté active</div>
+      <div class="sc-desc">Reddit / Discord actif. Signal de requêtes organiques durables.</div>
+    </div>
+  </div>
+
+  <div class="tw" style="margin-top:16px;">
+    <table>
+      <thead><tr><th>Score</th><th>Décision</th></tr></thead>
+      <tbody>
+        <tr><td><span class="pass">80-100 pts</span></td><td>GO → ROI Gate</td></tr>
+        <tr><td><span class="warn-c">60-79 pts</span></td><td>GO conditionnel → surveiller jeu + retester J+30</td></tr>
+        <tr><td><span class="fail">0-59 pts</span></td><td>SCOUT_FAIL → pas de rédaction</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ROI GATE -->
+<section id="roi">
+  <h2 class="sec-title">ROI Gate CPI — Hard Stop <span class="src src-g">Gaming</span></h2>
+  <p class="sec-lead">La marge est calculée avant la rédaction. Si la formule est négative → on s'arrête, peu importe le potentiel SEO du mot-clé.</p>
+  <div class="rb">
+    <pre>FORMULE ROI GAMING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CPI rate × conv rate > CPC × 1000   ← CONDITION PRINCIPALE
+
+Exemple :
+  CPI rate  = $28 (NTE)
+  Conv rate = 3%  (estimé sur cold traffic gaming)
+  CPC       = $0.45
+
+  $28 × 0.03 = $0.84 par clic
+  $0.45 × 1  = $0.45 par clic (CPC)
+
+  Marge brute = $0.84 - $0.45 = +$0.39/clic ✅ GO
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+GATE BUDGET NEWS (event CPI uniquement)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Condition d'activation :
+  - Article couvre un event CPI actif (update majeur, collab, nouveau perso)
+  - ROI Gate positif ✅
+  - Budget MAX : €10-30/jour · Meta Ads ou Google UAC
+  - Kill signal : ROAS &lt; 1.5 → pause immédiate
+  - Articles news sans event CPI actif → TOFU organique uniquement (€0)</pre>
+  </div>
+  <div class="hl hl-red" style="margin-top:12px;">
+    <strong>Hard Stop absolu :</strong> Si CPI rate × conv rate &lt; CPC → REVIEW_FAIL forcé. On ne rédige pas pour un jeu non rentable, quelle que soit la demande organique.
+  </div>
+</section>
+
+<!-- SCORE RIGGAMER -->
+<section id="score">
+  <h2 class="sec-title">Score RIGGAMER /10 <span class="src src-g">Gaming</span></h2>
+  <p class="sec-lead">Affiché dans chaque article pilier. Produit par Victor Kane à l'audit. Score visible = signal de confiance pour le lecteur mobile.</p>
+  <div class="score-grid">
+    <div class="score-card">
+      <div class="score-pts" style="color:var(--red);">/2</div>
+      <div class="score-name">Gameplay</div>
+      <div class="score-desc">Profondeur · variété · boucle de jeu</div>
+    </div>
+    <div class="score-card">
+      <div class="score-pts" style="color:var(--orange);">/2</div>
+      <div class="score-name">F2P Friendly</div>
+      <div class="score-desc">Progression sans payer · generosity</div>
+    </div>
+    <div class="score-card">
+      <div class="score-pts" style="color:var(--yellow);">/2</div>
+      <div class="score-name">Monétisation</div>
+      <div class="score-desc">P2W ratio · prix packs · fairness</div>
+    </div>
+    <div class="score-card">
+      <div class="score-pts" style="color:var(--green);">/2</div>
+      <div class="score-name">Progression</div>
+      <div class="score-desc">Rythme · endgame · replayability</div>
+    </div>
+    <div class="score-card">
+      <div class="score-pts" style="color:var(--blue);">/1</div>
+      <div class="score-name">Stabilité</div>
+      <div class="score-desc">Bugs · serveurs · performances</div>
+    </div>
+    <div class="score-card">
+      <div class="score-pts" style="color:var(--purple);">/1</div>
+      <div class="score-name">Communauté</div>
+      <div class="score-desc">Activité Reddit · Discord · support</div>
+    </div>
+  </div>
+  <div class="hl hl-yellow" style="margin-top:14px;">
+    <strong>Gate Victor Kane :</strong> Si Score RIGGAMER &lt; 5/10 → article renvoyé. Un jeu médiocre ne vaut pas la rédaction même si le CPI est élevé (rétention faible = conv rate effondré).
+  </div>
+</section>
+
+<!-- TYPES D'ARTICLES -->
+<section id="types">
+  <h2 class="sec-title">4 Types d'Articles Gaming <span class="src src-g">Gaming</span></h2>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Type</th><th>Mots</th><th>Rôle Funnel</th><th>Agent Expert Titres</th><th>CTA Principal</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:#fff;">Pilier Review</strong></td>
+          <td>2000-3000w</td>
+          <td>BOFU · décision download</td>
+          <td>Dédié jeu (ex: Kai Voss)</td>
+          <td>/play/[slug] — Download Now</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff;">Satellite Guide</strong></td>
+          <td>1500-2500w</td>
+          <td>MOFU · engagement</td>
+          <td>Dédié jeu (ex: Kai Voss)</td>
+          <td>→ Pilier review · /play/</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff;">News</strong></td>
+          <td>400-700w</td>
+          <td>TOFU · circuit court</td>
+          <td>Dédié jeu</td>
+          <td>→ Pilier review · /play/</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff;">Setup Hardware</strong></td>
+          <td>1000-2000w</td>
+          <td>MOFU · display ads</td>
+          <td>Benchmarker</td>
+          <td>Liens affiliation hardware</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="hl hl-blue" style="margin-top:12px;">
+    <strong>Note NEWS :</strong> Même si 400-700w, les News passent par les 5 agents complets (y compris Alex Mercer + Victor Kane). Pas de circuit court.
+  </div>
+</section>
+
+<!-- CHECKPOINTS -->
+<section id="cp0">
+  <h2 class="sec-title">4 Checkpoints — C0 → C3</h2>
+
+  <div class="cp" id="cp0">
+    <div class="cp-badge">C0 — Validation SCOUT</div>
+    <div class="cp-title">Approbation du jeu avant toute rédaction</div>
+    <div class="cp-sub">Manager présente le rapport SCOUT gaming + ROI Gate. Tu valides ou stops.</div>
+    <div class="cp-grid">
+      <div class="cp-q">Score SCOUT ≥ 60/100 ?</div>
+      <div class="cp-q">ROI Gate positif (CPI×conv > CPC) ?</div>
+      <div class="cp-q">Jeu actif ≥ 6 mois + update &lt; 60j ?</div>
+      <div class="cp-q">CGU Google Play + App Store valides ?</div>
+    </div>
+    <div class="cp-actions">
+      <span class="cp-go">✓ GO → Ph.00 BRIEFING</span>
+      <span class="cp-stop">✗ STOP → SCOUT_FAIL</span>
+    </div>
+  </div>
+
+  <div class="cp" id="cp1">
+    <div class="cp-badge">C1 — Brief + Titre</div>
+    <div class="cp-title">Validation du H1 et de la structure avant rédaction</div>
+    <div class="cp-sub">Manager présente H1 validé + H2s + angle éditorial + Score RIGGAMER provisoire.</div>
+    <div class="cp-grid">
+      <div class="cp-q">H1 ≤ 65 chars · inclut année ou "review" · mot-clé présent ?</div>
+      <div class="cp-q">H2s couvrent Gameplay + F2P + Monét + Progress ?</div>
+      <div class="cp-q">Angle éditorial aligné avec voix rédacteur dédié ?</div>
+      <div class="cp-q">Score RIGGAMER provisoire ≥ 6/10 ?</div>
+    </div>
+    <div class="cp-actions">
+      <span class="cp-go">✓ GO → Ph.04 WRITING</span>
+      <span class="cp-stop">✗ STOP → Re-brief</span>
+    </div>
+  </div>
+
+  <div class="cp" id="cp2">
+    <div class="cp-badge">C2 — Draft V1 (Optionnel)</div>
+    <div class="cp-title">Lecture rapide du draft avant correction</div>
+    <div class="cp-sub">Optionnel. Activer si article pilier &gt; 2500w ou jeu nouveau cluster. Sinon → go direct Ph.07.</div>
+    <div class="cp-grid">
+      <div class="cp-q">CTA /play/[slug] visible sans scroll mobile ?</div>
+      <div class="cp-q">Body respecte la structure H2s validés en C1 ?</div>
+    </div>
+    <div class="cp-actions">
+      <span class="cp-go">✓ GO → Ph.07 REVIEWING</span>
+      <span class="cp-opt">⟳ AJUST → Rédacteur</span>
+      <span class="cp-stop">✗ STOP → Re-rédaction</span>
+    </div>
+  </div>
+
+  <div class="cp" id="cp3">
+    <div class="cp-badge">C3 — Approbation Finale</div>
+    <div class="cp-title">GO pour insertion D1 et mise en ligne</div>
+    <div class="cp-sub">Manager présente le livrable complet : body + images + schema JSON-LD + commande SQL.</div>
+    <div class="cp-grid">
+      <div class="cp-q">Victor Kane 12/12 ✅ · Score RIGGAMER ≥ 6/10 ?</div>
+      <div class="cp-q">Expert SEO ≥ 85/100 · schema JSON-LD GameReview ?</div>
+      <div class="cp-q">Images in-game validées (cover + 3 screenshots) ?</div>
+      <div class="cp-q">Commande wrangler SQL prête à copier-coller ?</div>
+    </div>
+    <div class="cp-actions">
+      <span class="cp-go">✓ GO → Ph.10 D1 INSERT</span>
+      <span class="cp-stop">✗ STOP → Escalade Manager</span>
+    </div>
+  </div>
+</section>
+
+<!-- CLUSTER ANALYST -->
+<section id="analyst">
+  <h2 class="sec-title">Cluster ANALYST — Phases 00 → 03 <span class="src src-v">Phases</span></h2>
+
+  <div class="card open">
+    <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="cnum cn-blue">Ph.00</span>
+      <div class="card-title"><h3>Qualification ROI Gaming</h3><p>Vérification CPI + conv rate + score SCOUT</p></div>
+      <span class="cbadge cb-stop">GATE</span>
+      <span class="toggle">›</span>
+    </div>
+    <div class="card-body">
+      <ul class="sl">
+        <li><strong>Input :</strong> Nom du jeu cible</li>
+        <li>Vérifier CPI rate actuel sur réseau affiliation (Admitad / Impact / direct éditeur)</li>
+        <li>Estimer conv rate cold traffic gaming (benchmark : 2-4%)</li>
+        <li>Appliquer formule ROI Gate : CPI × conv > CPC × 1000</li>
+        <li>Scorer SCOUT 7 critères (/100)</li>
+        <li class="stop">Si score &lt; 60 ou ROI négatif → SCOUT_FAIL · stop immédiat</li>
+        <li class="ok"><strong>Output :</strong> Rapport SCOUT + ROI Gate + recommandation GO/STOP pour C0</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="cnum cn-blue">Ph.01</span>
+      <div class="card-title"><h3>Brief Gaming V1</h3><p>Type article · angle · mots-clés · structure cible</p></div>
+      <span class="cbadge cb-auto">AUTO</span>
+      <span class="toggle">›</span>
+    </div>
+    <div class="card-body">
+      <ul class="sl">
+        <li><strong>Input :</strong> Type (pilier / satellite / news / setup) · jeu cible · cluster</li>
+        <li>Définir angle éditorial (ex: "NTE worth playing for F2P players?")</li>
+        <li>Sélectionner mots-clés principaux + secondaires (recherche gaming)</li>
+        <li>Identifier rédacteur dédié (ex: Ash Reeves pour NTE)</li>
+        <li>Vérifier articles existants du cluster (anti-cannibalisation)</li>
+        <li>Identifier maillage prévu : vers quel pilier / depuis quels satellites</li>
+        <li class="ok"><strong>Output :</strong> Brief V1 structuré · angle · persona lecteur (joueur mobile F2P)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="cnum cn-orange">Ph.02</span>
+      <div class="card-title"><h3>Expert Titres — H1 + H2s</h3><p>Agent dédié par jeu · validation structure complète</p></div>
+      <span class="cbadge cb-auto">AUTO</span>
+      <span class="toggle">›</span>
+    </div>
+    <div class="card-body">
+      <ul class="sl">
+        <li><strong>Input :</strong> Brief V1 + fiche Expert Titres (ex: Kai Voss) + Bloc Injection</li>
+        <li>Produire H1 : ≤ 65 chars · inclut année ou "review" · mot-clé · pas de clickbait</li>
+        <li>Produire liste H2 complets (couvrir Gameplay / F2P / Monét / Progression / Score)</li>
+        <li>Valider Score RIGGAMER provisoire /10 (données connues)</li>
+        <li class="warn">H1 ≠ Meta title ≠ Titre natif (3 titres distincts obligatoires)</li>
+        <li class="ok"><strong>Output :</strong> H1 validé + liste H2 + Score RIGGAMER provisoire → C1</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="cnum cn-cyan">Ph.03</span>
+      <div class="card-title"><h3>Research Gaming</h3><p>Données jeu · patches récents · meta communauté</p></div>
+      <span class="cbadge cb-auto">AUTO</span>
+      <span class="toggle">›</span>
+    </div>
+    <div class="card-body">
+      <ul class="sl">
+        <li>Vérifier patch notes récents (dernière update)</li>
+        <li>Lire Reddit r/[jeu] : hot topics · complaints · tier lists récentes</li>
+        <li>Vérifier pricing packs in-game actuels (capturés le jour même)</li>
+        <li>Identifier 3+ faits chiffrés (nb joueurs / revenue / note store / temps de jeu moyen)</li>
+        <li>Collecter 2+ citations communauté authentiques (Reddit/Discord)</li>
+        <li class="ok"><strong>Output :</strong> Dossier research structuré → brief enrichi pour rédacteur</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CLUSTER PRODUCER -->
+<section id="producer">
+  <h2 class="sec-title">Cluster PRODUCER — Phases 04 → 06 <span class="src src-v">Phases</span></h2>
+
+  <div class="card open">
+    <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="cnum cn-green">Ph.04</span>
+      <div class="card-title"><h3>Rédaction Gaming</h3><p>Agent Rédacteur dédié · voix gaming · CTAs CPI</p></div>
+      <span class="cbadge cb-auto">AUTO</span>
+      <span class="toggle">›</span>
+    </div>
+    <div class="card-body">
+      <ul class="sl">
+        <li><strong>Input :</strong> Brief enrichi + H1/H2s validés + dossier research + fiche Rédacteur + Bloc Injection</li>
+        <li>Rédiger selon longueur type : pilier 2000-3000w · satellite 1500-2500w · news 400-700w</li>
+        <li>CTA /play/[slug] placé AU-DESSUS du fold (mobile 375px) et après chaque H2 majeur</li>
+        <li>Hook &lt; 3 phrases · pas de Hn dans intro/conclusion</li>
+        <li>Flesch ≥ 50 · paragraphes ≤ 4 lignes · phrases ≤ 25 mots</li>
+        <li>Intégrer Score RIGGAMER /10 sous forme visuelle (tableau HTML)</li>
+        <li>Injecter 2+ citations communauté du dossier research</li>
+        <li class="warn">Mots interdits vérifiés (liste Bloc Injection)</li>
+        <li class="ok"><strong>Output :</strong> Body HTML complet avec CTAs + Score RIGGAMER + placeholders images</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="cnum cn-red">Ph.05</span>
+      <div class="card-title"><h3>CTAs + Liens CPI</h3><p>Audit placement · densité · /play/[slug]</p></div>
+      <span class="cbadge cb-gate">GATE</span>
+      <span class="toggle">›</span>
+    </div>
+    <div class="card-body">
+      <ul class="sl">
+        <li>Vérifier /play/[slug] visible sans scroll mobile (375px)</li>
+        <li>Densité CTAs : 1 par H2 majeur · max 5 total</li>
+        <li>Texte CTA : "Download [Jeu] Free" ou "Play [Jeu] Now" (jamais générique)</li>
+        <li>Disclosure affilié présent et visible</li>
+        <li>Vérifier liens maillage (max 3) : Satellite→Pilier obligatoire</li>
+        <li class="stop">Pas de lien store direct (Google Play / App Store) — uniquement /play/[slug]</li>
+        <li class="ok"><strong>Output :</strong> Body final avec CTAs validés · prêt pour images</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="cnum cn-pink">Ph.06</span>
+      <div class="card-title"><h3>Images In-Game + Cover</h3><p>Captures gameplay · score visuel · attente validation</p></div>
+      <span class="cbadge cb-stop">VALIDATION</span>
+      <span class="toggle">›</span>
+    </div>
+    <div class="card-body">
+      <ul class="sl">
+        <li><strong>Cover :</strong> WebP 1200×630 · nom : [slug]-keyart.webp → /media/</li>
+        <li><strong>Screenshots :</strong> 3 captures in-game par article pilier (combat · open world · UI monétisation)</li>
+        <li>Format : WebP · max 150kb/image · alt text descriptif</li>
+        <li>Nommage : [slug]-[description].webp (ex: nte-review-combat.webp)</li>
+        <li>Injecter dans body aux placeholders H2-2 et H2-3</li>
+        <li class="stop">SOUMETTRE à M. Abdelrahim pour validation · ATTENDRE go avant injection D1</li>
+        <li class="warn">Ne pas insérer en D1 sans images validées — erreur précédente NTE</li>
+        <li class="ok"><strong>Output :</strong> Liste images à valider · chemin /media/ · injection body prête</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CLUSTER CORRECTEUR -->
+<section id="correcteur">
+  <h2 class="sec-title">Cluster CORRECTEUR — Phases 07 → 09 <span class="src src-v">Phases</span></h2>
+
+  <div class="card open">
+    <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="cnum cn-purple">Ph.07</span>
+      <div class="card-title"><h3>Alex Mercer — Anti-IA + Voix Communauté</h3><p>Passe 1 désIA · Passe 2 injection gaming authentique</p></div>
+      <span class="cbadge cb-auto">AUTO</span>
+      <span class="toggle">›</span>
+    </div>
+    <div class="card-body">
+      <ul class="sl">
+        <li><strong>Passe 1 — Anti-IA :</strong> Détecter et corriger ≥ 3 marqueurs IA (phrases trop lisses, structure prévisible, transitions génériques)</li>
+        <li><strong>Passe 2 — Voix Communauté :</strong> Injecter ≥ 3 expressions authentiques gaming (forum, Reddit, player slang)</li>
+        <li>Vérifier que les mots interdits (Bloc Injection) sont absents</li>
+        <li>Maintenir la voix du rédacteur dédié (ne pas homogénéiser)</li>
+        <li class="ok"><strong>Output :</strong> Body humanisé · rapport corrections (nb marqueurs IA corrigés + injections communauté)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="cnum cn-red">Ph.07b</span>
+      <div class="card-title"><h3>Victor Kane — Audit 12 Points</h3><p>Score RIGGAMER final · verdict binaire GO/RENVOI</p></div>
+      <span class="cbadge cb-gate">GATE</span>
+      <span class="toggle">›</span>
+    </div>
+    <div class="card-body">
+      <ul class="sl">
+        <li>Audit 12 points : H1 ✓ · H2s ✓ · Intro ✓ · Conclusion ✓ · CTAs ✓ · Score /10 ✓ · Maillage ✓ · Images ✓ · Disclosure ✓ · Flesch ✓ · Mots interdits ✓ · Données vérifiées ✓</li>
+        <li>Calculer Score RIGGAMER /10 définitif</li>
+        <li class="stop">Si Score &lt; 5/10 → RENVOI automatique (boucle correction)</li>
+        <li class="stop">Si &lt; 11/12 points → RENVOI avec rapport précis</li>
+        <li class="ok">Si 12/12 + Score ≥ 6/10 → Validé ✅ → Ph.08</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="cnum cn-blue">Ph.08</span>
+      <div class="card-title"><h3>Expert SEO — Schema + llms.txt + Technique</h3><p>JSON-LD GameReview · meta tags · score technique</p></div>
+      <span class="cbadge cb-auto">AUTO</span>
+      <span class="toggle">›</span>
+    </div>
+    <div class="card-body">
+      <ul class="sl">
+        <li>Générer Schema JSON-LD type <code class="ic">GameReview</code> avec ratingValue (Score RIGGAMER) + reviewBody</li>
+        <li>Meta title ≤ 60 chars · meta description ≤ 155 chars</li>
+        <li>Vérifier OG tags (og:title · og:image → cover WebP)</li>
+        <li>Mettre à jour llms.txt (entrée article + mots-clés principaux)</li>
+        <li>Score technique SEO cible : ≥ 85/100</li>
+        <li class="ok"><strong>Output :</strong> Schema JSON-LD prêt · meta tags · score SEO · body final complet → C3</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CLUSTER PUBLISHER -->
+<section id="publisher">
+  <h2 class="sec-title">Cluster PUBLISHER — Phases 10 → 12 <span class="src src-v">Phases</span></h2>
+
+  <div class="card open">
+    <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="cnum cn-orange">Ph.10</span>
+      <div class="card-title"><h3>Publication D1 — INSERT SQL via Wrangler</h3><p>Après go C3 explicite uniquement</p></div>
+      <span class="cbadge cb-stop">GO REQUIS</span>
+      <span class="toggle">›</span>
+    </div>
+    <div class="card-body">
+      <ul class="sl">
+        <li class="stop">ATTENDRE go explicite C3 de M. Abdelrahim avant toute exécution</li>
+        <li>Construire commande SQL INSERT complète (slug · title · body · img · game · published=1)</li>
+        <li>Vérifier champ <code class="ic">img</code> = chemin image validée (ex: /media/nte-review-keyart-v2.webp)</li>
+        <li>Exécuter : <code class="ic">npx wrangler d1 execute riggamer-db --remote --command "INSERT INTO articles..."</code></li>
+        <li>Vérifier publication : requête SELECT slug + published depuis D1</li>
+        <li class="warn">JAMAIS de push GitHub sans go explicite séparé</li>
+        <li class="ok"><strong>Output :</strong> Article LIVE en D1 · statut → LIVE</li>
+      </ul>
+      <div class="rb">
+        <pre>-- Template INSERT D1 RIGGAMER
+INSERT INTO articles (
+  slug, title, body, excerpt, img,
+  game, type, author, published, created_at
+) VALUES (
+  '[slug]',
+  '[H1 validé]',
+  '[body HTML complet avec schema JSON-LD]',
+  '[excerpt 155 chars max]',
+  '/media/[slug]-keyart.webp',
+  '[nom jeu]',
+  '[review|guide|news|setup]',
+  '[nom rédacteur]',
+  1,
+  datetime('now')
+);</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="cnum cn-teal">Ph.11</span>
+      <div class="card-title"><h3>Monitoring J+7 / J+14</h3><p>GSC · Plausible · CTR · positions</p></div>
+      <span class="cbadge cb-auto">AUTO</span>
+      <span class="toggle">›</span>
+    </div>
+    <div class="card-body">
+      <ul class="sl">
+        <li>J+7 : vérifier indexation GSC · impressions · CTR initial</li>
+        <li>J+14 : positions mots-clés cibles · clics organiques · conversions /play/[slug]</li>
+        <li>Plausible : sessions · bounce rate · scroll depth mobile</li>
+        <li>Si CTR &lt; 2% → optimiser meta title · si conv &lt; 2% → revoir CTA placement</li>
+        <li class="ok"><strong>Output :</strong> Rapport monitoring · statut → MONITORING</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="cnum cn-yellow">Ph.12</span>
+      <div class="card-title"><h3>Ads CPI + P&L Gaming</h3><p>Activation budget si event CPI · suivi ROAS</p></div>
+      <span class="cbadge cb-gate">GATE CPI</span>
+      <span class="toggle">›</span>
+    </div>
+    <div class="card-body">
+      <ul class="sl">
+        <li>Condition budget : article couvre event CPI actif + ROI Gate positif</li>
+        <li>Budget max : €10-30/jour · Meta Ads (1:1 ou 4:5 mobile) ou Google UAC</li>
+        <li>Hook vidéo &lt; 3s si format vidéo</li>
+        <li>Kill signal : ROAS &lt; 1.5 → pause immédiate (cf. Cours 7 M. Abdelrahim)</li>
+        <li>P&L mensuel : revenus CPI + display vs dépenses ads + coût production</li>
+        <li>Scaling : +20% max/semaine si ROAS &gt; 2:1</li>
+        <li class="ok"><strong>Output :</strong> P&L gaming · recommandation scale / pause / kill</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MAILLAGE GAMING -->
+<section id="maillage">
+  <h2 class="sec-title">Maillage Gaming — Règles Spécifiques <span class="src src-g">Gaming</span></h2>
+  <p class="sec-lead">1 différence majeure vs Virdico : le cross-cluster Pilier→Pilier est autorisé en gaming (max 1-2 liens).</p>
+
+  <div class="ml-list">
+    <div class="ml-row ml-ok">
+      <span class="tag tg">OK</span>
+      <span style="color:var(--txt2);">Satellite → Pilier (même cluster) — <strong style="color:#fff;">OBLIGATOIRE</strong></span>
+    </div>
+    <div class="ml-row ml-ok">
+      <span class="tag tg">OK</span>
+      <span style="color:var(--txt2);">Satellite → Satellite (même cluster) — max 3 liens · ancres variées</span>
+    </div>
+    <div class="ml-row ml-special">
+      <span class="tag to">GAMING</span>
+      <span style="color:var(--txt2);">Pilier → Pilier connexe (cross-cluster) — <strong style="color:#fff;">max 1-2 liens uniquement</strong> · ex: NTE → Arknights EF · ex: FPS Mobile → Enlisted</span>
+    </div>
+    <div class="ml-row ml-no">
+      <span class="tag tr">INTERDIT</span>
+      <span style="color:var(--txt2);">Pilier → Satellite (même cluster) — JAMAIS</span>
+    </div>
+    <div class="ml-row ml-no">
+      <span class="tag tr">INTERDIT</span>
+      <span style="color:var(--txt2);">Plus de 3 liens internes par article</span>
+    </div>
+    <div class="ml-row ml-no">
+      <span class="tag tr">INTERDIT</span>
+      <span style="color:var(--txt2);">Lien store direct (Google Play / App Store) — uniquement /play/[slug]</span>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS BUDGET -->
+<section id="news-budget">
+  <h2 class="sec-title">News — Budget CPI Event <span class="src src-g">Gaming</span></h2>
+  <p class="sec-lead">Les news ne sont pas des articles courts gratuits. Ils passent par les 5 agents et peuvent porter un budget ads si l'event CPI est actif.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Scénario News</th><th>Pipeline</th><th>Budget</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:#fff;">News standard</strong><br>(maj mineure, patch notes)</td>
+          <td>5 agents complets</td>
+          <td><span class="tag tt">€0 · TOFU organique</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff;">News event CPI</strong><br>(collab, nouveau perso, update majeur)</td>
+          <td>5 agents complets</td>
+          <td><span class="tag to">€10-30/j · Meta ou UAC</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff;">Gate activation budget</strong></td>
+          <td colspan="2">CPI actif sur le réseau + ROI Gate positif + ROAS kill &lt; 1.5</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PUBLICATION D1 -->
+<section id="d1-pub">
+  <h2 class="sec-title">Publication D1 — Cloudflare Wrangler <span class="src src-g">Gaming</span></h2>
+  <p class="sec-lead">Pas de MDX. Pas de GitHub. Tout passe par D1 SQL via wrangler. Jamais exécuté avant go C3 explicite.</p>
+  <div class="rb">
+    <pre># Vérifier article en D1 (avant insertion)
+npx wrangler d1 execute riggamer-db --remote \
+  --command "SELECT slug, published, img FROM articles WHERE slug = '[slug]'"
+
+# Insérer article complet (après go C3)
+npx wrangler d1 execute riggamer-db --remote \
+  --command "INSERT INTO articles (slug,title,body,excerpt,img,game,type,author,published,created_at) VALUES ('[slug]','[titre]','[body]','[excerpt]','/media/[img].webp','[jeu]','[type]','[auteur]',1,datetime('now'))"
+
+# Mettre à jour img si erreur (ex: NTE correction)
+npx wrangler d1 execute riggamer-db --remote \
+  --command "UPDATE articles SET img='/media/nte-review-keyart-v2.webp' WHERE slug='neverness-to-everness-worth-playing'"
+
+# Vérifier publication live
+npx wrangler d1 execute riggamer-db --remote \
+  --command "SELECT slug, title, published, img FROM articles ORDER BY created_at DESC LIMIT 5"</pre>
+  </div>
+  <div class="hl hl-red" style="margin-top:12px;">
+    <strong>Rappel NTE :</strong> L'erreur précédente (img='/media/nte-review-cover.webp' inexistant + screenshots non injectés) est documentée. Vérifier le champ img AVANT d'exécuter l'INSERT. La commande UPDATE ci-dessus corrige ce cas.
+  </div>
+</section>
+
+<!-- ORCHESTRATEUR -->
+<section id="orchestrateur">
+  <h2 class="sec-title">orchestrateur-gaming.py <span class="src src-g">Gaming</span></h2>
+  <p class="sec-lead">Fichier séparé de orchestrateur.py Virdico. Machine d'état 15 statuts · gestion D1 · pipeline 5 agents · aucune dépendance avec le projet SaaS.</p>
+  <div class="rb">
+    <pre># orchestrateur-gaming.py
+# Localisation : D:\ADARBITRAGE\riggamer\
+# Usage : python orchestrateur-gaming.py
+
+ARTICLES = {
+  "neverness-to-everness-review": {
+    "status": "AWAITING_C3",   # état actuel NTE
+    "jeu": "Neverness to Everness",
+    "type": "review",
+    "expert_titres": "Kai Voss",
+    "redacteur": "Ash Reeves",
+    "cpi_rate": 28,
+    "scout_score": None,
+    "score_riggamer": 8.2,
+    "img": "nte-review-keyart-v2.webp",  # validé
+    "images_validated": False,            # EN ATTENTE
+    "d1_inserted": True,                  # INCOMPLET (img erronée)
+    "d1_needs_fix": True,
+  },
+  # ... 34 autres articles à remplir
+}
+
+STATUTS_VALIDES = [
+  "PLANNED", "SCOUTING", "SCOUT_FAIL", "ROI_GATE",
+  "AWAITING_C0", "BRIEFING", "AWAITING_C1", "WRITING",
+  "AWAITING_C2", "REVIEWING", "REVIEW_FAIL",
+  "AWAITING_C3", "PUBLISHING", "LIVE", "MONITORING"
+]
+
+def next_action(slug):
+    """Retourne la prochaine action pour un article."""
+    art = ARTICLES[slug]
+    s = art["status"]
+    if s == "PLANNED": return "Lancer SCOUT gaming"
+    if s == "SCOUTING": return "Calculer score SCOUT + ROI Gate"
+    if s == "ROI_GATE": return "Présenter rapport → C0"
+    if s == "AWAITING_C0": return "⏳ Attendre go M. Abdelrahim"
+    if s == "BRIEFING": return "Ph.00→03 : brief + titres + research"
+    if s == "AWAITING_C1": return "⏳ Attendre go M. Abdelrahim"
+    if s == "WRITING": return "Ph.04→06 : rédaction + CTAs + images"
+    if s == "AWAITING_C2": return "⏳ Attendre go M. Abdelrahim (optionnel)"
+    if s == "REVIEWING": return "Ph.07→08 : Alex Mercer + Victor Kane + SEO"
+    if s == "REVIEW_FAIL": return "Boucle correction (iter restantes)"
+    if s == "AWAITING_C3": return "⏳ Attendre go M. Abdelrahim"
+    if s == "PUBLISHING": return "INSERT D1 via wrangler"
+    if s == "LIVE": return "Ph.11 monitoring J+7"
+    if s == "MONITORING": return "Ph.12 P&L + ads CPI"
+    return "SCOUT_FAIL → abandonné"</pre>
+  </div>
+  <div class="hl hl-green" style="margin-top:12px;">
+    <strong>Prochaine session :</strong> Créer ce fichier avec les 36 articles de la base D1 initialisés. Priorité : corriger d'abord le statut NTE (images → D1 fix → LIVE).
+  </div>
+</section>
+
+<!-- MOTS INTERDITS -->
+<section id="mots-interdits">
+  <h2 class="sec-title">Mots Universellement Interdits <span class="src src-g">Gaming</span></h2>
+  <div class="fw-wrap">
+    <span class="fw">epic</span>
+    <span class="fw">legendary</span>
+    <span class="fw">insane</span>
+    <span class="fw">crazy</span>
+    <span class="fw">overpowered</span>
+    <span class="fw">game-changing</span>
+    <span class="fw">must-play</span>
+    <span class="fw">addictive</span>
+    <span class="fw">totally free</span>
+    <span class="fw">no pay-to-win (sans preuve)</span>
+    <span class="fw">best game ever</span>
+    <span class="fw">revolutionary</span>
+    <span class="fw">groundbreaking</span>
+    <span class="fw">mindblowing</span>
+    <span class="fw">you won't believe</span>
+    <span class="fw">hidden gem</span>
+  </div>
+</section>
+
+<footer>
+  <p>RIGGAMER · Workflow Gaming V1 · M. Abdelrahim · 27/10/2026</p>
+  <span>orchestrateur-gaming.py · D1 SQL · 5 agents · 11 jeux · CPI $22-35</span>
+</footer>
+
+</main>
+
+<script>
+document.querySelectorAll('.card-header').forEach(h=>{
+  h.addEventListener('click',()=>h.parentElement.classList.toggle('open'));
+});
+document.querySelectorAll('.nav-link').forEach(l=>{
+  l.addEventListener('click',function(){
+    document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
