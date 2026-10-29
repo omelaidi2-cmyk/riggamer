@@ -13,14 +13,17 @@ if (!existsSync(sitemapPath)) {
 
 const src = readFileSync(sitemapPath, 'utf8');
 const fix = src
-  .replace(/\bpages\.reduce\(/g,  '(pages||[]).reduce(')
-  .replace(/\bpages\.map\(/g,     '(pages||[]).map(')
-  .replace(/\bpages\.filter\(/g,  '(pages||[]).filter(')
-  .replace(/\bpages\.forEach\(/g, '(pages||[]).forEach(');
+  .replace(/\bpages\.reduce\(/g,   '(pages||[]).reduce(')
+  .replace(/\bpages\.map\(/g,      '(pages||[]).map(')
+  .replace(/\bpages\.filter\(/g,   '(pages||[]).filter(')
+  .replace(/\bpages\.forEach\(/g,  '(pages||[]).forEach(')
+  .replace(/\b_routes\.reduce\(/g, '(_routes||[]).reduce(')
+  .replace(/\b_routes\.map\(/g,    '(_routes||[]).map(')
+  .replace(/\b_routes\.filter\(/g, '(_routes||[]).filter(');
 
 if (fix !== src) {
   writeFileSync(sitemapPath, fix, 'utf8');
-  console.log('[patch-sitemap] patched @astrojs/sitemap for hybrid mode.');
+  console.log('[patch-sitemap] patched @astrojs/sitemap for hybrid mode (_routes + pages).');
 } else {
   console.log('[patch-sitemap] already patched or not needed.');
 }
