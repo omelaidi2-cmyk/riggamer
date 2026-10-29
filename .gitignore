@@ -6,3 +6,4 @@ dist/
 .DS_Store
 *.log
 .astro/
+# package-lock.json tracked intentionally — pins exact versions for Cloudflare Pages CI

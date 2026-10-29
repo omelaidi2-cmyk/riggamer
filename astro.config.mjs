@@ -1,32 +1,31 @@
 import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import sitemap from '@astrojs/sitemap';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
 
-// Fix @astrojs/sitemap crash in hybrid mode (pages=undefined bug)
-// Runs before any integration hook, cannot be blocked by Cloudflare cache
-try {
-  const f = new URL('./node_modules/@astrojs/sitemap/dist/index.js', import.meta.url);
-  if (existsSync(f)) {
-    const src = readFileSync(f, 'utf8');
-    const fix = src
-      .replace(/\bpages\.reduce\(/g,   '(pages||[]).reduce(')
-      .replace(/\bpages\.map\(/g,      '(pages||[]).map(')
-      .replace(/\bpages\.filter\(/g,   '(pages||[]).filter(')
-      .replace(/\bpages\.forEach\(/g,  '(pages||[]).forEach(')
-      .replace(/\b_routes\.reduce\(/g, '(_routes||[]).reduce(')
-      .replace(/\b_routes\.map\(/g,    '(_routes||[]).map(')
-      .replace(/\b_routes\.filter\(/g, '(_routes||[]).filter(');
-    if (fix !== src) writeFileSync(f, fix, 'utf8');
+// Safe sitemap wrapper — guards against _routes=undefined in hybrid mode on Cloudflare Pages
+// @astrojs/sitemap 3.7.x uses astro:routes:resolved to store _routes, but that hook
+// may not fire in all build environments, leaving _routes undefined at astro:build:done.
+const safeSitemap = () => {
+  const integration = sitemap();
+  const originalHook = integration.hooks?.['astro:build:done'];
+  if (originalHook) {
+    integration.hooks['astro:build:done'] = async (args) => {
+      try {
+        await originalHook(args);
+      } catch (e) {
+        args.logger?.warn(`[sitemap] skipped (hybrid mode): ${e.message}`);
+      }
+    };
   }
-} catch (_) {}
+  return integration;
+};
 
 export default defineConfig({
   output: 'hybrid',
   adapter: cloudflare({
     platformProxy: { enabled: true },
   }),
-  integrations: [sitemap()],
+  integrations: [safeSitemap()],
   site: 'https://riggamer.com',
   compressHTML: true,
   vite: {
