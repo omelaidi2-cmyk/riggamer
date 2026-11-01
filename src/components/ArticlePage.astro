@@ -93,22 +93,22 @@ const tocItems = [
         </div>
       </div>
 
-      <!-- Hero image -->
-      {img && (
-        <div class="rg-hero-full">
-          <div class="rg-frame" style="aspect-ratio:16/9;background:#111;overflow:hidden;">
-            <img src={img} alt={title} loading="eager" fetchpriority="high" decoding="sync"
-              referrerpolicy="no-referrer" width="1280" height="720"
-              style="width:100%;height:100%;object-fit:cover;display:block;" />
-          </div>
-        </div>
-      )}
-
       <!-- Article body -->
       <div class="rg-article-body">
 
         <!-- Main content -->
         <div class="rg-article-main">
+
+          <!-- Hero image — colonne principale uniquement, ne déborde pas dans la sidebar -->
+          {img && (
+            <div class="rg-hero-col">
+              <div class="rg-frame" style="aspect-ratio:16/9;background:#111;overflow:hidden;">
+                <img src={img} alt={title} loading="eager" fetchpriority="high" decoding="sync"
+                  referrerpolicy="no-referrer" width="1280" height="720"
+                  style="width:100%;height:100%;object-fit:cover;display:block;" />
+              </div>
+            </div>
+          )}
 
           <!-- TOC mobile -->
           <div class="rg-toc rg-toc-mobile">
@@ -236,29 +236,21 @@ const tocItems = [
 
         </div><!-- /rg-article-main -->
 
-        <!-- Sidebar -->
+        <!-- Sidebar — zone bannières uniquement, fond transparent -->
         <aside class="rg-article-side">
 
-          <!-- Banner 1 — haut, visible première moitié de scroll -->
-          <div class="rg-side-top">
-            <Banner slug={gameSlug ?? 'nte'} size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt={game ?? 'Game'} />
-          </div>
-
-          <!-- TOC — séparateur central, pousse banner 2 vers le bas -->
-          <div class="rg-side-mid">
-            <div class="rg-toc">
-              <span class="rg-toc-title">CONTENTS</span>
-              <ol>
-                {tocItems.map(item => (
-                  <li><a href={`#${item.id}`}>{item.label}</a></li>
-                ))}
-              </ol>
+          <!-- Slot 1 — sticky première moitié de scroll -->
+          <div class="rg-side-half">
+            <div class="rg-side-sticky">
+              <Banner slug={gameSlug ?? 'nte'} size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt={game ?? 'Game'} />
             </div>
           </div>
 
-          <!-- Banner 2 — bas, visible deuxième moitié de scroll -->
-          <div class="rg-side-bot">
-            <Banner slug={gameSlug ?? 'nte'} size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt={game ?? 'Game'} />
+          <!-- Slot 2 — sticky deuxième moitié de scroll -->
+          <div class="rg-side-half">
+            <div class="rg-side-sticky">
+              <Banner slug={gameSlug ?? 'nte'} size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt={game ?? 'Game'} />
+            </div>
           </div>
 
         </aside>

@@ -1080,8 +1080,8 @@ a{text-decoration:none;color:inherit}
 .rg-chev { color:var(--t4); }
 .rg-bc-current { color:var(--t2); }
 
-/* Hero image full width */
-.rg-hero-full { margin:24px 0 32px; }
+/* Hero image — colonne principale uniquement (même largeur que le texte) */
+.rg-hero-col { margin:0 0 28px; }
 .rg-frame { aspect-ratio:21/9; border:1px solid var(--brd); clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px); overflow:hidden; background:var(--surf1); }
 .rg-frame img { width:100%; height:100%; object-fit:cover; display:block; }
 
@@ -1098,10 +1098,10 @@ a{text-decoration:none;color:inherit}
 /* Article body */
 .rg-article-body { display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:36px; align-items:stretch; }
 .rg-article-main { min-width:0; }
+/* Sidebar — zone bannières uniquement, fond transparent (comme RigPeak) */
 .rg-article-side { position:relative; display:flex; flex-direction:column; gap:0; background:transparent; }
-.rg-side-top { }
-.rg-side-mid { flex:1; padding:28px 0; }
-.rg-side-bot { }
+.rg-side-half { flex:1; position:relative; min-height:280px; }
+.rg-side-sticky { position:sticky; top:84px; }
 
 /* TOC */
 .rg-toc { background:var(--surf1); border:1px solid var(--brd); padding:18px 20px; margin-bottom:32px; }
