@@ -42,7 +42,7 @@ const scoreClass = scoreNum
 
 const isReview = cat === 'reviews';
 
-const tocItems = [
+const genericTocItems = [
   { id: 'feature-1', label: isReview ? 'First Look'              : 'Getting Started'       },
   { id: 'feature-2', label: isReview ? 'Core Gameplay'           : 'Core Mechanics'        },
   { id: 'feature-3', label: isReview ? 'Standout Features'       : 'Advanced Strategy'     },
@@ -51,6 +51,14 @@ const tocItems = [
   { id: 'verdict',   label: isReview ? `Is ${game ?? 'It'} Worth Playing?` : 'Final Verdict' },
   { id: 'cta-final', label: isReview ? `Ready to Try ${game ?? 'It'}?`     : 'Start Now'    },
 ];
+
+// When article has a real body (D1), extract H2 IDs/labels from the HTML
+const bodyTocItems: { id: string; label: string }[] = article.body
+  ? [...article.body.matchAll(/<h2[^>]+id="([^"]+)"[^>]*>([\s\S]*?)<\/h2>/g)]
+      .map(m => ({ id: m[1], label: m[2].replace(/<[^>]+>/g, '').trim() }))
+  : [];
+
+const tocItems = bodyTocItems.length ? bodyTocItems : genericTocItems;
 ---
 
 <Base title={`${title} — RigGamer`} description={excerpt} preloadImg={img}>
@@ -305,7 +313,7 @@ const tocItems = [
   })();
 
   const allTocLinks = Array.from(document.querySelectorAll('.rg-toc a'));
-  const headings    = Array.from(document.querySelectorAll('.rg-prose h2[id], .rg-ready-box h2[id]')) as HTMLElement[];
+  const headings    = Array.from(document.querySelectorAll('.rg-article-main h2[id]')) as HTMLElement[];
 
   if (allTocLinks.length && headings.length) {
     function setActive(id: string) {
