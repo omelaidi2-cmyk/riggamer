@@ -1158,10 +1158,11 @@ a{text-decoration:none;color:inherit}
 .cta-box-label { display:block; font-family:var(--fm); font-size:10.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--volt); margin-bottom:8px; }
 .cta-box-text { font-size:14.5px; color:var(--t2); line-height:1.55; margin:0 0 14px; }
 .cta-box-btns { display:flex; gap:10px; flex-wrap:wrap; }
-.cta-btn { display:inline-flex; align-items:center; background:var(--volt-g); color:#07080b; font-family:var(--fd); font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:.08em; padding:11px 20px; text-decoration:none; cursor:pointer; transition:opacity .15s; border-bottom:none !important; }
-.cta-btn:hover { opacity:.85; color:#07080b; }
-.cta-btn-sec { display:inline-flex; align-items:center; background:transparent; color:var(--volt); border:1px solid rgba(198,255,51,.35); font-family:var(--fm); font-size:11px; text-transform:uppercase; letter-spacing:.08em; padding:11px 18px; text-decoration:none; cursor:pointer; transition:background .15s,border-color .15s; border-bottom:none !important; }
-.cta-btn-sec:hover { background:rgba(198,255,51,.08); border-color:var(--volt); }
+.cta-btn,.rg-article-main .cta-btn,.rg-article-main a.cta-btn { display:inline-flex; align-items:center; background:var(--volt-g); color:#07080b !important; font-family:var(--fd); font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:.08em; padding:11px 20px; text-decoration:none; cursor:pointer; transition:opacity .15s; border-bottom:none !important; }
+.cta-btn:hover,.rg-article-main a.cta-btn:hover { opacity:.85; color:#07080b !important; }
+.cta-btn-sec,.rg-article-main a.cta-btn-sec { display:inline-flex; align-items:center; background:transparent; color:var(--volt) !important; border:1px solid rgba(198,255,51,.35); font-family:var(--fm); font-size:11px; text-transform:uppercase; letter-spacing:.08em; padding:11px 18px; text-decoration:none; cursor:pointer; transition:background .15s,border-color .15s; border-bottom:none !important; }
+.cta-btn-sec:hover,.rg-article-main a.cta-btn-sec:hover { background:rgba(198,255,51,.08); border-color:var(--volt); }
+.cta-box { cursor:pointer; }
 /* End CTA (D1 body) */
 .cta-end { background:linear-gradient(135deg,rgba(198,255,51,.08) 0%,rgba(198,255,51,.03) 100%); border:1px solid rgba(198,255,51,.25); padding:32px 28px; margin:40px 0; text-align:center; }
 .cta-end-title { font-family:var(--fd); font-size:clamp(1.1rem,2.5vw,1.4rem); font-weight:800; color:var(--volt); margin:0 0 10px; text-transform:uppercase; letter-spacing:.02em; }

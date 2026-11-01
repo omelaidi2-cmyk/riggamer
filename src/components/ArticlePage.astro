@@ -319,6 +319,12 @@ const authorInitials = authorName.split(' ').map((n: string) => n[0]).join('').t
     });
   })();
 
+  // Make entire .cta-box clickable via its primary .cta-btn link
+  document.querySelectorAll('.cta-box').forEach(box => {
+    const link = box.querySelector<HTMLAnchorElement>('.cta-btn');
+    if (link) box.addEventListener('click', e => { if ((e.target as Element).closest('a')) return; link.click(); });
+  });
+
   const allTocLinks = Array.from(document.querySelectorAll('.rg-toc a'));
   const headings    = Array.from(document.querySelectorAll('.rg-article-main h2[id]')) as HTMLElement[];
 
