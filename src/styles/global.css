@@ -575,7 +575,7 @@ a{text-decoration:none;color:inherit}
 .card-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(7,8,11,.90) 0%, rgba(7,8,11,.30) 50%, rgba(7,8,11,.10) 100%);
+  background: linear-gradient(to top, rgba(7,8,11,.85) 0%, rgba(7,8,11,.20) 45%, rgba(7,8,11,.05) 100%);
 }
 .card-hero-body {
   position: absolute;
@@ -590,12 +590,12 @@ a{text-decoration:none;color:inherit}
 }
 .card-hero-title {
   font-family: var(--fd);
-  font-size: clamp(20px, 2.5vw, 32px);
+  font-size: clamp(22px, 2.6vw, 34px);
   font-weight: 700;
-  color: var(--t1);
+  color: #ffffff !important;
   line-height: 1.15;
   letter-spacing: -0.02em;
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 .card-hero-byline {
   font-family: var(--fm);
@@ -605,36 +605,35 @@ a{text-decoration:none;color:inherit}
   letter-spacing: 0.05em;
 }
 
-/* Sidebar 3 mini cards */
+/* Sidebar 3 mini cards — style rigpeak */
 .hero-sidebar {
   display: flex;
   flex-direction: column;
   background: transparent;
-  gap: 0;
-  border: 1px solid var(--brd);
-  border-radius: 8px;
-  overflow: hidden;
+  gap: 8px;
 }
 .card-mini {
-  background: var(--surf1);
+  background: #111418;
   display: flex;
-  flex: 1;
+  align-items: center;
   cursor: pointer;
   transition: background 160ms;
   overflow: hidden;
-  min-height: 0;
-  border-bottom: 1px solid var(--brd);
+  border: 1px solid #1e2330;
+  border-radius: 6px;
+  text-decoration: none;
+  flex: 1;
 }
-.card-mini:last-child { border-bottom: none; }
-.card-mini:hover { background: var(--surf2); }
+.card-mini:hover { background: #191d26; }
 .card-mini:hover .card-mini-title { color: var(--volt); }
 .card-mini-thumb {
-  width: 96px;
-  height: 72px;
+  width: 110px;
+  height: 78px;
   flex-shrink: 0;
   overflow: hidden;
   position: relative;
   background: #1a1f28;
+  border-radius: 5px 0 0 5px;
 }
 .card-mini-thumb img {
   position: absolute;
@@ -644,25 +643,26 @@ a{text-decoration:none;color:inherit}
   object-fit: cover;
 }
 .card-mini-body {
-  padding: 10px 14px;
+  padding: 10px 16px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   flex: 1;
   overflow: hidden;
-  gap: 6px;
+  gap: 7px;
 }
 .card-mini-title {
   font-family: var(--fd);
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 700;
-  color: var(--t1);
+  color: #ffffff;
   line-height: 1.35;
   letter-spacing: -0.01em;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  transition: color 160ms;
 }
 .card-mini-foot {
   display: flex;
@@ -671,21 +671,21 @@ a{text-decoration:none;color:inherit}
 }
 .card-mini-cat {
   font-family: var(--fm);
-  font-size: 10px;
+  font-size: 10.5px;
   font-weight: 700;
-  color: var(--t3);
+  color: #6b7280;
   text-transform: uppercase;
   letter-spacing: 0.07em;
 }
 .card-mini-sep {
   font-size: 10px;
-  color: var(--t3);
+  color: #6b7280;
 }
 .card-mini-time {
   font-family: var(--fm);
-  font-size: 10px;
+  font-size: 10.5px;
   font-weight: 600;
-  color: var(--t3);
+  color: #6b7280;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
