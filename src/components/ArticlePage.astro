@@ -59,6 +59,13 @@ const bodyTocItems: { id: string; label: string }[] = article.body
   : [];
 
 const tocItems = bodyTocItems.length ? bodyTocItems : genericTocItems;
+
+// Extract author name from D1 body JSON-LD (fallback: David)
+const bodyAuthorMatch = article.body
+  ? article.body.match(/"@type":\s*"Person",\s*"name":\s*"([^"]+)"/)
+  : null;
+const authorName = bodyAuthorMatch ? bodyAuthorMatch[1] : 'David';
+const authorInitials = authorName.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2);
 ---
 
 <Base title={`${title} — RigGamer`} description={excerpt} preloadImg={img}>
@@ -91,8 +98,8 @@ const tocItems = bodyTocItems.length ? bodyTocItems : genericTocItems;
         <p class="rg-dek">{excerpt}</p>
         <div class="rg-byline">
           <span class="rg-who">
-            <span class="rg-mini-av">D</span>
-            <span>David — RigGamer</span>
+            <span class="rg-mini-av">{authorInitials}</span>
+            <span>{authorName} — RigGamer</span>
           </span>
           <span class="rg-sep">·</span>
           <span>{date}</span>
@@ -234,9 +241,9 @@ const tocItems = bodyTocItems.length ? bodyTocItems : genericTocItems;
 
           <!-- Author bio -->
           <div class="rg-author-end">
-            <div class="rg-author-end-av">D</div>
+            <div class="rg-author-end-av">{authorInitials}</div>
             <div class="rg-author-end-info">
-              <div class="rg-author-end-name">David</div>
+              <div class="rg-author-end-name">{authorName}</div>
               <div class="rg-author-end-role">Editor — RigGamer</div>
               <p class="rg-author-end-bio">Gaming writer at RigGamer. We play, we test — every guide and review is grounded in hands-on time with the game.</p>
             </div>
