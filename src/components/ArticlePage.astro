@@ -72,43 +72,34 @@ const tocItems = [
         <span class="rg-bc-current">{title}</span>
       </nav>
 
-      <!-- ZONE 1 — Hero Split : article head (gauche) + banner 300x250 sticky (droite) -->
-      <div class="rg-hero-split">
-
-        <div class="rg-article-head">
-          <div class="rg-head-tags">
-            <span class={`badge ${badgeCls}`}>{catLabel}</span>
-            {score && <span class={`score-pill ${scoreClass}`}>{score} / 10</span>}
-            {game && <span class="rg-game-tag">{game}</span>}
-          </div>
-          <h1 class="rg-article-h1">{title}</h1>
-          <p class="rg-dek">{excerpt}</p>
-          <div class="rg-byline">
-            <span class="rg-who">
-              <span class="rg-mini-av">D</span>
-              <span>David — RigGamer</span>
-            </span>
-            <span class="rg-sep">·</span>
-            <span>{date}</span>
-            <span class="rg-sep">·</span>
-            <span>{readtime} min read</span>
-          </div>
+      <!-- Article head — pleine largeur -->
+      <div class="rg-article-head">
+        <div class="rg-head-tags">
+          <span class={`badge ${badgeCls}`}>{catLabel}</span>
+          {score && <span class={`score-pill ${scoreClass}`}>{score} / 10</span>}
+          {game && <span class="rg-game-tag">{game}</span>}
         </div>
-
-        <!-- Banner 300x250 sticky — visible above the fold, disparaît au scroll -->
-        <div class="rg-hero-unit">
-          <Banner slug={gameSlug ?? 'nte'} size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt={`${game ?? 'Game'} — Play Free`} />
+        <h1 class="rg-article-h1">{title}</h1>
+        <p class="rg-dek">{excerpt}</p>
+        <div class="rg-byline">
+          <span class="rg-who">
+            <span class="rg-mini-av">D</span>
+            <span>David — RigGamer</span>
+          </span>
+          <span class="rg-sep">·</span>
+          <span>{date}</span>
+          <span class="rg-sep">·</span>
+          <span>{readtime} min read</span>
         </div>
+      </div>
 
-      </div><!-- /rg-hero-split -->
-
-      <!-- ZONE 2 — Article Body : contenu (gauche) + skyscraper sidebar sticky (droite) -->
+      <!-- Grid : contenu (gauche) + sidebar sticky 2 banners (droite) -->
       <div class="rg-article-body">
 
         <!-- Main content -->
         <div class="rg-article-main">
 
-          <!-- Hero image — dans la colonne texte uniquement -->
+          <!-- Cover image — en haut de la colonne texte -->
           {img && (
             <div class="rg-hero-col">
               <div class="rg-frame" style="aspect-ratio:16/9;background:#111;overflow:hidden;">
@@ -245,8 +236,9 @@ const tocItems = [
 
         </div><!-- /rg-article-main -->
 
-        <!-- Sidebar sticky — skyscraper 160x600 + TOC (prend le relais au scroll) -->
+        <!-- Sidebar sticky — 300x250 + skyscraper 160x600 — les deux fixes pendant tout le scroll -->
         <aside class="rg-article-side">
+          <Banner slug={gameSlug ?? 'nte'} size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt={`${game ?? 'Game'} — Play Free`} />
           <Banner slug={gameSlug ?? 'nte'} size="sky" img="/media/nte-sky.gif" imgW={160} imgH={600} alt={`${game ?? 'Game'} — Play Free`} />
           <div class="rg-toc">
             <span class="rg-toc-title">CONTENTS</span>
