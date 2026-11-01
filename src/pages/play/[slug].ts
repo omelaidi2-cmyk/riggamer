@@ -36,5 +36,11 @@ export const GET: APIRoute = ({ params }) => {
   if (!url) {
     return new Response('Not found', { status: 404 });
   }
-  return Response.redirect(url, 302);
+  return new Response(null, {
+    status: 302,
+    headers: {
+      'Location': url,
+      'Cache-Control': 'no-store, no-cache, must-revalidate',
+    },
+  });
 };
