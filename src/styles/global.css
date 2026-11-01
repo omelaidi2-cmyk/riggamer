@@ -610,7 +610,10 @@ a{text-decoration:none;color:inherit}
   display: flex;
   flex-direction: column;
   background: transparent;
-  gap: 12px;
+  gap: 0;
+  border: 1px solid var(--brd);
+  border-radius: 8px;
+  overflow: hidden;
 }
 .card-mini {
   background: var(--surf1);
@@ -620,48 +623,71 @@ a{text-decoration:none;color:inherit}
   transition: background 160ms;
   overflow: hidden;
   min-height: 0;
-  border: 1px solid var(--brd);
-  border-radius: 8px;
+  border-bottom: 1px solid var(--brd);
 }
+.card-mini:last-child { border-bottom: none; }
 .card-mini:hover { background: var(--surf2); }
-.card-mini:hover .card-mini-title { color: var(--volt); transition: color 160ms; }
+.card-mini:hover .card-mini-title { color: var(--volt); }
 .card-mini-thumb {
-  width: 110px;
+  width: 96px;
+  height: 72px;
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-  opacity: 0.5;
   overflow: hidden;
   position: relative;
-  border-radius: 7px 0 0 7px;
+  background: #1a1f28;
+}
+.card-mini-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .card-mini-body {
-  padding: 12px 14px;
+  padding: 10px 14px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   flex: 1;
   overflow: hidden;
+  gap: 6px;
 }
 .card-mini-title {
   font-family: var(--fd);
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 700;
   color: var(--t1);
-  line-height: 1.3;
+  line-height: 1.35;
   letter-spacing: -0.01em;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  margin-bottom: 8px;
 }
 .card-mini-foot {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
+}
+.card-mini-cat {
+  font-family: var(--fm);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--t3);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+.card-mini-sep {
+  font-size: 10px;
+  color: var(--t3);
+}
+.card-mini-time {
+  font-family: var(--fm);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--t3);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -1478,8 +1504,8 @@ a{text-decoration:none;color:inherit}
   /* Hero stack */
   .hero-grid { grid-template-columns: 1fr; min-height: auto; gap: 12px; margin-top: 14px; margin-bottom: 16px; }
   .card-hero { min-height: 280px; }
-  .hero-sidebar { flex-direction: row; flex-wrap: wrap; gap: 10px; }
-  .card-mini { flex: 1 1 calc(50% - 5px); min-width: 0; }
+  .hero-sidebar { border-radius: 6px; }
+  .card-mini { flex: 1 1 100%; min-width: 0; }
 
   /* Articles 1 col */
   .articles-grid { grid-template-columns: 1fr; }
@@ -1516,7 +1542,7 @@ a{text-decoration:none;color:inherit}
   .game-cover img { display: none; }
   .card-hero-bg { display: none; }
   .card-hero { background: linear-gradient(160deg, #0e1116 0%, #1c212d 100%); }
-  .card-mini-thumb img { display: none; }
+  .card-mini-thumb { width: 80px; height: 64px; }
 }
 
 /* Blassa-box mobile â€” visible sous la grille articles (sidebar cachÃ©e) */
