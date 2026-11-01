@@ -547,7 +547,7 @@ a{text-decoration:none;color:inherit}
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .hero-grid {
   display: grid;
-  grid-template-columns: 1fr 360px;
+  grid-template-columns: 1fr 380px;
   gap: 16px;
   background: transparent;
   min-height: 400px;
@@ -560,17 +560,17 @@ a{text-decoration:none;color:inherit}
   min-height: 400px;
   cursor: pointer;
   background: #07080b;
-  border-radius: 4px;
+  border-radius: 0;
 }
 .card-hero:hover .card-hero-title { color: var(--volt); transition: color 160ms; }
 .card-hero-bg {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: -5%;
+  width: 110%;
+  height: 110%;
   object-fit: cover;
   display: block;
-  filter: brightness(0.9) saturate(1);
+  filter: brightness(0.95) saturate(1.05);
 }
 .card-hero-overlay {
   position: absolute;
@@ -627,8 +627,8 @@ a{text-decoration:none;color:inherit}
 .card-mini:hover { background: #191d26; }
 .card-mini:hover .card-mini-title { color: var(--volt); }
 .card-mini-thumb {
-  width: 130px;
-  height: 88px;
+  width: 120px;
+  height: 84px;
   flex-shrink: 0;
   overflow: hidden;
   position: relative;
