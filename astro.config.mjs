@@ -9,6 +9,9 @@ export default defineConfig({
   integrations: [],
   site: 'https://riggamer.com',
   compressHTML: true,
+  build: {
+    inlineStylesheets: 'always',
+  },
   vite: {
     build: {
       cssMinify: true,

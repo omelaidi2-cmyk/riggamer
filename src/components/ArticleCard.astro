@@ -28,7 +28,7 @@ const scoreClass = score
 <article class="card">
   <a href={`/${cat}/${slug}/`} style="display:contents;">
     <div class={`card-img ${gameGrad}`}>
-      {img && <img class="card-img-real" src={img} alt={title} loading="lazy" referrerpolicy="no-referrer" />}
+      {img && <img class="card-img-real" src={img} alt={title} loading={num === 0 ? 'eager' : 'lazy'} fetchpriority={num === 0 ? 'high' : 'auto'} decoding="async" width="822" height="401" referrerpolicy="no-referrer" />}
       {num !== undefined && <span class="card-num">// {String(num + 1).padStart(3, '0')}</span>}
       {score && <span class={`score-pill ${scoreClass}`}>{score}</span>}
     </div>
