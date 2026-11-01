@@ -627,8 +627,8 @@ a{text-decoration:none;color:inherit}
 .card-mini:hover { background: #191d26; }
 .card-mini:hover .card-mini-title { color: var(--volt); }
 .card-mini-thumb {
-  width: 120px;
-  height: 84px;
+  width: 90px;
+  height: 72px;
   flex-shrink: 0;
   overflow: hidden;
   position: relative;
@@ -641,6 +641,7 @@ a{text-decoration:none;color:inherit}
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: brightness(0.6);
 }
 .card-mini-body {
   padding: 12px 16px;
