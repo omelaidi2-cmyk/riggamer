@@ -1096,12 +1096,14 @@ a{text-decoration:none;color:inherit}
 .rg-sep { color:var(--t4); }
 
 /* Article body */
-.rg-article-body { display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:36px; align-items:stretch; }
+/* ZONE 1 — Hero Split : head gauche + banner 300x250 droite (sticky) */
+.rg-hero-split { display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:48px; align-items:start; margin-bottom:32px; }
+.rg-hero-unit { position:sticky; top:84px; }
+
+/* ZONE 2 — Article Body : contenu gauche + skyscraper sidebar droite (sticky) */
+.rg-article-body { display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:48px; align-items:start; }
 .rg-article-main { min-width:0; }
-/* Sidebar — zone bannières uniquement, fond transparent (comme RigPeak) */
-.rg-article-side { position:relative; display:flex; flex-direction:column; gap:0; background:transparent; }
-.rg-side-half { flex:1; position:relative; min-height:280px; }
-.rg-side-sticky { position:sticky; top:84px; }
+.rg-article-side { position:sticky; top:84px; display:flex; flex-direction:column; gap:20px; background:transparent; }
 
 /* TOC */
 .rg-toc { background:var(--surf1); border:1px solid var(--brd); padding:18px 20px; margin-bottom:32px; }
@@ -1316,8 +1318,10 @@ a{text-decoration:none;color:inherit}
 
 /* Responsive */
 @media (max-width:960px) {
+  .rg-hero-split { grid-template-columns:1fr; }
+  .rg-hero-unit { display:none; }
   .rg-article-body { grid-template-columns:1fr; }
-  .rg-article-side { position:static; }
+  .rg-article-side { display:none; }
   .rg-related-grid { grid-template-columns:repeat(2,1fr); }
   .rg-frame { aspect-ratio:16/9; }
 }
