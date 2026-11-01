@@ -547,18 +547,20 @@ a{text-decoration:none;color:inherit}
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .hero-grid {
   display: grid;
-  grid-template-columns: 1fr 370px;
-  gap: 1px;
-  background: var(--brd);
-  min-height: 520px;
-  margin-bottom: 18px;
+  grid-template-columns: 1fr 340px;
+  gap: 20px;
+  background: transparent;
+  min-height: 420px;
+  margin-top: 18px;
+  margin-bottom: 24px;
 }
 .card-hero {
   position: relative;
   overflow: hidden;
-  min-height: 520px;
+  min-height: 420px;
   cursor: pointer;
   background: #07080b;
+  border-radius: 8px;
 }
 .card-hero:hover .card-hero-title { color: var(--volt); transition: color 160ms; }
 .card-hero-bg {
@@ -607,8 +609,8 @@ a{text-decoration:none;color:inherit}
 .hero-sidebar {
   display: flex;
   flex-direction: column;
-  background: var(--brd);
-  gap: 1px;
+  background: transparent;
+  gap: 12px;
 }
 .card-mini {
   background: var(--surf1);
@@ -618,22 +620,25 @@ a{text-decoration:none;color:inherit}
   transition: background 160ms;
   overflow: hidden;
   min-height: 0;
+  border: 1px solid var(--brd);
+  border-radius: 8px;
 }
-.card-mini:hover { background: var(--surf3); }
+.card-mini:hover { background: var(--surf2); }
 .card-mini:hover .card-mini-title { color: var(--volt); transition: color 160ms; }
 .card-mini-thumb {
-  width: 120px;
+  width: 110px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 28px;
   opacity: 0.5;
   overflow: hidden;
   position: relative;
+  border-radius: 7px 0 0 7px;
 }
 .card-mini-body {
-  padding: 13px 14px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -642,7 +647,7 @@ a{text-decoration:none;color:inherit}
 }
 .card-mini-title {
   font-family: var(--fd);
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--t1);
   line-height: 1.3;
@@ -651,7 +656,7 @@ a{text-decoration:none;color:inherit}
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 .card-mini-foot {
   display: flex;
@@ -1471,8 +1476,10 @@ a{text-decoration:none;color:inherit}
   .nav-logo { margin-right: 0; flex: 1; }
 
   /* Hero stack */
-  .hero-grid { grid-template-columns: 1fr; min-height: auto; }
+  .hero-grid { grid-template-columns: 1fr; min-height: auto; gap: 12px; margin-top: 14px; margin-bottom: 16px; }
   .card-hero { min-height: 280px; }
+  .hero-sidebar { flex-direction: row; flex-wrap: wrap; gap: 10px; }
+  .card-mini { flex: 1 1 calc(50% - 5px); min-width: 0; }
 
   /* Articles 1 col */
   .articles-grid { grid-template-columns: 1fr; }

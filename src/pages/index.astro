@@ -30,48 +30,44 @@ const latestNews   = news.slice(0, 4);
   <!-- FEATURED -->
   <div class="wrap">
     <div class="sec-hd"><div class="sec-title">Featured</div></div>
-  </div>
-  <div style="background:#07080b;">
-    <div class="wrap section">
-      <div class="hero-grid">
-        {hero && (() => {
-          const heroBadge = { guides:'bg', news:'bn', reviews:'br', setup:'bs' }[hero.cat];
-          const heroLabel = { guides:'Guide', news:'News', reviews:'Review', setup:'Setup' }[hero.cat];
+    <div class="hero-grid">
+      {hero && (() => {
+        const heroBadge = { guides:'bg', news:'bn', reviews:'br', setup:'bs' }[hero.cat];
+        const heroLabel = { guides:'Guide', news:'News', reviews:'Review', setup:'Setup' }[hero.cat];
+        return (
+          <a href={`/${hero.cat}/${hero.slug}/`} class="card-hero">
+            {hero.img && <img class="card-hero-bg" src={hero.img} alt={hero.title} fetchpriority="high" loading="eager" decoding="sync" referrerpolicy="no-referrer" />}
+            <div class="card-hero-overlay"></div>
+            <div class="card-hero-body">
+              <div class="card-hero-meta">
+                <span class={`badge ${heroBadge}`}>{heroLabel}</span>
+              </div>
+              <h2 class="card-hero-title">{hero.title}</h2>
+              <div class="card-hero-byline">by RigGamer Staff · {hero.date}</div>
+            </div>
+          </a>
+        );
+      })()}
+      <div class="hero-sidebar">
+        {minis.map((a, i) => {
+          const miniBadge = { guides:'bg', news:'bn', reviews:'br', setup:'bs' }[a.cat];
+          const miniLabel = { guides:'Guide', news:'News', reviews:'Review', setup:'Setup' }[a.cat];
+          const miniGrad  = `g${(i % 8) + 1}`;
           return (
-            <a href={`/${hero.cat}/${hero.slug}/`} class="card-hero">
-              {hero.img && <img class="card-hero-bg" src={hero.img} alt={hero.title} fetchpriority="high" loading="eager" decoding="sync" referrerpolicy="no-referrer" />}
-              <div class="card-hero-overlay"></div>
-              <div class="card-hero-body">
-                <div class="card-hero-meta">
-                  <span class={`badge ${heroBadge}`}>{heroLabel}</span>
+            <a href={`/${a.cat}/${a.slug}/`} class="card-mini">
+              <div class={`card-mini-thumb ${miniGrad}`} style="position:relative;">
+                {a.img && <img src={a.img} alt={a.title} loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" referrerpolicy="no-referrer" />}
+              </div>
+              <div class="card-mini-body">
+                <div class="card-mini-title">{a.title}</div>
+                <div class="card-mini-foot">
+                  <span class={`badge ${miniBadge}`}>{miniLabel}</span>
+                  <span class="readtime">{a.readtime} min</span>
                 </div>
-                <h2 class="card-hero-title">{hero.title}</h2>
-                <div class="card-hero-byline">by RigGamer Staff · {hero.date}</div>
               </div>
             </a>
           );
-        })()}
-        <div class="hero-sidebar">
-          {minis.map((a, i) => {
-            const miniBadge = { guides:'bg', news:'bn', reviews:'br', setup:'bs' }[a.cat];
-            const miniLabel = { guides:'Guide', news:'News', reviews:'Review', setup:'Setup' }[a.cat];
-            const miniGrad  = `g${(i % 8) + 1}`;
-            return (
-              <a href={`/${a.cat}/${a.slug}/`} class="card-mini">
-                <div class={`card-mini-thumb ${miniGrad}`} style="position:relative;">
-                  {a.img && <img src={a.img} alt={a.title} loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" referrerpolicy="no-referrer" />}
-                </div>
-                <div class="card-mini-body">
-                  <div class="card-mini-title">{a.title}</div>
-                  <div class="card-mini-foot">
-                    <span class={`badge ${miniBadge}`}>{miniLabel}</span>
-                    <span class="readtime">{a.readtime} min</span>
-                  </div>
-                </div>
-              </a>
-            );
-          })}
-        </div>
+        })}
       </div>
     </div>
   </div>
