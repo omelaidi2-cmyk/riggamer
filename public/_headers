@@ -4,13 +4,11 @@
 #  Security grade target: A+
 # ─────────────────────────────────────────────
 
-# 1. Toutes les pages — sécurité + CDN cache 4h
-/*
+# 1. Redirects affiliés — TOUJOURS en premier, jamais cachés
+/play/*
+  Cache-Control: no-store, no-cache, max-age=0
   X-Content-Type-Options: nosniff
-  X-Frame-Options: SAMEORIGIN
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
-  Cache-Control: public, max-age=0, s-maxage=14400, stale-while-revalidate=86400
 
 # 2. Assets Astro (CSS/JS avec hash de contenu) — 1 an immutable
 /_astro/*
@@ -22,6 +20,10 @@
 /robots.txt
   Cache-Control: public, max-age=86400, no-transform
 
-# 4. Redirects affiliés — jamais cachés (302 frais à chaque clic)
-/play/*
-  Cache-Control: no-store
+# 4. Toutes les autres pages — sécurité + CDN cache 4h
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Cache-Control: public, max-age=0, s-maxage=14400, stale-while-revalidate=86400
