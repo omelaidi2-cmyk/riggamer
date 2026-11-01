@@ -26,7 +26,7 @@ const REDIRECTS: Record<string, string> = {
   'world-of-sea-battle':    'https://to.dordir.com/5C3A/2J2D2/',
   'tiles-survive':          'https://to.dordir.com/5C3A/2J1A4/',
   'infinity-kingdom':       'https://to.dordir.com/5C3A/2J1A1/',
-  'nte-steam':              'https://to.dordir.com/5C3A/2J3J1/',
+  'nte-steam':              'https://nte.perfectworld.com/hot/260422down3/en/index.html?media_source=macannative&campaign_name=N2E_PRE_WW&campaign_id=211363108525053&ad_name=test&source_id=211_1997_G-783108&bg=30',
   'ragnarok-steam':         'https://to.dordir.com/5C3A/2J2E6/',
   'rise-of-kingdoms':       'https://to.dordir.com/5C3A/2J2C5/',
 };
