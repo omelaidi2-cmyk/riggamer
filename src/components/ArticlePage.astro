@@ -239,17 +239,26 @@ const tocItems = [
         <!-- Sidebar -->
         <aside class="rg-article-side">
 
-          <Banner slug={gameSlug ?? 'nte'} size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt={game ?? 'Game'} />
-          <Banner slug={gameSlug ?? 'nte'} size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt={game ?? 'Game'} />
-          <Banner slug={gameSlug ?? 'nte'} size="sky" img="/media/nte-sky.gif" imgW={160} imgH={600} alt={game ?? 'Game'} />
+          <!-- Banner 1 — haut, visible première moitié de scroll -->
+          <div class="rg-side-top">
+            <Banner slug={gameSlug ?? 'nte'} size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt={game ?? 'Game'} />
+          </div>
 
-          <div class="rg-toc">
-            <span class="rg-toc-title">CONTENTS</span>
-            <ol>
-              {tocItems.map(item => (
-                <li><a href={`#${item.id}`}>{item.label}</a></li>
-              ))}
-            </ol>
+          <!-- TOC — séparateur central, pousse banner 2 vers le bas -->
+          <div class="rg-side-mid">
+            <div class="rg-toc">
+              <span class="rg-toc-title">CONTENTS</span>
+              <ol>
+                {tocItems.map(item => (
+                  <li><a href={`#${item.id}`}>{item.label}</a></li>
+                ))}
+              </ol>
+            </div>
+          </div>
+
+          <!-- Banner 2 — bas, visible deuxième moitié de scroll -->
+          <div class="rg-side-bot">
+            <Banner slug={gameSlug ?? 'nte'} size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt={game ?? 'Game'} />
           </div>
 
         </aside>
