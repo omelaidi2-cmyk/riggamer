@@ -1,6 +1,9 @@
 name = "riggamer"
 compatibility_date = "2026-09-07"
-main = "dist/_worker.js/index.js"
+main = "dist/_worker.js/scheduler.js"
+
+[triggers]
+crons = ["*/30 * * * *"]
 
 [assets]
 directory = "dist"
