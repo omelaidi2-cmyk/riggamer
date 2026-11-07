@@ -1,0 +1,554 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="660" font-family="Arial, sans-serif">
+  <defs>
+    <style>
+      .th { font-size:11px; font-weight:bold; fill:#FFFFFF; }
+      .td { font-size:11px; fill:#1E293B; }
+      .td-sm { font-size:10px; fill:#475569; }
+      .label-green { font-size:10px; font-weight:bold; fill:#15803D; }
+      .label-orange { font-size:10px; font-weight:bold; fill:#92400E; }
+      .label-red { font-size:10px; font-weight:bold; fill:#991B1B; }
+      .label-blue { font-size:10px; font-weight:bold; fill:#1D4ED8; }
+      .game-name { font-size:12px; font-weight:bold; fill:#0F172A; }
+      .footer-text { font-size:10px; fill:#64748B; }
+      .title { font-size:18px; font-weight:bold; fill:#0F172A; }
+      .subtitle { font-size:11px; fill:#64748B; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1300" height="660" fill="#F8FAFC"/>
+
+  <!-- Title block -->
+  <rect x="0" y="0" width="1300" height="50" fill="#0F172A"/>
+  <text x="20" y="30" class="title" fill="#FFFFFF">RIGGAMER — Audit Clusters</text>
+  <text x="20" y="44" class="subtitle" fill="#94A3B8">État au 08/10/2026 · 34 articles publiés · Base D1 Cloudflare</text>
+  <text x="1100" y="30" font-size="11" fill="#94A3B8">Score trié par /10 décroissant</text>
+  <text x="1100" y="44" font-size="10" fill="#64748B">Workflow : 1 pilier + 4-8 sat. + news</text>
+
+  <!-- ═══════════════════ TABLE HEADER ═══════════════════ -->
+  <rect x="15" y="58" width="1270" height="36" fill="#1E3A5F" rx="4"/>
+
+  <!-- Column headers -->
+  <!-- 1. Jeu x=15 w=145 -->
+  <text x="87" y="81" class="th" text-anchor="middle">JEU</text>
+  <!-- 2. Score x=160 w=60 -->
+  <text x="190" y="81" class="th" text-anchor="middle">SCORE /10</text>
+  <!-- 3. Pilier x=220 w=80 -->
+  <text x="260" y="81" class="th" text-anchor="middle">PILIER</text>
+  <!-- 4. Guides x=300 w=65 -->
+  <text x="332" y="81" class="th" text-anchor="middle">GUIDES</text>
+  <!-- 5. News x=365 w=55 -->
+  <text x="392" y="81" class="th" text-anchor="middle">NEWS</text>
+  <!-- 6. Total x=420 w=58 -->
+  <text x="449" y="81" class="th" text-anchor="middle">TOTAL</text>
+  <!-- 7. Body x=478 w=80 -->
+  <text x="518" y="81" class="th" text-anchor="middle">BODY RÉDIGÉ</text>
+  <!-- 8. Schema x=558 w=82 -->
+  <text x="599" y="81" class="th" text-anchor="middle">SCHEMA</text>
+  <!-- 9. /play/ x=640 w=68 -->
+  <text x="674" y="81" class="th" text-anchor="middle">/PLAY/</text>
+  <!-- 10. Intentions x=708 w=110 -->
+  <text x="763" y="81" class="th" text-anchor="middle">INTENTIONS</text>
+  <!-- 11. Satellites x=818 w=125 -->
+  <text x="880" y="77" class="th" text-anchor="middle">SATELLITES</text>
+  <text x="880" y="89" class="th" text-anchor="middle">À CRÉER</text>
+  <!-- 12. Conformité x=943 w=128 -->
+  <text x="1007" y="81" class="th" text-anchor="middle">CONFORMITÉ</text>
+  <!-- 13. Priorité x=1071 w=80 -->
+  <text x="1111" y="81" class="th" text-anchor="middle">PRIORITÉ</text>
+  <!-- 14. Rédacteur x=1151 w=134 -->
+  <text x="1218" y="81" class="th" text-anchor="middle">RÉDACTEUR</text>
+
+  <!-- Column separators in header -->
+  <line x1="160" y1="58" x2="160" y2="94" stroke="#2D5286" stroke-width="1"/>
+  <line x1="220" y1="58" x2="220" y2="94" stroke="#2D5286" stroke-width="1"/>
+  <line x1="300" y1="58" x2="300" y2="94" stroke="#2D5286" stroke-width="1"/>
+  <line x1="365" y1="58" x2="365" y2="94" stroke="#2D5286" stroke-width="1"/>
+  <line x1="420" y1="58" x2="420" y2="94" stroke="#2D5286" stroke-width="1"/>
+  <line x1="478" y1="58" x2="478" y2="94" stroke="#2D5286" stroke-width="1"/>
+  <line x1="558" y1="58" x2="558" y2="94" stroke="#2D5286" stroke-width="1"/>
+  <line x1="640" y1="58" x2="640" y2="94" stroke="#2D5286" stroke-width="1"/>
+  <line x1="708" y1="58" x2="708" y2="94" stroke="#2D5286" stroke-width="1"/>
+  <line x1="818" y1="58" x2="818" y2="94" stroke="#2D5286" stroke-width="1"/>
+  <line x1="943" y1="58" x2="943" y2="94" stroke="#2D5286" stroke-width="1"/>
+  <line x1="1071" y1="58" x2="1071" y2="94" stroke="#2D5286" stroke-width="1"/>
+  <line x1="1151" y1="58" x2="1151" y2="94" stroke="#2D5286" stroke-width="1"/>
+
+  <!-- ═══════════════════ ROW 1 — NTE ═══════════════════ -->
+  <rect x="15" y="94" width="1270" height="38" fill="#FFFFFF"/>
+  <rect x="15" y="94" width="4" height="38" fill="#3B82F6"/>
+  <text x="25" y="117" class="game-name">NTE</text>
+  <text x="25" y="128" class="td-sm">Neverness to Everness</text>
+  <!-- Score -->
+  <rect x="167" y="101" width="46" height="22" rx="4" fill="#16A34A"/>
+  <text x="190" y="116" class="th" text-anchor="middle">8.0</text>
+  <!-- Pilier -->
+  <rect x="225" y="101" width="70" height="22" rx="4" fill="#DCFCE7"/>
+  <text x="260" y="116" class="label-green" text-anchor="middle">✅ BODY OK</text>
+  <!-- Guides -->
+  <text x="332" y="117" class="td" text-anchor="middle" font-weight="bold">2</text>
+  <text x="332" y="128" class="td-sm" text-anchor="middle">(1 avec body)</text>
+  <!-- News -->
+  <text x="392" y="120" class="td" text-anchor="middle">1</text>
+  <!-- Total -->
+  <text x="449" y="120" class="td" text-anchor="middle" font-weight="bold">4</text>
+  <!-- Body -->
+  <rect x="482" y="103" width="68" height="18" rx="3" fill="#E2F4E8"/>
+  <rect x="482" y="103" width="34" height="18" rx="3" fill="#22C55E"/>
+  <text x="516" y="116" class="label-green" text-anchor="middle">2 / 4</text>
+  <!-- Schema -->
+  <text x="599" y="120" class="label-green" text-anchor="middle" font-size="15">✅</text>
+  <!-- /play/ -->
+  <text x="674" y="120" class="label-green" text-anchor="middle" font-size="15">✅</text>
+  <!-- Intentions -->
+  <text x="763" y="113" class="td-sm" text-anchor="middle">Rev · Guide</text>
+  <text x="763" y="125" class="td-sm" text-anchor="middle">· News</text>
+  <!-- Satellites -->
+  <text x="880" y="120" class="td" text-anchor="middle">2 – 6 à créer</text>
+  <!-- Conformité bar -->
+  <rect x="947" y="106" width="116" height="16" rx="3" fill="#E2E8F0"/>
+  <rect x="947" y="106" width="64" height="16" rx="3" fill="#22C55E"/>
+  <text x="1005" y="118" font-size="10" font-weight="bold" fill="#FFFFFF" text-anchor="middle">55%</text>
+  <!-- Priorité -->
+  <rect x="1078" y="103" width="58" height="22" rx="4" fill="#FEF3C7"/>
+  <text x="1107" y="118" font-size="11" font-weight="bold" fill="#92400E" text-anchor="middle">P2</text>
+  <!-- Rédacteur -->
+  <text x="1218" y="120" class="td-sm" text-anchor="middle">Ash Reeves</text>
+
+  <!-- ═══════════════════ ROW 2 — Arknights EF ═══════════════════ -->
+  <rect x="15" y="132" width="1270" height="38" fill="#F8FAFC"/>
+  <rect x="15" y="132" width="4" height="38" fill="#8B5CF6"/>
+  <text x="25" y="155" class="game-name">Arknights: Endfield</text>
+  <!-- Score -->
+  <rect x="167" y="139" width="46" height="22" rx="4" fill="#16A34A"/>
+  <text x="190" y="154" class="th" text-anchor="middle">8.6</text>
+  <!-- Pilier -->
+  <rect x="225" y="139" width="70" height="22" rx="4" fill="#FEF9C3"/>
+  <text x="260" y="154" class="label-orange" text-anchor="middle">⚠️ VIDE</text>
+  <!-- Guides -->
+  <text x="332" y="155" class="td" text-anchor="middle">1</text>
+  <!-- News -->
+  <text x="392" y="155" class="td" text-anchor="middle">1</text>
+  <!-- Total -->
+  <text x="449" y="155" class="td" text-anchor="middle" font-weight="bold">3</text>
+  <!-- Body -->
+  <rect x="482" y="141" width="68" height="18" rx="3" fill="#E2E8F0"/>
+  <rect x="482" y="141" width="0" height="18" rx="3" fill="#EF4444"/>
+  <text x="516" y="154" class="label-red" text-anchor="middle">0 / 3</text>
+  <!-- Schema -->
+  <text x="599" y="155" class="label-red" text-anchor="middle" font-size="15">❌</text>
+  <!-- /play/ -->
+  <text x="674" y="155" class="label-green" text-anchor="middle" font-size="15">✅</text>
+  <!-- Intentions -->
+  <text x="763" y="149" class="td-sm" text-anchor="middle">Rev · Guide</text>
+  <text x="763" y="161" class="td-sm" text-anchor="middle">· News</text>
+  <!-- Satellites -->
+  <text x="880" y="155" class="td" text-anchor="middle">3 – 7 à créer</text>
+  <!-- Conformité bar -->
+  <rect x="947" y="143" width="116" height="16" rx="3" fill="#E2E8F0"/>
+  <rect x="947" y="143" width="12" height="16" rx="3" fill="#EF4444"/>
+  <text x="1005" y="155" font-size="10" font-weight="bold" fill="#475569" text-anchor="middle">10%</text>
+  <!-- Priorité -->
+  <rect x="1078" y="141" width="58" height="22" rx="4" fill="#FEE2E2"/>
+  <text x="1107" y="156" font-size="11" font-weight="bold" fill="#991B1B" text-anchor="middle">P1</text>
+  <!-- Rédacteur -->
+  <text x="1218" y="155" class="td-sm" text-anchor="middle">Dr. Vance</text>
+
+  <!-- ═══════════════════ ROW 3 — RAID ═══════════════════ -->
+  <rect x="15" y="170" width="1270" height="38" fill="#FFFFFF"/>
+  <rect x="15" y="170" width="4" height="38" fill="#DC2626"/>
+  <text x="25" y="193" class="game-name">RAID Shadow Legends</text>
+  <!-- Score -->
+  <rect x="167" y="177" width="46" height="22" rx="4" fill="#16A34A"/>
+  <text x="190" y="192" class="th" text-anchor="middle">8.0</text>
+  <!-- Pilier -->
+  <rect x="225" y="177" width="70" height="22" rx="4" fill="#FEF9C3"/>
+  <text x="260" y="192" class="label-orange" text-anchor="middle">⚠️ VIDE</text>
+  <!-- Guides -->
+  <text x="332" y="193" class="td" text-anchor="middle">1</text>
+  <!-- News -->
+  <text x="392" y="193" class="td" text-anchor="middle">1</text>
+  <!-- Total -->
+  <text x="449" y="193" class="td" text-anchor="middle" font-weight="bold">3</text>
+  <!-- Body -->
+  <rect x="482" y="179" width="68" height="18" rx="3" fill="#E2E8F0"/>
+  <text x="516" y="192" class="label-red" text-anchor="middle">0 / 3</text>
+  <!-- Schema -->
+  <text x="599" y="193" class="label-red" text-anchor="middle" font-size="15">❌</text>
+  <!-- /play/ -->
+  <text x="674" y="193" class="label-green" text-anchor="middle" font-size="15">✅</text>
+  <!-- Intentions -->
+  <text x="763" y="187" class="td-sm" text-anchor="middle">Rev · Guide</text>
+  <text x="763" y="199" class="td-sm" text-anchor="middle">· News</text>
+  <!-- Satellites -->
+  <text x="880" y="193" class="td" text-anchor="middle">3 – 7 à créer</text>
+  <!-- Conformité bar -->
+  <rect x="947" y="181" width="116" height="16" rx="3" fill="#E2E8F0"/>
+  <rect x="947" y="181" width="12" height="16" rx="3" fill="#EF4444"/>
+  <text x="1005" y="193" font-size="10" font-weight="bold" fill="#475569" text-anchor="middle">10%</text>
+  <!-- Priorité -->
+  <rect x="1078" y="179" width="58" height="22" rx="4" fill="#FEE2E2"/>
+  <text x="1107" y="194" font-size="11" font-weight="bold" fill="#991B1B" text-anchor="middle">P1</text>
+  <!-- Rédacteur -->
+  <text x="1218" y="193" class="td-sm" text-anchor="middle">Cole Merritt</text>
+
+  <!-- ═══════════════════ ROW 4 — Rise of Kingdoms ═══════════════════ -->
+  <rect x="15" y="208" width="1270" height="38" fill="#F8FAFC"/>
+  <rect x="15" y="208" width="4" height="38" fill="#D97706"/>
+  <text x="25" y="231" class="game-name">Rise of Kingdoms</text>
+  <text x="157" y="228" font-size="9" fill="#D97706">⚠ DB: "RoK" ≠ "Rise of Kingdoms"</text>
+  <!-- Score -->
+  <rect x="167" y="215" width="46" height="22" rx="4" fill="#16A34A"/>
+  <text x="190" y="230" class="th" text-anchor="middle">7.8</text>
+  <!-- Pilier -->
+  <rect x="225" y="215" width="70" height="22" rx="4" fill="#FEF9C3"/>
+  <text x="260" y="230" class="label-orange" text-anchor="middle">⚠️ VIDE</text>
+  <!-- Guides -->
+  <text x="332" y="231" class="td" text-anchor="middle">1</text>
+  <!-- News -->
+  <text x="392" y="231" class="td" text-anchor="middle">1</text>
+  <!-- Total -->
+  <text x="449" y="231" class="td" text-anchor="middle" font-weight="bold">3</text>
+  <!-- Body -->
+  <rect x="482" y="217" width="68" height="18" rx="3" fill="#E2E8F0"/>
+  <text x="516" y="230" class="label-red" text-anchor="middle">0 / 3</text>
+  <!-- Schema -->
+  <text x="599" y="231" class="label-red" text-anchor="middle" font-size="15">❌</text>
+  <!-- /play/ -->
+  <text x="674" y="231" class="label-green" text-anchor="middle" font-size="15">✅</text>
+  <!-- Intentions -->
+  <text x="763" y="225" class="td-sm" text-anchor="middle">Rev · Guide</text>
+  <text x="763" y="237" class="td-sm" text-anchor="middle">· News</text>
+  <!-- Satellites -->
+  <text x="880" y="231" class="td" text-anchor="middle">3 – 7 à créer</text>
+  <!-- Conformité bar -->
+  <rect x="947" y="219" width="116" height="16" rx="3" fill="#E2E8F0"/>
+  <rect x="947" y="219" width="12" height="16" rx="3" fill="#EF4444"/>
+  <text x="1005" y="231" font-size="10" font-weight="bold" fill="#475569" text-anchor="middle">10%</text>
+  <!-- Priorité -->
+  <rect x="1078" y="217" width="58" height="22" rx="4" fill="#FEE2E2"/>
+  <text x="1107" y="232" font-size="11" font-weight="bold" fill="#991B1B" text-anchor="middle">P1</text>
+  <!-- Rédacteur -->
+  <text x="1218" y="231" class="td-sm" text-anchor="middle">Ethan Vale</text>
+
+  <!-- ═══════════════════ ROW 5 — War Thunder ═══════════════════ -->
+  <rect x="15" y="246" width="1270" height="38" fill="#FFFFFF"/>
+  <rect x="15" y="246" width="4" height="38" fill="#4B5563"/>
+  <text x="25" y="269" class="game-name">War Thunder</text>
+  <!-- Score -->
+  <rect x="167" y="253" width="46" height="22" rx="4" fill="#CA8A04"/>
+  <text x="190" y="268" class="th" text-anchor="middle">7.6</text>
+  <!-- Pilier -->
+  <rect x="225" y="253" width="70" height="22" rx="4" fill="#FEF9C3"/>
+  <text x="260" y="268" class="label-orange" text-anchor="middle">⚠️ VIDE</text>
+  <!-- Guides -->
+  <text x="332" y="269" class="td" text-anchor="middle">1</text>
+  <!-- News -->
+  <text x="392" y="269" class="td" text-anchor="middle">1</text>
+  <!-- Total -->
+  <text x="449" y="269" class="td" text-anchor="middle" font-weight="bold">3</text>
+  <!-- Body -->
+  <rect x="482" y="255" width="68" height="18" rx="3" fill="#E2E8F0"/>
+  <text x="516" y="268" class="label-red" text-anchor="middle">0 / 3</text>
+  <!-- Schema -->
+  <text x="599" y="269" class="label-red" text-anchor="middle" font-size="15">❌</text>
+  <!-- /play/ -->
+  <text x="674" y="269" class="label-green" text-anchor="middle" font-size="15">✅</text>
+  <!-- Intentions -->
+  <text x="763" y="263" class="td-sm" text-anchor="middle">Rev · Guide</text>
+  <text x="763" y="275" class="td-sm" text-anchor="middle">· News</text>
+  <!-- Satellites -->
+  <text x="880" y="269" class="td" text-anchor="middle">3 – 7 à créer</text>
+  <!-- Conformité bar -->
+  <rect x="947" y="257" width="116" height="16" rx="3" fill="#E2E8F0"/>
+  <rect x="947" y="257" width="12" height="16" rx="3" fill="#EF4444"/>
+  <text x="1005" y="269" font-size="10" font-weight="bold" fill="#475569" text-anchor="middle">10%</text>
+  <!-- Priorité -->
+  <rect x="1078" y="255" width="58" height="22" rx="4" fill="#FEE2E2"/>
+  <text x="1107" y="270" font-size="11" font-weight="bold" fill="#991B1B" text-anchor="middle">P1</text>
+  <!-- Rédacteur -->
+  <text x="1218" y="269" class="td-sm" text-anchor="middle">Viktor Lenz</text>
+
+  <!-- ═══════════════════ ROW 6 — Project Entropy ═══════════════════ -->
+  <rect x="15" y="284" width="1270" height="38" fill="#F8FAFC"/>
+  <rect x="15" y="284" width="4" height="38" fill="#0EA5E9"/>
+  <text x="25" y="307" class="game-name">Project Entropy</text>
+  <!-- Score -->
+  <rect x="167" y="291" width="46" height="22" rx="4" fill="#CA8A04"/>
+  <text x="190" y="306" class="th" text-anchor="middle">7.2</text>
+  <!-- Pilier -->
+  <rect x="225" y="291" width="70" height="22" rx="4" fill="#FEF9C3"/>
+  <text x="260" y="306" class="label-orange" text-anchor="middle">⚠️ VIDE</text>
+  <!-- Guides -->
+  <text x="332" y="307" class="td" text-anchor="middle">1</text>
+  <!-- News -->
+  <text x="392" y="307" class="td" text-anchor="middle">1</text>
+  <!-- Total -->
+  <text x="449" y="307" class="td" text-anchor="middle" font-weight="bold">3</text>
+  <!-- Body -->
+  <rect x="482" y="293" width="68" height="18" rx="3" fill="#E2E8F0"/>
+  <text x="516" y="306" class="label-red" text-anchor="middle">0 / 3</text>
+  <!-- Schema -->
+  <text x="599" y="307" class="label-red" text-anchor="middle" font-size="15">❌</text>
+  <!-- /play/ -->
+  <text x="674" y="307" class="label-green" text-anchor="middle" font-size="15">✅</text>
+  <!-- Intentions -->
+  <text x="763" y="301" class="td-sm" text-anchor="middle">Rev · Guide</text>
+  <text x="763" y="313" class="td-sm" text-anchor="middle">· News</text>
+  <!-- Satellites -->
+  <text x="880" y="307" class="td" text-anchor="middle">3 – 7 à créer</text>
+  <!-- Conformité bar -->
+  <rect x="947" y="295" width="116" height="16" rx="3" fill="#E2E8F0"/>
+  <rect x="947" y="295" width="12" height="16" rx="3" fill="#EF4444"/>
+  <text x="1005" y="307" font-size="10" font-weight="bold" fill="#475569" text-anchor="middle">10%</text>
+  <!-- Priorité -->
+  <rect x="1078" y="293" width="58" height="22" rx="4" fill="#FEE2E2"/>
+  <text x="1107" y="308" font-size="11" font-weight="bold" fill="#991B1B" text-anchor="middle">P1</text>
+  <!-- Rédacteur -->
+  <text x="1218" y="307" class="td-sm" text-anchor="middle">Jake Cipher</text>
+
+  <!-- ═══════════════════ ROW 7 — Enlisted ═══════════════════ -->
+  <rect x="15" y="322" width="1270" height="38" fill="#FFFFFF"/>
+  <rect x="15" y="322" width="4" height="38" fill="#78716C"/>
+  <text x="25" y="345" class="game-name">Enlisted</text>
+  <!-- Score -->
+  <rect x="167" y="329" width="46" height="22" rx="4" fill="#CA8A04"/>
+  <text x="190" y="344" class="th" text-anchor="middle">6.8</text>
+  <!-- Pilier -->
+  <rect x="225" y="329" width="70" height="22" rx="4" fill="#FEF9C3"/>
+  <text x="260" y="344" class="label-orange" text-anchor="middle">⚠️ VIDE</text>
+  <!-- Guides -->
+  <text x="332" y="345" class="td" text-anchor="middle">1</text>
+  <!-- News -->
+  <text x="392" y="345" class="td" text-anchor="middle">1</text>
+  <!-- Total -->
+  <text x="449" y="345" class="td" text-anchor="middle" font-weight="bold">3</text>
+  <!-- Body -->
+  <rect x="482" y="331" width="68" height="18" rx="3" fill="#E2E8F0"/>
+  <text x="516" y="344" class="label-red" text-anchor="middle">0 / 3</text>
+  <!-- Schema -->
+  <text x="599" y="345" class="label-red" text-anchor="middle" font-size="15">❌</text>
+  <!-- /play/ -->
+  <text x="674" y="345" class="label-green" text-anchor="middle" font-size="15">✅</text>
+  <!-- Intentions -->
+  <text x="763" y="339" class="td-sm" text-anchor="middle">Rev · Guide</text>
+  <text x="763" y="351" class="td-sm" text-anchor="middle">· News</text>
+  <!-- Satellites -->
+  <text x="880" y="345" class="td" text-anchor="middle">3 – 7 à créer</text>
+  <!-- Conformité bar -->
+  <rect x="947" y="333" width="116" height="16" rx="3" fill="#E2E8F0"/>
+  <rect x="947" y="333" width="12" height="16" rx="3" fill="#EF4444"/>
+  <text x="1005" y="345" font-size="10" font-weight="bold" fill="#475569" text-anchor="middle">10%</text>
+  <!-- Priorité -->
+  <rect x="1078" y="331" width="58" height="22" rx="4" fill="#FEE2E2"/>
+  <text x="1107" y="346" font-size="11" font-weight="bold" fill="#991B1B" text-anchor="middle">P1</text>
+  <!-- Rédacteur -->
+  <text x="1218" y="345" class="td-sm" text-anchor="middle">Owen Nash</text>
+
+  <!-- ═══════════════════ ROW 8 — Star Trek FC ═══════════════════ -->
+  <rect x="15" y="360" width="1270" height="38" fill="#F8FAFC"/>
+  <rect x="15" y="360" width="4" height="38" fill="#1D4ED8"/>
+  <text x="25" y="383" class="game-name">Star Trek Fleet Command</text>
+  <!-- Score -->
+  <rect x="167" y="367" width="46" height="22" rx="4" fill="#DC2626"/>
+  <text x="190" y="382" class="th" text-anchor="middle">6.4</text>
+  <!-- Pilier -->
+  <rect x="225" y="367" width="70" height="22" rx="4" fill="#FEF9C3"/>
+  <text x="260" y="382" class="label-orange" text-anchor="middle">⚠️ VIDE</text>
+  <!-- Guides -->
+  <text x="332" y="383" class="td" text-anchor="middle">1</text>
+  <!-- News -->
+  <text x="392" y="383" class="td" text-anchor="middle">1</text>
+  <!-- Total -->
+  <text x="449" y="383" class="td" text-anchor="middle" font-weight="bold">3</text>
+  <!-- Body -->
+  <rect x="482" y="369" width="68" height="18" rx="3" fill="#E2E8F0"/>
+  <text x="516" y="382" class="label-red" text-anchor="middle">0 / 3</text>
+  <!-- Schema -->
+  <text x="599" y="383" class="label-red" text-anchor="middle" font-size="15">❌</text>
+  <!-- /play/ -->
+  <text x="674" y="383" class="label-green" text-anchor="middle" font-size="15">✅</text>
+  <!-- Intentions -->
+  <text x="763" y="377" class="td-sm" text-anchor="middle">Rev · Guide</text>
+  <text x="763" y="389" class="td-sm" text-anchor="middle">· News</text>
+  <!-- Satellites -->
+  <text x="880" y="383" class="td" text-anchor="middle">3 – 7 à créer</text>
+  <!-- Conformité bar -->
+  <rect x="947" y="371" width="116" height="16" rx="3" fill="#E2E8F0"/>
+  <rect x="947" y="371" width="12" height="16" rx="3" fill="#EF4444"/>
+  <text x="1005" y="383" font-size="10" font-weight="bold" fill="#475569" text-anchor="middle">10%</text>
+  <!-- Priorité -->
+  <rect x="1078" y="369" width="58" height="22" rx="4" fill="#FEE2E2"/>
+  <text x="1107" y="384" font-size="11" font-weight="bold" fill="#991B1B" text-anchor="middle">P1</text>
+  <!-- Rédacteur -->
+  <text x="1218" y="383" class="td-sm" text-anchor="middle">Marcus Steel</text>
+
+  <!-- ═══════════════════ ROW 9 — Where Winds Meet ═══════════════════ -->
+  <rect x="15" y="398" width="1270" height="38" fill="#FFFFFF"/>
+  <rect x="15" y="398" width="4" height="38" fill="#059669"/>
+  <text x="25" y="421" class="game-name">Where Winds Meet</text>
+  <!-- Score -->
+  <rect x="167" y="405" width="46" height="22" rx="4" fill="#DC2626"/>
+  <text x="190" y="420" class="th" text-anchor="middle">6.4</text>
+  <!-- Pilier -->
+  <rect x="225" y="405" width="70" height="22" rx="4" fill="#FEF9C3"/>
+  <text x="260" y="420" class="label-orange" text-anchor="middle">⚠️ VIDE</text>
+  <!-- Guides -->
+  <text x="332" y="421" class="td" text-anchor="middle">1</text>
+  <!-- News -->
+  <text x="392" y="421" class="td" text-anchor="middle">1</text>
+  <!-- Total -->
+  <text x="449" y="421" class="td" text-anchor="middle" font-weight="bold">3</text>
+  <!-- Body -->
+  <rect x="482" y="407" width="68" height="18" rx="3" fill="#E2E8F0"/>
+  <text x="516" y="420" class="label-red" text-anchor="middle">0 / 3</text>
+  <!-- Schema -->
+  <text x="599" y="421" class="label-red" text-anchor="middle" font-size="15">❌</text>
+  <!-- /play/ -->
+  <text x="674" y="421" class="label-green" text-anchor="middle" font-size="15">✅</text>
+  <!-- Intentions -->
+  <text x="763" y="415" class="td-sm" text-anchor="middle">Rev · Guide</text>
+  <text x="763" y="427" class="td-sm" text-anchor="middle">· News</text>
+  <!-- Satellites -->
+  <text x="880" y="421" class="td" text-anchor="middle">3 – 7 à créer</text>
+  <!-- Conformité bar -->
+  <rect x="947" y="409" width="116" height="16" rx="3" fill="#E2E8F0"/>
+  <rect x="947" y="409" width="12" height="16" rx="3" fill="#EF4444"/>
+  <text x="1005" y="421" font-size="10" font-weight="bold" fill="#475569" text-anchor="middle">10%</text>
+  <!-- Priorité -->
+  <rect x="1078" y="407" width="58" height="22" rx="4" fill="#FEE2E2"/>
+  <text x="1107" y="422" font-size="11" font-weight="bold" fill="#991B1B" text-anchor="middle">P1</text>
+  <!-- Rédacteur -->
+  <text x="1218" y="421" class="td-sm" text-anchor="middle">River Stone</text>
+
+  <!-- ═══════════════════ ROW 10 — Setup Hardware ═══════════════════ -->
+  <rect x="15" y="436" width="1270" height="38" fill="#EFF6FF"/>
+  <rect x="15" y="436" width="4" height="38" fill="#3B82F6"/>
+  <text x="25" y="459" class="game-name">Setup Hardware</text>
+  <text x="25" y="470" class="td-sm">(cross-game)</text>
+  <!-- Score -->
+  <text x="190" y="459" class="td-sm" text-anchor="middle">—</text>
+  <!-- Pilier -->
+  <rect x="225" y="443" width="70" height="22" rx="4" fill="#FEF9C3"/>
+  <text x="260" y="458" class="label-orange" text-anchor="middle">⚠️ VIDE</text>
+  <!-- Guides -->
+  <text x="332" y="459" class="td" text-anchor="middle" font-weight="bold">5</text>
+  <!-- News -->
+  <text x="392" y="459" class="td-sm" text-anchor="middle">—</text>
+  <!-- Total -->
+  <text x="449" y="459" class="td" text-anchor="middle" font-weight="bold">6</text>
+  <!-- Body -->
+  <rect x="482" y="445" width="68" height="18" rx="3" fill="#E2E8F0"/>
+  <text x="516" y="458" class="label-red" text-anchor="middle">0 / 6</text>
+  <!-- Schema -->
+  <text x="599" y="459" class="label-red" text-anchor="middle" font-size="15">❌</text>
+  <!-- /play/ -->
+  <text x="674" y="459" class="label-red" text-anchor="middle" font-size="15">❌</text>
+  <!-- Intentions -->
+  <text x="763" y="453" class="td-sm" text-anchor="middle">Setup</text>
+  <text x="763" y="465" class="td-sm" text-anchor="middle">uniquement</text>
+  <!-- Satellites -->
+  <text x="880" y="453" class="td-sm" text-anchor="middle">Cluster complet</text>
+  <text x="880" y="465" class="td-sm" text-anchor="middle">(body requis)</text>
+  <!-- Conformité bar -->
+  <rect x="947" y="447" width="116" height="16" rx="3" fill="#E2E8F0"/>
+  <rect x="947" y="447" width="6" height="16" rx="3" fill="#EF4444"/>
+  <text x="1005" y="459" font-size="10" font-weight="bold" fill="#475569" text-anchor="middle">5%</text>
+  <!-- Priorité -->
+  <rect x="1078" y="445" width="58" height="22" rx="4" fill="#FEE2E2"/>
+  <text x="1107" y="460" font-size="11" font-weight="bold" fill="#991B1B" text-anchor="middle">P1</text>
+  <!-- Rédacteur -->
+  <text x="1218" y="459" class="td-sm" text-anchor="middle">Nathan Pierce</text>
+
+  <!-- ═══════════════════ TABLE BORDER ═══════════════════ -->
+  <rect x="15" y="94" width="1270" height="380" fill="none" stroke="#CBD5E1" stroke-width="1" rx="2"/>
+  <!-- Horizontal dividers -->
+  <line x1="15" y1="132" x2="1285" y2="132" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="15" y1="170" x2="1285" y2="170" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="15" y1="208" x2="1285" y2="208" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="15" y1="246" x2="1285" y2="246" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="15" y1="284" x2="1285" y2="284" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="15" y1="322" x2="1285" y2="322" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="15" y1="360" x2="1285" y2="360" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="15" y1="398" x2="1285" y2="398" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="15" y1="436" x2="1285" y2="436" stroke="#CBD5E1" stroke-width="1.5"/>
+  <!-- Vertical dividers -->
+  <line x1="160" y1="94" x2="160" y2="474" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="220" y1="94" x2="220" y2="474" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="300" y1="94" x2="300" y2="474" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="365" y1="94" x2="365" y2="474" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="420" y1="94" x2="420" y2="474" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="478" y1="94" x2="478" y2="474" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="558" y1="94" x2="558" y2="474" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="640" y1="94" x2="640" y2="474" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="708" y1="94" x2="708" y2="474" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="818" y1="94" x2="818" y2="474" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="943" y1="94" x2="943" y2="474" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="1071" y1="94" x2="1071" y2="474" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="1151" y1="94" x2="1151" y2="474" stroke="#E2E8F0" stroke-width="1"/>
+
+  <!-- ═══════════════════ SUMMARY BAR ═══════════════════ -->
+  <rect x="15" y="480" width="1270" height="50" fill="#1E293B" rx="4"/>
+  <text x="25" y="499" font-size="11" font-weight="bold" fill="#94A3B8">TOTAUX</text>
+  <text x="25" y="518" font-size="10" fill="#64748B">10 jeux · 34 articles publiés</text>
+  <!-- Score moyen -->
+  <text x="190" y="499" font-size="10" fill="#94A3B8" text-anchor="middle">Moy.</text>
+  <text x="190" y="515" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle">7.4</text>
+  <!-- Piliers -->
+  <text x="260" y="499" font-size="10" fill="#94A3B8" text-anchor="middle">1 ✅</text>
+  <text x="260" y="513" font-size="10" fill="#F59E0B" text-anchor="middle">9 ⚠️ vides</text>
+  <!-- Guides -->
+  <text x="332" y="499" font-size="10" fill="#94A3B8" text-anchor="middle">Guides</text>
+  <text x="332" y="513" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle">14</text>
+  <!-- News -->
+  <text x="392" y="499" font-size="10" fill="#94A3B8" text-anchor="middle">News</text>
+  <text x="392" y="513" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle">9</text>
+  <!-- Total -->
+  <text x="449" y="499" font-size="10" fill="#94A3B8" text-anchor="middle">Total</text>
+  <text x="449" y="513" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle">34</text>
+  <!-- Body -->
+  <text x="516" y="499" font-size="10" fill="#94A3B8" text-anchor="middle">Body</text>
+  <text x="516" y="513" font-size="13" font-weight="bold" fill="#EF4444" text-anchor="middle">2 / 34</text>
+  <!-- Schema -->
+  <text x="599" y="499" font-size="10" fill="#94A3B8" text-anchor="middle">Schema</text>
+  <text x="599" y="513" font-size="12" font-weight="bold" fill="#EF4444" text-anchor="middle">1 / 10</text>
+  <!-- /play/ -->
+  <text x="674" y="499" font-size="10" fill="#94A3B8" text-anchor="middle">/play/</text>
+  <text x="674" y="513" font-size="12" font-weight="bold" fill="#22C55E" text-anchor="middle">9 / 10</text>
+  <!-- Intentions -->
+  <text x="763" y="505" font-size="10" fill="#22C55E" text-anchor="middle">9/10 Rev+Guide+News ✅</text>
+  <!-- Satellites -->
+  <text x="880" y="499" font-size="10" fill="#94A3B8" text-anchor="middle">Total à créer</text>
+  <text x="880" y="513" font-size="12" font-weight="bold" fill="#F59E0B" text-anchor="middle">28 – 60 articles</text>
+  <!-- Conformité globale -->
+  <text x="1007" y="499" font-size="10" fill="#94A3B8" text-anchor="middle">Conformité globale</text>
+  <rect x="947" y="508" width="116" height="14" rx="3" fill="#374151"/>
+  <rect x="947" y="508" width="11" height="14" rx="3" fill="#EF4444"/>
+  <text x="1005" y="519" font-size="10" font-weight="bold" fill="#F87171" text-anchor="middle">9.5% moy.</text>
+  <!-- Priorité -->
+  <text x="1111" y="505" font-size="10" fill="#F87171" text-anchor="middle">9 P1 · 1 P2</text>
+  <!-- Rédacteur -->
+  <text x="1218" y="505" font-size="10" fill="#64748B" text-anchor="middle">10 rédacteurs</text>
+  <text x="1218" y="517" font-size="10" fill="#64748B" text-anchor="middle">assignés</text>
+
+  <!-- ═══════════════════ LEGEND ═══════════════════ -->
+  <rect x="15" y="545" width="1270" height="1" fill="#E2E8F0"/>
+  <!-- Légende pilier -->
+  <rect x="15" y="555" width="60" height="18" rx="3" fill="#DCFCE7"/>
+  <text x="45" y="568" class="label-green" text-anchor="middle">✅ BODY OK</text>
+  <text x="82" y="568" font-size="10" fill="#475569">= pilier publié avec body + schema</text>
+  <rect x="220" y="555" width="60" height="18" rx="3" fill="#FEF9C3"/>
+  <text x="250" y="568" class="label-orange" text-anchor="middle">⚠️ VIDE</text>
+  <text x="287" y="568" font-size="10" fill="#475569">= pilier publié sans body (page vide en prod)</text>
+  <!-- Note DB -->
+  <text x="600" y="568" font-size="10" fill="#D97706">⚠ Rise of Kingdoms : incohérence DB ("Rise of Kingdoms" vs "RoK") — à corriger via UPDATE</text>
+  <!-- Date -->
+  <text x="1270" y="568" font-size="10" fill="#94A3B8" text-anchor="end">Audit 08/10/2026 · RigGamer</text>
+
+  <!-- ═══════════════════ BOTTOM NOTES ═══════════════════ -->
+  <text x="15" y="598" font-size="10" fill="#475569" font-weight="bold">DONNÉES SUPPLÉMENTAIRES DISPONIBLES :</text>
+  <text x="15" y="614" font-size="10" fill="#64748B">• llms.txt créé ✅ · 34 articles indexés pour IA (ChatGPT, Perplexity, Gemini)</text>
+  <text x="15" y="628" font-size="10" fill="#64748B">• Images setup 6/6 ✅ · /media/ complet · 0 erreur 404 · Build Astro propre</text>
+  <text x="450" y="614" font-size="10" fill="#64748B">• Score /10 trié du meilleur au moins bon — priorité rédaction : NTE pilier OK → commencer P1 par score décroissant</text>
+  <text x="450" y="628" font-size="10" fill="#64748B">• Once Human : absent de la DB (aucun article inséré) — à créer from scratch avec pipeline 5 agents</text>
+</svg>
