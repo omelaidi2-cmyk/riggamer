@@ -100,6 +100,10 @@ const images = [
     alt: 'Arknights Endfield base building gameplay — Talos-II production facilities',
     keywords: ['arknights endfield base building','arknights endfield talos-ii base','arknights endfield production facilities','arknights endfield base management','arknights endfield isometric base'] },
 
+  { file: 'arknights-endfield-graphics-pc-performance-2026.webp',
+    alt: 'Arknights Endfield PC graphics settings performance 2026 — RTX 3060 1440p benchmark',
+    keywords: ['arknights endfield pc performance 2026','arknights endfield graphics settings','arknights endfield fps benchmark','arknights endfield rtx 3060','arknights endfield 1440p pc','arknights endfield optimization'] },
+
   { file: 'arknights-endfield-combat-realtime.webp',
     alt: 'Arknights Endfield real-time combat — pause-combat HUD with operators',
     keywords: ['arknights endfield combat system','arknights endfield real-time combat','arknights endfield pause combat','arknights endfield combat gameplay pc','arknights endfield operators fighting'] },
