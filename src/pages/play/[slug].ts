@@ -17,7 +17,7 @@ const REDIRECTS: Record<string, string> = {
   'wuthering-waves':        'https://to.dordir.com/5C3A/2J2I8/',
   'delta-force':            'https://to.dordir.com/5C3A/2J2I0/',
   'soul-land':              'https://to.dordir.com/5C3A/2J2G0/',
-  'arknights-endfield':     'https://to.dordir.com/5C3A/2J3C3/',
+  'arknights-endfield':     'https://to.dordir.com/5C3A/2J3C1/',
   'project-entropy':        'https://to.dordir.com/5C3A/2J1A0/',
   'raid-shadow-legends':    'https://to.dordir.com/5C3A/2J2D3/',
   'where-winds-meet':       'https://to.dordir.com/5C3A/2J1J9/',

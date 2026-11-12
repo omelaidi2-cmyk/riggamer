@@ -13,19 +13,31 @@ const { article, readNext = [] } = Astro.props;
 const { slug, title, excerpt, cat, date, readtime, img, score, game } = article;
 
 const GAME_SLUGS: Record<string, string> = {
-  'NTE':                    'nte',
-  'neverness-to-everness':  'nte-steam',
-  'Arknights':       'arknights-endfield',
-  'Project Entropy': 'project-entropy',
-  'RAID':            'raid-shadow-legends',
-  'Enlisted':        'enlisted',
-  'Rise of Kingdoms':'rise-of-kingdoms',
-  'War Thunder':     'war-thunder',
-  'Where Winds Meet':'where-winds-meet',
-  'Star Trek':       'star-trek-fleet-command',
+  'NTE':                      'nte',
+  'neverness-to-everness':    'nte-steam',
+  'Arknights: Endfield':      'arknights-endfield',
+  'Arknights':                'arknights-endfield',
+  'Project Entropy':          'project-entropy',
+  'RAID':                     'raid-shadow-legends',
+  'Enlisted':                 'enlisted',
+  'Rise of Kingdoms':         'rise-of-kingdoms',
+  'War Thunder':              'war-thunder',
+  'Where Winds Meet':         'where-winds-meet',
+  'Star Trek':                'star-trek-fleet-command',
 };
-const gameSlug = game ? (GAME_SLUGS[game] ?? slug.split('-').slice(0, 3).join('-')) : null;
-const playUrl  = gameSlug ? `/play/${gameSlug}` : null;
+
+const BANNER_IMGS: Record<string, { wide: string, box: string, sky: string }> = {
+  'nte':                { wide: '/media/nte-w.gif',                   box: '/media/nte-b.webp',                  sky: '/media/nte-sky.gif' },
+  'nte-steam':          { wide: '/media/nte-w.gif',                   box: '/media/nte-b.webp',                  sky: '/media/nte-sky.gif' },
+  'arknights-endfield': { wide: '/media/arknights-endfield-w.gif',    box: '/media/arknights-endfield-b.gif',    sky: '/media/arknights-endfield-sky.gif' },
+  // Ajouter ici les nouveaux jeux quand leurs bannières sont créées :
+  // 'raid-shadow-legends': { wide: '/media/raid-w.gif', box: '/media/raid-b.webp', sky: '/media/raid-sky.gif' },
+};
+const DEFAULT_BANNER = { wide: '/media/nte-w.gif', box: '/media/nte-b.webp', sky: '/media/nte-sky.gif' };
+
+const gameSlug   = game ? (GAME_SLUGS[game] ?? slug.split('-').slice(0, 3).join('-')) : null;
+const playUrl    = gameSlug ? `/play/${gameSlug}` : null;
+const bannerImgs = gameSlug ? (BANNER_IMGS[gameSlug] ?? DEFAULT_BANNER) : DEFAULT_BANNER;
 
 const catLabel  = { guides:'Guide', news:'News', reviews:'Review', setup:'Setup' }[cat];
 const catPath   = `/${cat}/`;
@@ -72,7 +84,7 @@ const authorInitials = authorName.split(' ').map((n: string) => n[0]).join('').t
 
   <!-- ① LEADERBOARD — sous navbar -->
   <div style="background:#07080b;padding:22px 0 0;text-align:center;">
-    <Banner slug={gameSlug ?? 'nte'} size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt={`${game ?? 'Game'} — Play Free`} />
+    <Banner slug={gameSlug ?? 'nte'} size="wide" img={bannerImgs.wide} imgW={728} imgH={146} alt={`${game ?? 'Game'} — Play Free`} />
   </div>
 
   <div class="rg-article-wrap">
@@ -188,7 +200,7 @@ const authorInitials = authorName.split(' ').map((n: string) => n[0]).join('').t
               </div>
 
               <div class="rg-inline-promo" style="text-align:center;">
-                <Banner slug={gameSlug ?? 'nte'} size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt={`${game ?? 'Game'} — Play Free`} />
+                <Banner slug={gameSlug ?? 'nte'} size="wide" img={bannerImgs.wide} imgW={728} imgH={146} alt={`${game ?? 'Game'} — Play Free`} />
               </div>
 
               <div class="rg-prose">
@@ -253,8 +265,8 @@ const authorInitials = authorName.split(' ').map((n: string) => n[0]).join('').t
 
         <!-- Sidebar sticky — 300x250 + skyscraper 160x600 — les deux fixes pendant tout le scroll -->
         <aside class="rg-article-side">
-          <Banner slug={gameSlug ?? 'nte'} size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt={`${game ?? 'Game'} — Play Free`} />
-          <Banner slug={gameSlug ?? 'nte'} size="sky" img="/media/nte-sky.gif" imgW={160} imgH={600} alt={`${game ?? 'Game'} — Play Free`} />
+          <Banner slug={gameSlug ?? 'nte'} size="box" img={bannerImgs.box} imgW={300} imgH={250} alt={`${game ?? 'Game'} — Play Free`} />
+          <Banner slug={gameSlug ?? 'nte'} size="sky" img={bannerImgs.sky} imgW={160} imgH={600} alt={`${game ?? 'Game'} — Play Free`} />
           <div class="rg-toc">
             <span class="rg-toc-title">CONTENTS</span>
             <ol>
@@ -293,8 +305,8 @@ const authorInitials = authorName.split(' ').map((n: string) => n[0]).join('').t
       <a href={playUrl ?? `/play/nte`} target="_blank" rel="noopener noreferrer">
         <video autoplay loop muted playsinline width="728" height="146"
           style="display:block;max-width:100%;aspect-ratio:728/146;">
-          <source src="/media/nte-w.webm" type="video/webm" />
-          <source src="/media/nte-w.mp4" type="video/mp4" />
+          <source src={bannerImgs.wide.replace('.gif', '.webm')} type="video/webm" />
+          <source src={bannerImgs.wide.replace('.gif', '.mp4')} type="video/mp4" />
         </video>
       </a>
     </span>
