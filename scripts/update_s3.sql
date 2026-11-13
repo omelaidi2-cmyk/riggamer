@@ -1,0 +1,147 @@
+UPDATE articles SET body='<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://riggamer.com/guides/arknights-endfield-f2p-guide/#article",
+      "headline": "Arknights Endfield F2P Guide 2026 — Better Than Genshin on PC?",
+      "description": "Arknights: Endfield vs Genshin Impact F2P comparison 2026 — Orundum income, free 6-star Ardelia, pity rates, and why Endfield gives free players more than any other gacha on PC right now.",
+      "author": { "@type": "Person", "name": "Dr. Vance", "url": "https://riggamer.com/authors/dr-vance" },
+      "publisher": { "@type": "Organization", "name": "RIGGAMER", "logo": { "@type": "ImageObject", "url": "https://riggamer.com/media/riggamer-logo.webp" } },
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "image": { "@type": "ImageObject", "url": "https://riggamer.com/media/arknights-endfield-f2p-guide-2026.webp", "width": 1200, "height": 630 },
+      "mainEntityOfPage": { "@type": "WebPage", "@id": "https://riggamer.com/guides/arknights-endfield-f2p-guide/" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Arknights: Endfield better than Genshin Impact for F2P players?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, in most measurable ways. Arknights: Endfield gives F2P players 2,400 to 3,200 Orundum per week versus Genshin Impact approximately 1,600 to 2,400 Primogems. Endfield also provides a guaranteed free 6-star (Ardelia) on account creation, which Genshin does not. The base production system generates passive pull currency with no energy cap, a mechanic absent from Genshin entirely." }
+        },
+        {
+          "@type": "Question",
+          "name": "How much free Orundum does Arknights: Endfield give per week?",
+          "acceptedAnswer": { "@type": "Answer", "text": "2,400 to 3,200 Orundum per week through daily missions (700), weekly missions (600), base production facilities (400), and active events (700 to 1,500). At 180 Orundum per pull, that is 13 to 18 pulls per week without spending." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Arknights: Endfield P2W in 2026?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Spending accelerates operator acquisition but does not gate any story content, most event tiers, or competitive gameplay fundamentals. All content is completable F2P with the right operators, including the guaranteed free 6-star Ardelia available to every new player." }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://riggamer.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://riggamer.com/guides/" },
+        { "@type": "ListItem", "position": 3, "name": "Arknights Endfield F2P Guide 2026", "item": "https://riggamer.com/guides/arknights-endfield-f2p-guide/" }
+      ]
+    }
+  ]
+}
+</script>
+
+<h1>Arknights Endfield F2P Guide 2026 — Better Than Genshin on PC?</h1>
+
+<p>You are comparing your options. Genshin Impact is the default answer for free PC gacha in 2026 — but it is not the best answer anymore. Arknights: Endfield launched globally this year and its F2P model is measurably more generous in pull income, guaranteed free units, and passive currency generation. This guide runs the numbers side by side so you can decide with data, not hype.</p>
+
+<p>Bottom line before we go further: if you have been sitting on the fence between two or three gachas, Endfield is the one to install first. It costs nothing and the week-one new player bonus window is still active.</p>
+
+<a href="/play/arknights-endfield" class="cta-btn" rel="nofollow sponsored" target="_blank">▶ Install Arknights: Endfield Free on PC — Takes 3 Minutes</a>
+
+<img src="/media/arknights-endfield-f2p-guide-2026.webp" alt="Arknights Endfield F2P guide 2026 — free Orundum income vs Genshin Primogems comparison" width="1200" height="630" loading="eager" />
+
+<h2>Arknights Endfield vs Genshin Impact — F2P Numbers Head to Head</h2>
+
+<p>The comparison most players want first. Here is the weekly free pull currency income for both games at the same level of active play:</p>
+
+<table>
+  <thead>
+    <tr><th>Source</th><th>Arknights: Endfield</th><th>Genshin Impact</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Daily missions</td><td>~700 Orundum</td><td>~840 Primogems</td></tr>
+    <tr><td>Weekly missions</td><td>~600 Orundum</td><td>~300 Primogems</td></tr>
+    <tr><td>Passive base income</td><td>~400 Orundum</td><td>None</td></tr>
+    <tr><td>Active events (avg)</td><td>700–1,500 Orundum</td><td>400–900 Primogems</td></tr>
+    <tr><td><strong>Weekly total</strong></td><td><strong>2,400–3,200 Orundum</strong></td><td><strong>1,540–2,040 Primogems</strong></td></tr>
+    <tr><td>Currency per pull</td><td>180 Orundum</td><td>160 Primogems</td></tr>
+    <tr><td><strong>Pulls per week (F2P)</strong></td><td><strong>13–18 pulls</strong></td><td><strong>9–12 pulls</strong></td></tr>
+  </tbody>
+</table>
+
+<p>Endfield gives F2P players roughly 40–50% more pulls per week than Genshin at comparable engagement. The base production facilities are the differentiator — that passive 400 Orundum per week exists entirely outside Genshin''s economy.</p>
+
+<p>Hard pity comparison: Endfield hits guaranteed 6-star at 90 pulls, same as Genshin. But Endfield reaches soft pity (rising rates) earlier at ~50 pulls versus Genshin starting soft pity at 74 pulls. That gap matters when you are tracking where in the pity cycle you are.</p>
+
+<h2>Arknights Endfield vs NTE — Which F2P Model Wins?</h2>
+
+<p>Neverness to Everness launched earlier in 2026 and built a strong reputation for F2P generosity in its first three months. How does Endfield compare?</p>
+
+<p>NTE is more generous in launch-window pull packages — the first 30 days of NTE gave new players an unusually high pull count. Endfield is more generous in sustained, long-term passive income through the base production system. If you are starting today, three months post-NTE launch, Endfield''s current new player window offers comparable or better week-one resources.</p>
+
+<p>The key differentiator in Endfield''s favor: the guaranteed free 6-star Ardelia is handed to every account at creation. NTE has no equivalent guaranteed high-tier unit available to all new players from day one. For pure F2P roster building in 2026, Endfield''s floor is higher.</p>
+
+<a href="/play/arknights-endfield" class="cta-btn" rel="nofollow sponsored" target="_blank">▶ Claim Your Free 6-Star Ardelia — Play Now</a>
+
+<h2>Ardelia — Why a Free 6-Star Changes the F2P Equation</h2>
+
+<img src="/media/arknights-endfield-ardelia-free-operator.webp" alt="Arknights Endfield Ardelia free 6-star operator — why she matters for F2P players in 2026" width="1200" height="675" loading="lazy" />
+
+<p>In most gachas, free starter units are 4-stars at best — functional fillers until your first real pulls deliver. HyperGryph gives new Endfield players a 6-star Ardelia on day one. No pulls required. No conditions beyond creating an account.</p>
+
+<p>Ardelia is not a token giveaway. She functions as a flexible AoE support with reliable base damage, covering the support role in your team composition from hour one. What this means in practice:</p>
+
+<ul>
+  <li>Your first 90 pulls can go entirely toward a DPS operator rather than filling a support gap</li>
+  <li>You have a 6-star in your roster before spending anything, which removes the first month of "feeling weak" that kills new player retention in other gachas</li>
+  <li>Ardelia handles early-to-mid content without investment, freeing your upgrade materials for the operators you actually want at max potential</li>
+</ul>
+
+<p>Genshin gives new players no equivalent free 6-star. NTE provides a free starter but at a lower rarity tier. Endfield is currently the only major PC gacha giving every free player a genuine 6-star unit on account creation. That is not a minor detail — it is the most player-friendly entry point in the genre right now.</p>
+
+<h2>The Orundum Sources You Cannot Miss in Week 1</h2>
+
+<p>New player week-one bonuses in Arknights: Endfield are time-sensitive. These expire and do not repeat. Claim them before anything else:</p>
+
+<ul>
+  <li><strong>Launch mailbox packages:</strong> Log in, open mailbox immediately. Time-limited new player welcome pulls and Orundum packages expire after 7 days. First action every session until all are claimed.</li>
+  <li><strong>Achievement chain (first 15):</strong> Designed to complete in week one. Each pays 150–300 Orundum. All 15 together yield 2,250–4,500 Orundum beyond regular income — equivalent to 12–25 extra pulls in your first week alone.</li>
+  <li><strong>Story milestone rewards:</strong> Every main story chapter completion triggers a one-time Orundum payout. Play through the story in week one, do not skip chapters.</li>
+  <li><strong>Base facilities online:</strong> Activate your production facilities in the first three hours. Each day of passive production compounds. Players who ignore the base for the first week lose approximately 2,800 Orundum in passive income they will never recover.</li>
+</ul>
+
+<p>Total realistic week-one Orundum for an active F2P player combining recurring income plus one-time bonuses: <strong>7,000–12,000 Orundum</strong>. That is 38–66 pulls before you spend a cent. No other major gacha on PC currently matches this new player window.</p>
+
+<h2>Is Arknights: Endfield P2W? The Honest Answer</h2>
+
+<p>Spending in Endfield buys acquisition speed and duplicate investment (Potential upgrades that increase operator caps). It does not buy access to content. Every story mission, every event tier at the standard difficulty, and every core gameplay system is completable with F2P resources.</p>
+
+<p>The honest P2W ceiling: in the most difficult endgame content — the top tiers of challenge modes with strict score requirements — a fully invested whale account with maxed Potential operators will outperform a F2P account. This is true in every gacha game. The question is whether that gap affects your experience, and for 95% of players playing story and standard events, it does not.</p>
+
+<p>Compared to competitors: Endfield''s P2W factor is lower than most. No energy system blocks content progression. No battle pass locks critical upgrades. No exclusive P2W operators exist — every operator is pullable with F2P currency. For the full picture on how Endfield performs across all criteria, read the <a href="/reviews/arknights-endfield-review/">Arknights: Endfield review 2026</a>.</p>
+
+<h2>3 Objections F2P Players Have — Answered Directly</h2>
+
+<p><strong>"The base production system sounds like too much management."</strong> It takes 10 minutes to set up once during the tutorial and 2 minutes per login to collect. That is the entire maintenance cost. The 400 Orundum per week it generates requires less daily effort than opening Genshin''s resin interface.</p>
+
+<p><strong>"I will fall behind players who pay."</strong> In story content and standard events: no, you will not fall behind in any meaningful way. Ardelia plus 2 to 3 pulls from your week-one income puts you in a competitive starting position. For operator tier rankings and which banners are worth saving for, the <a href="/guides/arknights-endfield-tier-list/">Arknights: Endfield tier list 2026</a> shows exactly what F2P players should be targeting.</p>
+
+<p><strong>"HyperGryph will make it worse over time."</strong> The original Arknights maintained consistent F2P generosity for 5+ years. HyperGryph has not demonstrated a pattern of bait-and-switch launch-window generosity followed by tightening. The base production passive income is a structural feature, not a temporary promotion.</p>
+
+<div class="verdict-box">
+  <div class="verdict-title">F2P VERDICT — ARKNIGHTS: ENDFIELD VS THE FIELD</div>
+  <div class="verdict-row"><span class="verdict-label">Weekly pulls (F2P):</span><span class="verdict-value">13–18 pulls</span></div>
+  <div class="verdict-row"><span class="verdict-label">Free 6-star on join:</span><span class="verdict-value">Ardelia ✅ (Genshin: ❌)</span></div>
+  <div class="verdict-row"><span class="verdict-label">Passive base income:</span><span class="verdict-value">~400 Orundum/week</span></div>
+  <div class="verdict-row"><span class="verdict-label">P2W factor:</span><span class="verdict-value">Low — speed, not access</span></div>
+  <div class="verdict-row"><span class="verdict-label">Week 1 pull potential:</span><span class="verdict-value">38–66 pulls F2P</span></div>
+  <div class="verdict-row"><span class="verdict-label">F2P Rating vs Genshin:</span><span class="verdict-value verdict-score">Endfield wins ✅</span></div>
+  <a href="/play/arknights-endfield" class="cta-btn" rel="nofollow sponsored" target="_blank">▶ Install Free Now — Claim Ardelia + Week 1 Bonuses</a>
+</div>
+', excerpt='Arknights: Endfield vs Genshin Impact F2P comparison 2026 — weekly pull income, free 6-star Ardelia, pity system, and why Endfield gives free players more than any other gacha on PC right now.' WHERE slug='arknights-endfield-f2p-guide';
