@@ -6,13 +6,15 @@ export default defineConfig({
   output: 'hybrid',
   adapter: cloudflare({
     platformProxy: { enabled: true },
+    imageService: 'compile',
   }),
   integrations: [tailwind()],
   devToolbar: { enabled: false },
+  trailingSlash: 'always',
   site: 'https://riggamer.com',
   compressHTML: true,
   build: {
-    inlineStylesheets: 'auto',
+    inlineStylesheets: 'always',
   },
   vite: {
     build: {
