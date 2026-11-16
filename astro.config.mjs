@@ -12,7 +12,7 @@ export default defineConfig({
   site: 'https://riggamer.com',
   compressHTML: true,
   build: {
-    inlineStylesheets: 'always',
+    inlineStylesheets: 'auto',
   },
   vite: {
     build: {
