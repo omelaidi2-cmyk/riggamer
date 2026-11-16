@@ -10,7 +10,7 @@ export default defineConfig({
   }),
   integrations: [tailwind()],
   devToolbar: { enabled: false },
-  trailingSlash: 'always',
+  trailingSlash: 'ignore',
   site: 'https://riggamer.com',
   compressHTML: true,
   build: {
