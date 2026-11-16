@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS articles (
   img       TEXT,
   score     TEXT,
   game      TEXT,
+  editor    TEXT,
   body      TEXT,
   published INTEGER NOT NULL DEFAULT 1,
   created_at TEXT DEFAULT (datetime('now'))

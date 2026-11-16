@@ -11,6 +11,7 @@ export interface Article {
   img?: string;
   score?: string;
   game?: string;
+  editor?: string;
   body?: string;
 }
 
