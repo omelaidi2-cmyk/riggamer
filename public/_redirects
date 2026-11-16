@@ -1,5 +1,1 @@
-# RigGamer — Cloudflare Pages Redirects
-# Canonical form: https://riggamer.com/path/ (no www, https, trailing slash)
-
-# www → non-www (301 permanent)
-https://www.riggamer.com/* https://riggamer.com/:splat 301
+# RigGamer — redirects handled in src/middleware.ts (Workers only support relative URLs)
