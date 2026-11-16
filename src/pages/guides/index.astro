@@ -1,63 +1,269 @@
-﻿---
+---
 export const prerender = false;
 import Base from '../../layouts/Base.astro';
-import HubHeader from '../../components/HubHeader.astro';
-import ArticleCard from '../../components/ArticleCard.astro';
 import Banner from '../../components/Banner.astro';
 import { getArticlesByCategory } from '../../lib/db';
 
 Astro.response.headers.set('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');
 
-const db = Astro.locals.runtime.env.DB;
-const articles = await getArticlesByCategory(db, 'guides');
+const db = Astro.locals.runtime?.env?.DB;
+const articles = db ? await getArticlesByCategory(db, 'guides') : [];
+const featured  = articles[0];
+
+const PER_PAGE = 8;
+const page = Math.max(1, parseInt(Astro.url.searchParams.get('page') ?? '1'));
+const totalPages = Math.max(1, Math.ceil((articles.length - 1) / PER_PAGE));
+const rest = articles.slice(1).slice((page - 1) * PER_PAGE, page * PER_PAGE);
 ---
 
-<Base title="PC Gaming Guides — RigGamer" description="Step-by-step guides, tier lists, and beginner roadmaps for the biggest PC games.">
+<Base title="PC Gaming Guides & Tier Lists — RigGamer" description="Rigorously field-tested PC walkthroughs, operator tier lists, F2P economy routes, and engine configs. Zero filler, patch-verified." image="/media/arknights-endfield-guides.jpg">
 
-  <div style="background:#07080b;padding:22px 0 0;text-align:center;">
-    <div class="promo-desktop" style="display:inline-block;line-height:0;">
-      <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
-    </div>
-    <div class="promo-mobile" style="justify-content:center;">
-      <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
-    </div>
-  </div>
+  <div class="max-w-7xl mx-auto px-4 py-8 space-y-10">
 
-  <HubHeader
-    cat="guides"
-    title="PC Gaming Guides"
-    desc="Tier lists, beginner roadmaps, build guides, and strategy breakdowns — updated every week."
-    count={articles.length}
-    bgImg="https://rigpeak.com/wp-content/uploads/2026/08/24/where-winds-meet-guides.jpg"
-  />
-
-  <div class="wrap">
-    <div class="page-layout">
-      <div>
-        <div class="articles-grid">
-          {articles.map((a, i) => <ArticleCard {...a} num={i} />)}
+    <!-- HERO BANNER HEADER -->
+    <section class="border border-white/10 rounded-lg overflow-hidden mb-2">
+      <div class="relative min-h-[200px] flex items-end">
+        <img src="/media/arknights-endfield-guides.webp" alt="" class="absolute inset-0 w-full h-full object-cover object-center" loading="eager" />
+        <div class="absolute inset-0" style="background:linear-gradient(to right, rgba(8,9,11,0.92) 0%, rgba(8,9,11,0.75) 55%, rgba(8,9,11,0.35) 100%)"></div>
+        <div class="relative z-10 p-6 md:p-8 w-full">
+          <span class="inline-block bg-[#ff5500] text-white text-[10px] font-mono font-bold px-2.5 py-1 rounded mb-3 tracking-widest">CATEGORY</span>
+          <h1 class="text-3xl md:text-4xl font-bold text-white tracking-tight">
+            PC GAMING <span class="text-[#ff5500]">GUIDES</span> &amp; STRATEGIES
+          </h1>
+          <p class="text-sm text-white/60 mt-2 max-w-xl leading-relaxed">
+            Deep, peer-verified breakdowns: weapon recoil compensation, industrial AIC pipelines, rotation DPS thresholds, and tuned graphic driver presets for competitive advantage.
+          </p>
         </div>
       </div>
-      <aside class="sidebar">
-        <Banner slug="nte" size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
-        <Banner slug="nte" size="sky" img="/media/nte-sky.gif" imgW={160} imgH={600} alt="NTE" />
-        <div class="trending-box">
-          <div class="trending-hd">Trending</div>
-          {articles.slice(0, 4).map((a, i) => (
-            <a href={`/guides/${a.slug}/`} class="tr-item">
-              <span class="tr-num">{String(i+1).padStart(2,'0')}</span>
-              <div>
-                <div class="tr-title">{a.title}</div>
-                <span class="tr-cat" style="color:var(--cg);font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.06em;">Guide</span>
+    </section>
+
+    <!-- Filter tabs -->
+    <section class="border-b border-white/10 pb-6">
+      <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+        <span class="text-white/40 mr-2 flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+          </svg>
+          FILTER:
+        </span>
+        <a href="/guides/" class="bg-[#ff5500] text-white px-3 py-1.5 rounded font-bold">ALL GAMES</a>
+        <a href="/guides/arknights-endfield-tier-list/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">ARKNIGHTS: ENDFIELD</a>
+        <a href="/guides/war-thunder-best-nation/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">WAR THUNDER</a>
+        <a href="/reviews/neverness-to-everness-review-2026/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">NEVERNESS TO EVERNESS</a>
+        <a href="/guides/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">WUTHERING WAVES</a>
+        <a href="/guides/enlisted-beginner-squad-guide/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">ENLISTED</a>
+        <a href="/setup/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">FPS &amp; RIG BENCHMARKS</a>
+      </div>
+    </section>
+
+    <!-- Top Banner -->
+    <div class="text-center border-y border-white/5 py-4">
+      <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+    </div>
+
+    <!-- FEATURED BLUEPRINT DOSSIER -->
+    {featured && (
+      <section class="space-y-4">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 bg-[#ff5500]"></span>
+          <h2 class="text-sm font-bold font-mono tracking-wider uppercase text-white">FEATURED BLUEPRINT DOSSIER</h2>
+        </div>
+
+        <div class="bg-[#111318] border border-white/10 rounded-lg overflow-hidden grid lg:grid-cols-12 relative group">
+          <div class="lg:col-span-7 relative min-h-[280px] bg-slate-900 overflow-hidden">
+            {featured.img ? (
+              <img src={featured.img} alt={featured.title} class="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-700 absolute inset-0" loading="eager" />
+            ) : (
+              <div class="w-full h-full bg-[#0c0e12] absolute inset-0"></div>
+            )}
+            <div class="absolute inset-0 bg-gradient-to-t from-[#111318] via-[#111318]/40 to-transparent"></div>
+          </div>
+
+          <div class="lg:col-span-5 p-6 lg:p-8 flex flex-col justify-between">
+            <div>
+              <div class="font-mono text-xs text-[#ff5500] mb-2 tracking-wide uppercase">
+                {featured.game ?? 'RIGGAMER'} · MASTER GUIDE
               </div>
+
+              <h3 class="text-xl lg:text-2xl font-bold text-white tracking-tight mb-3">
+                <a href={`/guides/${featured.slug}/`} class="hover:text-[#ff5500] transition-colors">
+                  {featured.title}
+                </a>
+              </h3>
+
+              {featured.excerpt && (
+                <p class="text-white/60 text-xs leading-relaxed mb-6">
+                  {featured.excerpt}
+                </p>
+              )}
+            </div>
+
+            <div class="flex items-center justify-end pt-4 border-t border-white/10">
+              <a href={`/guides/${featured.slug}/`} class="bg-[#ff5500] hover:bg-[#e04b00] text-white px-5 py-2.5 rounded font-mono text-xs font-bold tracking-wider transition-colors flex items-center gap-1.5" style="box-shadow:0 0 14px rgba(255,85,0,0.35)">
+                OPEN BLUEPRINT →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- FIELD TACTICS & META GUIDES -->
+    <section class="space-y-6">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 bg-[#ff5500]"></span>
+          <h2 class="text-sm font-bold font-mono tracking-wider uppercase text-white">FIELD TACTICS &amp; META GUIDES</h2>
+        </div>
+        <span class="text-xs font-mono text-white/40 hidden sm:block">
+          {rest.length} VERIFIED DOSSIERS
+        </span>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-6">
+        {rest.map((a) => (
+          <article class="bg-[#111318] border border-white/10 rounded-lg overflow-hidden flex flex-col justify-between group hover:border-[#ff5500]/60 transition-colors">
+            <div>
+              <a href={`/guides/${a.slug}/`} class="relative h-44 bg-slate-900 overflow-hidden block">
+                {a.img ? (
+                  <img src={a.img} alt={a.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85" loading="lazy" />
+                ) : (
+                  <div class="w-full h-full bg-[#0c0e12]"></div>
+                )}
+                <div class="absolute top-3 left-3">
+                  <span class="bg-black/75 backdrop-blur text-[#ff5500] text-[10px] font-mono px-2 py-0.5 rounded border border-[#ff5500]/40">GUIDE</span>
+                </div>
+                <div class="absolute bottom-3 right-3 text-[10px] font-mono text-white/50 bg-black/75 backdrop-blur px-2 py-0.5 rounded">
+                  {a.readtime} MIN READ
+                </div>
+              </a>
+              <div class="p-5">
+                <div class="text-[11px] font-mono text-[#ff5500] mb-1 uppercase">
+                  {a.game ?? 'RIGGAMER'} · GUIDE
+                </div>
+                <h3 class="text-base font-bold text-white mb-2 leading-snug">
+                  {a.title}
+                </h3>
+                {a.excerpt && (
+                  <p class="text-xs text-white/50 line-clamp-2">
+                    {a.excerpt}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div class="px-5 pb-5 pt-3 border-t border-white/5 flex items-center justify-between">
+              <span class="text-[10px] font-mono text-white/30">RIGGAMER</span>
+              <a href={`/guides/${a.slug}/`} class="text-xs font-mono font-bold text-[#ff5500] hover:text-white transition-colors">READ GUIDE →</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- QUICK SPEC REQUIREMENT CHEATSHEET -->
+    <section class="bg-[#111318] border border-white/10 rounded-lg p-6 lg:p-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 pb-4 mb-6">
+        <div>
+          <span class="font-mono text-xs text-[#ff5500] tracking-widest block mb-1">
+            // RIGGAMER LABS // HARDWARE PERFORMANCE MATRIX
+          </span>
+          <h2 class="text-base font-bold tracking-tight text-white">QUICK SPEC REQUIREMENT CHEATSHEET</h2>
+          <p class="text-xs text-white/50 mt-1">
+            Execute community blueprints and high-load endgame farming runs without FPS drops or frame pacing latency.
+          </p>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs font-mono">
+          <thead>
+            <tr class="border-b border-white/10 text-white/40 uppercase text-[10px]">
+              <th class="py-3 px-4">TITLE / ENGINE</th>
+              <th class="py-3 px-4">MINIMUM 60 FPS (1080P)</th>
+              <th class="py-3 px-4">RECOMMENDED 144 FPS (1440P)</th>
+              <th class="py-3 px-4">VRAM</th>
+              <th class="py-3 px-4">OPTIMAL TARGET</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5 text-slate-200">
+            {[
+              { title: 'Arknights: Endfield (UE5)', min: 'RTX 2060 / Ryzen 5 3600', rec: 'RTX 4070 / i5-13600K', vram: '8GB GDDR6', target: 'HIGH FACTORY MESH DETAIL' },
+              { title: 'War Thunder (Dagor 6.5)',   min: 'GTX 1060 / i3-10100',     rec: 'RTX 4060 Ti / Ryzen 7 5700X', vram: '6GB GDDR6', target: 'DLSS ULTRA QUALITY ACTIVE' },
+              { title: 'Wuthering Waves (UE4)',     min: 'GTX 1660 / i5-9400F',     rec: 'RTX 3070 / Ryzen 5 7600', vram: '8GB GDDR6', target: '120 FPS UNLOCKED MODE' },
+              { title: 'Zenless Zone Zero (Unity)', min: 'GTX 1650 / i5-6500',      rec: 'RTX 3060 / Ryzen 5 5600', vram: '6GB GDDR6', target: 'ANISOTROPIC 16X SHADERS' },
+            ].map(r => (
+              <tr class="hover:bg-white/5 transition-colors">
+                <td class="py-3.5 px-4 font-bold text-white"><span class="text-[#ff5500]">•</span> {r.title}</td>
+                <td class="py-3.5 px-4 text-white/50">{r.min}</td>
+                <td class="py-3.5 px-4 text-[#ff5500] font-bold">{r.rec}</td>
+                <td class="py-3.5 px-4 text-white/60">{r.vram}</td>
+                <td class="py-3.5 px-4 text-[#38bdf8]">{r.target}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SIDEBAR SECTION: Banner + Trending -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div class="lg:col-span-8 bg-[#111318] border border-white/10 rounded-lg p-6 lg:p-8 flex flex-col justify-between">
+        <div>
+          <span class="font-mono text-xs text-[#ff5500] tracking-widest block mb-1">// CUSTOM META REQUESTS</span>
+          <h2 class="text-xl font-bold text-white mb-2">LOOKING FOR A SPECIFIC GAME GUIDE?</h2>
+          <p class="text-xs text-white/50 leading-relaxed mb-6">
+            Can't find a rotation roadmap or factory schematic for your build? Browse our full guide archive below.
+          </p>
+        </div>
+        <div class="flex gap-2">
+          <input type="text" placeholder="QUERY SPECIFIC BOSS, WEAPON OR MAP..."
+            class="bg-[#0c0e12] border border-white/10 rounded px-4 py-2.5 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-[#ff5500] flex-1 font-mono" />
+          <button class="bg-[#ff5500] hover:bg-[#e04b00] text-white px-5 py-2.5 rounded text-xs font-bold tracking-wider font-mono transition-colors">SEARCH</button>
+        </div>
+      </div>
+
+      <aside class="lg:col-span-4 space-y-4">
+        <div class="flex justify-center">
+          <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+        </div>
+        <div class="bg-[#111318] border border-white/10 rounded p-4 font-mono text-xs space-y-3">
+          <div class="text-[#ff5500] font-bold pb-2 border-b border-white/10">🔥 TRENDING GUIDES</div>
+          {articles.slice(0, 5).map((a, i) => (
+            <a href={`/guides/${a.slug}/`} class="flex items-start gap-3 group">
+              <span class="text-white/30 font-bold w-6 shrink-0">{String(i+1).padStart(2,'0')}</span>
+              <span class="text-white/70 group-hover:text-white transition-colors leading-tight">{a.title}</span>
             </a>
           ))}
         </div>
       </aside>
     </div>
-    <div class="mobile-mid-promo">
-      <Banner slug="nte" size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
-    </div>
-  </div>
 
+    <!-- PAGINATION -->
+    {totalPages > 1 && (
+      <div class="flex items-center justify-center gap-2 font-mono text-xs pt-4 border-t border-white/10">
+        {page > 1 ? (
+          <a href={`/guides/?page=${page - 1}`} class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/10 hover:border-[#ff5500] text-white/60 hover:text-white transition-colors">←</a>
+        ) : (
+          <span class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/5 text-white/20 cursor-not-allowed">←</span>
+        )}
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+          <a href={`/guides/?page=${p}`} class={`w-9 h-9 flex items-center justify-center border font-bold transition-colors ${p === page ? 'bg-[#ff5500] border-[#ff5500] text-white' : 'bg-[#111318] border-white/10 text-white/60 hover:border-[#ff5500] hover:text-white'}`}>
+            {String(p).padStart(2, '0')}
+          </a>
+        ))}
+        {page < totalPages ? (
+          <a href={`/guides/?page=${page + 1}`} class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/10 hover:border-[#ff5500] text-white/60 hover:text-white transition-colors">→</a>
+        ) : (
+          <span class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/5 text-white/20 cursor-not-allowed">→</span>
+        )}
+        <span class="ml-4 text-white/30 tracking-widest">{articles.length - 1} TOTAL</span>
+      </div>
+    )}
+
+    <!-- Bottom banner -->
+    <div class="text-center border-t border-white/5 pt-6">
+      <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+    </div>
+
+  </div>
 </Base>

@@ -1,67 +1,189 @@
-﻿---
+---
 export const prerender = false;
 import Base from '../../layouts/Base.astro';
-import HubHeader from '../../components/HubHeader.astro';
-import ArticleCard from '../../components/ArticleCard.astro';
 import Banner from '../../components/Banner.astro';
 import { getArticlesByCategory } from '../../lib/db';
 
 Astro.response.headers.set('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');
 
-const db = Astro.locals.runtime.env.DB;
-const articles = await getArticlesByCategory(db, 'reviews');
+const db = Astro.locals.runtime?.env?.DB;
+const articles = db ? await getArticlesByCategory(db, 'reviews') : [];
+const topRated  = [...articles].filter(a => a.score).sort((a, b) => parseFloat(b.score!) - parseFloat(a.score!));
+
+const PER_PAGE = 8;
+const page = Math.max(1, parseInt(Astro.url.searchParams.get('page') ?? '1'));
+const totalPages = Math.max(1, Math.ceil((articles.length - 3) / PER_PAGE));
+const pagedRest = articles.slice(3).slice((page - 1) * PER_PAGE, page * PER_PAGE);
 ---
 
-<Base title="PC Game Reviews — RigGamer" description="Honest, in-depth PC game reviews with scores. No paid placements.">
+<Base title="RigGamer Benchmarks & Reviews — PC Games" description="Uncompromising scored verdicts, predatory monetization audits, 0.1% low frametime consistency ratings, and endgame loop integrity scores measured on reference silicon." image="/media/nte-review-keyart-v2.webp">
 
-  <div style="background:#07080b;padding:22px 0 0;text-align:center;">
-    <div class="promo-desktop" style="display:inline-block;line-height:0;">
-      <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
-    </div>
-    <div class="promo-mobile" style="justify-content:center;">
-      <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
-    </div>
-  </div>
+  <div class="max-w-7xl mx-auto px-4 py-8 space-y-10">
 
-  <HubHeader
-    cat="reviews"
-    title="Game Reviews"
-    desc="Honest, in-depth reviews of the biggest PC and mobile games. Scored 1–10. No paid placements."
-    count={articles.length}
-    bgImg="https://rigpeak.com/wp-content/uploads/2026/08/31/nte-review-keyart.webp"
-  />
-
-  <div class="wrap">
-    <div class="page-layout">
-      <div>
-        <div class="articles-grid">
-          {articles.map((a, i) => <ArticleCard {...a} num={i} />)}
+    <!-- HERO BANNER HEADER -->
+    <section class="border border-white/10 rounded-lg overflow-hidden mb-2">
+      <div class="relative min-h-[200px] flex items-end">
+        <img src="/media/nte-review-keyart-v2.webp" alt="" class="absolute inset-0 w-full h-full object-cover object-center" loading="eager" />
+        <div class="absolute inset-0" style="background:linear-gradient(to right, rgba(8,9,11,0.92) 0%, rgba(8,9,11,0.75) 55%, rgba(8,9,11,0.35) 100%)"></div>
+        <div class="relative z-10 p-6 md:p-8 w-full">
+          <span class="inline-block bg-[#ff5500] text-white text-[10px] font-mono font-bold px-2.5 py-1 rounded mb-3 tracking-widest">CATEGORY</span>
+          <h1 class="text-3xl md:text-4xl font-bold text-white tracking-tight">
+            RIG GAMER <span class="text-[#ff5500]">BENCHMARKS</span> &amp; REVIEWS
+          </h1>
+          <p class="text-sm text-white/60 mt-2 max-w-xl leading-relaxed">
+            Uncompromising scored verdicts, predatory monetization audits, 0.1% low frametime consistency ratings, and endgame loop integrity measured on reference silicon.
+          </p>
         </div>
       </div>
-      <aside class="sidebar">
-        <Banner slug="nte" size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
-        <Banner slug="nte" size="sky" img="/media/nte-sky.gif" imgW={160} imgH={600} alt="NTE" />
-        <div class="trending-box">
-          <div class="trending-hd">Top Rated</div>
-          {articles
-            .filter(a => a.score)
-            .sort((a, b) => parseFloat(b.score!) - parseFloat(a.score!))
-            .slice(0, 4)
-            .map((a, i) => (
-              <a href={`/reviews/${a.slug}/`} class="tr-item">
-                <span class="tr-num">{String(i+1).padStart(2,'0')}</span>
-                <div>
-                  <div class="tr-title">{a.title}</div>
-                  <span class="tr-cat" style="color:var(--cr);font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.06em;">{a.score} / 10</span>
-                </div>
-              </a>
-            ))}
-        </div>
-      </aside>
-    </div>
-    <div class="mobile-mid-promo">
-      <Banner slug="nte" size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
-    </div>
-  </div>
+    </section>
 
+    <!-- Filter tabs -->
+    <section class="border-b border-white/10 pb-6">
+      <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+        <span class="text-white/40 mr-2 flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+          </svg>
+          FILTER:
+        </span>
+        <a href="/reviews/" class="bg-[#ff5500] text-white px-3 py-1.5 rounded font-bold">ALL GAMES</a>
+        <a href="/reviews/arknights-endfield-review/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">ARKNIGHTS: ENDFIELD</a>
+        <a href="/reviews/war-thunder-review/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">WAR THUNDER</a>
+        <a href="/reviews/neverness-to-everness-review-2026/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">NEVERNESS TO EVERNESS</a>
+        <a href="/guides/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">WUTHERING WAVES</a>
+        <a href="/guides/enlisted-beginner-squad-guide/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">ENLISTED</a>
+        <a href="/setup/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">FPS &amp; RIG BENCHMARKS</a>
+      </div>
+    </section>
+
+    <!-- Top Banner -->
+    <div class="text-center border-y border-white/5 py-4">
+      <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+    </div>
+
+    <!-- Featured review cards (top 3) -->
+    {articles.length > 0 && (
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {articles.slice(0, 3).map((a) => (
+          <article class="bg-[#111318] border border-white/10 rounded p-4 space-y-3 hover:border-[#ff5500]/50 transition-colors">
+            <a href={`/reviews/${a.slug}/`} class="relative h-44 rounded overflow-hidden block">
+              {a.img ? (
+                <img src={a.img} alt={a.title} class="w-full h-full object-cover" loading="lazy" />
+              ) : (
+                <div class="w-full h-full bg-[#181b21]"></div>
+              )}
+            </a>
+            <h3 class="text-sm font-bold text-white leading-snug">{a.title}</h3>
+            {a.excerpt && <p class="text-xs text-white/50 line-clamp-2">{a.excerpt}</p>}
+            <div class="pt-2 border-t border-white/5 flex justify-between text-[11px] font-mono text-white/40">
+              <a href={`/reviews/${a.slug}/`} class="text-[#ff5500] hover:underline ml-auto">FULL BENCH →</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    )}
+
+    <!-- Master Leaderboard -->
+    {topRated.length > 0 && (
+      <div class="bg-[#111318] border border-white/10 rounded overflow-hidden p-6 space-y-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between pb-3 border-b border-white/10 gap-2">
+          <div>
+            <span class="text-xs font-mono text-[#ff5500]">// MASTER DATABASE INDEX</span>
+            <h3 class="text-lg font-bold text-white">RIG GAMER MASTER BENCHMARK LEADERBOARD</h3>
+          </div>
+        </div>
+        <div class="divide-y divide-white/5 font-mono text-xs">
+          {topRated.map((a, i) => (
+            <div class="py-3.5 grid grid-cols-12 gap-3 items-center">
+              <div class="col-span-1 text-white/40 font-bold">{String(i+1).padStart(2,'0')}</div>
+              <div class="col-span-5 text-white font-sans font-semibold text-sm">{a.title}</div>
+              <div class="col-span-2 text-center">
+                <span class="bg-[#181b21] border border-white/10 text-white font-bold px-2.5 py-1 rounded">{a.score}</span>
+              </div>
+              <div class="col-span-2">
+                <div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-[#ff5500] h-full" style={`width: ${parseFloat(a.score!) * 10}%`}></div>
+                </div>
+              </div>
+              <div class="col-span-2 text-right">
+                <a href={`/reviews/${a.slug}/`} class="text-[#ff5500] hover:underline">FULL BENCH →</a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Remaining articles grid + Sidebar -->
+    {articles.length > 3 && (
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-8">
+          <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-5">
+            <span class="text-sm font-bold text-white uppercase tracking-tight">ALL REVIEWS <span class="text-[#ff5500] font-mono text-xs ml-2">{articles.length} TOTAL</span></span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {pagedRest.map((a, i) => (
+              <article class="bg-[#111318] border border-white/10 rounded p-4 space-y-2 hover:border-[#ff5500]/50 transition-colors">
+                {a.img && (
+                  <a href={`/reviews/${a.slug}/`} class="relative h-36 rounded overflow-hidden block">
+                    <img src={a.img} alt={a.title} class="w-full h-full object-cover" loading="lazy" />
+                  </a>
+                )}
+                <h3 class="text-sm font-bold text-white leading-snug">{a.title}</h3>
+                {a.excerpt && <p class="text-xs text-white/50 line-clamp-2">{a.excerpt}</p>}
+                <a href={`/reviews/${a.slug}/`} class="text-xs font-mono text-[#ff5500] hover:underline block pt-1">READ REVIEW ›</a>
+              </article>
+            ))}
+          </div>
+
+          <!-- PAGINATION -->
+          {totalPages > 1 && (
+            <div class="flex items-center justify-center gap-2 font-mono text-xs pt-6 mt-4 border-t border-white/10">
+              {page > 1 ? (
+                <a href={`/reviews/?page=${page - 1}`} class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/10 hover:border-[#ff5500] text-white/60 hover:text-white transition-colors">←</a>
+              ) : (
+                <span class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/5 text-white/20 cursor-not-allowed">←</span>
+              )}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+                <a href={`/reviews/?page=${p}`} class={`w-9 h-9 flex items-center justify-center border font-bold transition-colors ${p === page ? 'bg-[#ff5500] border-[#ff5500] text-white' : 'bg-[#111318] border-white/10 text-white/60 hover:border-[#ff5500] hover:text-white'}`}>
+                  {String(p).padStart(2, '0')}
+                </a>
+              ))}
+              {page < totalPages ? (
+                <a href={`/reviews/?page=${page + 1}`} class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/10 hover:border-[#ff5500] text-white/60 hover:text-white transition-colors">→</a>
+              ) : (
+                <span class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/5 text-white/20 cursor-not-allowed">→</span>
+              )}
+              <span class="ml-4 text-white/30 tracking-widest">{articles.length - 3} TOTAL</span>
+            </div>
+          )}
+        </div>
+        <aside class="lg:col-span-4 space-y-4">
+          <div class="flex justify-center">
+            <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+          </div>
+          {topRated.length > 0 && (
+            <div class="bg-[#111318] border border-white/10 rounded p-4 font-mono text-xs space-y-3">
+              <div class="text-[#ff5500] font-bold pb-2 border-b border-white/10">🏆 TOP RATED</div>
+              {topRated.slice(0, 5).map((a, i) => (
+                <a href={`/reviews/${a.slug}/`} class="flex items-start gap-3 group">
+                  <span class="text-white/30 font-bold w-6 shrink-0">{String(i+1).padStart(2,'0')}</span>
+                  <div class="flex-1 min-w-0">
+                    <span class="text-white/70 group-hover:text-white transition-colors leading-tight block">{a.title}</span>
+                    {a.score && <span class="text-[#ff5500] text-[10px]">{a.score}/10</span>}
+                  </div>
+                </a>
+              ))}
+            </div>
+          )}
+        </aside>
+      </div>
+    )}
+
+    <!-- Bottom banner -->
+    <div class="text-center border-t border-white/5 pt-6">
+      <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+    </div>
+
+  </div>
 </Base>

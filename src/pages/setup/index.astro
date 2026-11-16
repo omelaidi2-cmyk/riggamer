@@ -1,63 +1,184 @@
-﻿---
+---
 export const prerender = false;
 import Base from '../../layouts/Base.astro';
-import HubHeader from '../../components/HubHeader.astro';
-import ArticleCard from '../../components/ArticleCard.astro';
 import Banner from '../../components/Banner.astro';
 import { getArticlesByCategory } from '../../lib/db';
 
 Astro.response.headers.set('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');
 
-const db = Astro.locals.runtime.env.DB;
-const articles = await getArticlesByCategory(db, 'setup');
+const db = Astro.locals.runtime?.env?.DB;
+const articles = db ? await getArticlesByCategory(db, 'setup') : [];
+const featured  = articles[0];
+
+const PER_PAGE = 8;
+const page = Math.max(1, parseInt(Astro.url.searchParams.get('page') ?? '1'));
+const totalPages = Math.max(1, Math.ceil((articles.length - 1) / PER_PAGE));
+const pagedRest = articles.slice(1).slice((page - 1) * PER_PAGE, page * PER_PAGE);
 ---
 
-<Base title="Gaming Setup Guides — RigGamer" description="Best gaming PCs, monitors, keyboards, mice, and peripherals — tested and ranked.">
+<Base title="PC Setup, Hardware & Optimization — RigGamer" description="Bare-metal benchmarks, low-latency BIOS configs, monitor calibrations, GPU driver presets, and hardware optimization guides for competitive PC players and content creators." image="/media/enlisted-guides.jpg">
 
-  <div style="background:#07080b;padding:22px 0 0;text-align:center;">
-    <div class="promo-desktop" style="display:inline-block;line-height:0;">
-      <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
-    </div>
-    <div class="promo-mobile" style="justify-content:center;">
-      <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
-    </div>
-  </div>
+  <div class="max-w-7xl mx-auto px-4 py-8 space-y-10">
 
-  <HubHeader
-    cat="setup"
-    title="Gaming Setup"
-    desc="Best-in-class hardware guides. Tested builds, monitor comparisons, peripheral rankings — no affiliate bias."
-    count={articles.length}
-    bgImg="https://rigpeak.com/wp-content/uploads/2026/08/24/where-winds-meet-news.jpg"
-  />
-
-  <div class="wrap">
-    <div class="page-layout">
-      <div>
-        <div class="articles-grid">
-          {articles.map((a, i) => <ArticleCard {...a} num={i} />)}
+    <!-- HERO BANNER HEADER -->
+    <section class="border border-white/10 rounded-lg overflow-hidden mb-2">
+      <div class="relative min-h-[200px] flex items-end">
+        <img src="/media/enlisted-guides.webp" alt="" class="absolute inset-0 w-full h-full object-cover object-center" loading="eager" />
+        <div class="absolute inset-0" style="background:linear-gradient(to right, rgba(8,9,11,0.92) 0%, rgba(8,9,11,0.75) 55%, rgba(8,9,11,0.35) 100%)"></div>
+        <div class="relative z-10 p-6 md:p-8 w-full">
+          <span class="inline-block bg-[#ff5500] text-white text-[10px] font-mono font-bold px-2.5 py-1 rounded mb-3 tracking-widest">CATEGORY</span>
+          <h1 class="text-3xl md:text-4xl font-bold text-white tracking-tight">
+            PC SETUP, <span class="text-[#ff5500]">HARDWARE</span> &amp; OPTIMIZATION
+          </h1>
+          <p class="text-sm text-white/60 mt-2 max-w-xl leading-relaxed">
+            Bare-metal benchmarks, low-latency BIOS configs, monitor calibrations, and driver optimization guides for competitive PC players.
+          </p>
         </div>
       </div>
-      <aside class="sidebar">
-        <Banner slug="nte" size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
-        <Banner slug="nte" size="sky" img="/media/nte-sky.gif" imgW={160} imgH={600} alt="NTE" />
-        <div class="trending-box">
-          <div class="trending-hd">Top Picks</div>
-          {articles.slice(0, 4).map((a, i) => (
-            <a href={`/setup/${a.slug}/`} class="tr-item">
-              <span class="tr-num">{String(i+1).padStart(2,'0')}</span>
-              <div>
-                <div class="tr-title">{a.title}</div>
-                <span class="tr-cat" style="color:var(--cs);font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.06em;">Setup</span>
+    </section>
+
+    <!-- Filter tabs -->
+    <section class="border-b border-white/10 pb-6">
+      <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+        <span class="text-white/40 mr-2 flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+          </svg>
+          FILTER:
+        </span>
+        <a href="/setup/" class="bg-[#ff5500] text-white px-3 py-1.5 rounded font-bold">ALL GAMES</a>
+        <a href="/guides/arknights-endfield-tier-list/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">ARKNIGHTS: ENDFIELD</a>
+        <a href="/guides/war-thunder-best-nation/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">WAR THUNDER</a>
+        <a href="/reviews/neverness-to-everness-review-2026/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">NEVERNESS TO EVERNESS</a>
+        <a href="/guides/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">WUTHERING WAVES</a>
+        <a href="/guides/enlisted-beginner-squad-guide/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">ENLISTED</a>
+        <a href="/setup/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">FPS &amp; RIG BENCHMARKS</a>
+      </div>
+    </section>
+
+    <!-- Top Banner -->
+    <div class="text-center border-y border-white/5 py-4">
+      <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+    </div>
+
+    <!-- Featured lead (2/3 + 1/3 testbed spec) -->
+    {featured && (
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-8 bg-[#111318] border border-white/10 rounded p-6 space-y-4">
+          {featured.img && (
+            <a href={`/setup/${featured.slug}/`} class="relative h-64 rounded overflow-hidden block">
+              <img src={featured.img} alt={featured.title} class="w-full h-full object-cover" loading="eager" />
+              <div class="absolute bottom-3 right-3 bg-black/80 border border-white/10 rounded px-3 py-1.5 font-mono text-xs">
+                <span class="text-white/40">BENCHMARK:</span> <span class="text-[#ff5500] font-bold">VERIFIED</span>
               </div>
+            </a>
+          )}
+          <span class="text-xs font-mono text-[#ff5500]">// RIG BENCHMARK · {featured.readtime} MIN READ · CAPFRAMEX LOGGED</span>
+          <h2 class="text-2xl font-bold text-white">{featured.title}</h2>
+          {featured.excerpt && <p class="text-xs text-white/60 leading-relaxed">{featured.excerpt}</p>}
+          <a href={`/setup/${featured.slug}/`} class="inline-flex items-center space-x-2 bg-[#ff5500] hover:bg-[#e04b00] text-black font-bold font-mono text-xs px-4 py-2.5 rounded transition-colors">
+            <span>READ FULL REPORT</span><span>→</span>
+          </a>
+        </div>
+
+        <!-- Bare-metal testbed spec sidebar -->
+        <aside class="lg:col-span-4 bg-[#111318] border border-white/10 rounded p-5 space-y-4 font-mono text-xs">
+          <div class="flex justify-between items-center pb-2 border-b border-white/10">
+            <span class="text-[#ff5500] font-bold">// BARE-METAL TESTBED SPEC</span>
+            <span class="text-emerald-400 text-[10px]">ONLINE</span>
+          </div>
+          <div class="space-y-3 text-white/70">
+            {[
+              { label: 'CPU CLUSTER',      value: 'i9-14900KS / 7800X3D', color: 'text-white' },
+              { label: 'RAM SUBSYSTEM',    value: '64GB DDR5-6400 CL30',  color: 'text-white' },
+              { label: 'POLLING HARNESS',  value: '1000Hz Microsecond',   color: 'text-[#38bdf8]' },
+              { label: 'API TESTBED',      value: 'DX12 / Vulkan 1.3',    color: 'text-white' },
+              { label: 'LOGGING PROBE',    value: 'CapFrameX',            color: 'text-white' },
+            ].map(s => (
+              <div class="flex justify-between">
+                <span class="text-white/40">{s.label}:</span>
+                <span class={`${s.color} font-bold text-right`}>{s.value}</span>
+              </div>
+            ))}
+          </div>
+          <div class="pt-3 border-t border-white/10">
+            <div class="text-[10px] text-white/40 mb-1">LATENCY JITTER: STABLE ±0.04%</div>
+            <div class="w-full h-7 bg-white/5 rounded border border-white/5 flex items-center justify-center text-[10px] text-emerald-400">
+              ~~~ SUB-MILLISECOND LATENCY VERIFIED ~~~
+            </div>
+          </div>
+        </aside>
+      </div>
+    )}
+
+    <!-- Main grid + Sidebar -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div class="lg:col-span-8">
+        <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-5">
+          <span class="text-sm font-bold text-white uppercase tracking-tight">ALL SETUP GUIDES <span class="text-[#ff5500] font-mono text-xs ml-2">{articles.length} RESULTS</span></span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {pagedRest.map((a, i) => (
+            <article class="bg-[#111318] border border-white/10 rounded p-5 space-y-3 hover:border-[#ff5500]/50 transition-colors">
+              {a.img && (
+                <a href={`/setup/${a.slug}/`} class="relative h-40 rounded overflow-hidden block">
+                  <img src={a.img} alt={a.title} class="w-full h-full object-cover" loading="lazy" />
+                </a>
+              )}
+              <h3 class="text-sm font-bold text-white leading-snug">{a.title}</h3>
+              {a.excerpt && <p class="text-xs text-white/50 leading-relaxed line-clamp-2">{a.excerpt}</p>}
+              <a href={`/setup/${a.slug}/`} class="text-xs font-mono text-[#ff5500] hover:underline">[ VIEW PRO CONFIG ] →</a>
+            </article>
+          ))}
+        </div>
+
+        <!-- PAGINATION -->
+        {totalPages > 1 && (
+          <div class="flex items-center justify-center gap-2 font-mono text-xs pt-6 mt-4 border-t border-white/10">
+            {page > 1 ? (
+              <a href={`/setup/?page=${page - 1}`} class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/10 hover:border-[#ff5500] text-white/60 hover:text-white transition-colors">←</a>
+            ) : (
+              <span class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/5 text-white/20 cursor-not-allowed">←</span>
+            )}
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+              <a href={`/setup/?page=${p}`} class={`w-9 h-9 flex items-center justify-center border font-bold transition-colors ${p === page ? 'bg-[#ff5500] border-[#ff5500] text-white' : 'bg-[#111318] border-white/10 text-white/60 hover:border-[#ff5500] hover:text-white'}`}>
+                {String(p).padStart(2, '0')}
+              </a>
+            ))}
+            {page < totalPages ? (
+              <a href={`/setup/?page=${page + 1}`} class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/10 hover:border-[#ff5500] text-white/60 hover:text-white transition-colors">→</a>
+            ) : (
+              <span class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/5 text-white/20 cursor-not-allowed">→</span>
+            )}
+            <span class="ml-4 text-white/30 tracking-widest">{articles.length - 1} TOTAL</span>
+          </div>
+        )}
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="lg:col-span-4 space-y-4">
+        <div class="flex justify-center">
+          <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+        </div>
+        <div class="bg-[#111318] border border-white/10 rounded p-4 font-mono text-xs space-y-3">
+          <div class="text-[#ff5500] font-bold pb-2 border-b border-white/10">⚙ TOP SETUP PICKS</div>
+          {articles.slice(0, 5).map((a, i) => (
+            <a href={`/setup/${a.slug}/`} class="flex items-start gap-3 group">
+              <span class="text-white/30 font-bold w-6 shrink-0">{String(i+1).padStart(2,'0')}</span>
+              <span class="text-white/70 group-hover:text-white transition-colors leading-tight">{a.title}</span>
             </a>
           ))}
         </div>
+        <div class="flex justify-center">
+          <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+        </div>
       </aside>
     </div>
-    <div class="mobile-mid-promo">
-      <Banner slug="nte" size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
-    </div>
-  </div>
 
+    <!-- Bottom banner -->
+    <div class="text-center border-t border-white/5 pt-6">
+      <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+    </div>
+
+  </div>
 </Base>

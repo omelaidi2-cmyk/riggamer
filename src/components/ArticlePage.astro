@@ -10,7 +10,7 @@ export interface Props {
 }
 
 const { article, readNext = [] } = Astro.props;
-const { slug, title, excerpt, cat, date, readtime, img, score, game } = article;
+const { slug, title, excerpt, cat, date, readtime, img, score, game, editor } = article;
 
 const GAME_SLUGS: Record<string, string> = {
   'NTE':                      'nte',
@@ -72,11 +72,11 @@ const bodyTocItems: { id: string; label: string }[] = article.body
 
 const tocItems = bodyTocItems.length ? bodyTocItems : genericTocItems;
 
-// Extract author name from D1 body JSON-LD (fallback: David)
+// Author: use dedicated editor column, fallback to JSON-LD extraction, then 'RigGamer Desk'
 const bodyAuthorMatch = article.body
   ? article.body.match(/"@type":\s*"Person",\s*"name":\s*"([^"]+)"/)
   : null;
-const authorName = bodyAuthorMatch ? bodyAuthorMatch[1] : 'David';
+const authorName = editor ?? (bodyAuthorMatch ? bodyAuthorMatch[1] : 'RigGamer Desk');
 const authorInitials = authorName.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2);
 ---
 
@@ -130,9 +130,11 @@ const authorInitials = authorName.split(' ').map((n: string) => n[0]).join('').t
           {img && (
             <div class="rg-hero-col">
               <div class="rg-frame" style="aspect-ratio:16/9;background:#111;overflow:hidden;">
-                <img src={img} alt={title} loading="eager" fetchpriority="high" decoding="sync"
-                  referrerpolicy="no-referrer" width="1280" height="720"
-                  style="width:100%;height:100%;object-fit:cover;display:block;" />
+                <a href={playUrl ?? `/play/nte`} target="_blank" rel="noopener noreferrer" style="display:block;line-height:0;">
+                  <img src={img} alt={title} loading="eager" fetchpriority="high" decoding="sync"
+                    referrerpolicy="no-referrer" width="1280" height="720"
+                    style="width:100%;height:100%;object-fit:cover;display:block;cursor:pointer;" />
+                </a>
               </div>
             </div>
           )}
@@ -266,7 +268,6 @@ const authorInitials = authorName.split(' ').map((n: string) => n[0]).join('').t
         <!-- Sidebar sticky — 300x250 + skyscraper 160x600 — les deux fixes pendant tout le scroll -->
         <aside class="rg-article-side">
           <Banner slug={gameSlug ?? 'nte'} size="box" img={bannerImgs.box} imgW={300} imgH={250} alt={`${game ?? 'Game'} — Play Free`} />
-          <Banner slug={gameSlug ?? 'nte'} size="sky" img={bannerImgs.sky} imgW={160} imgH={600} alt={`${game ?? 'Game'} — Play Free`} />
           <div class="rg-toc">
             <span class="rg-toc-title">CONTENTS</span>
             <ol>

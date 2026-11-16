@@ -1,63 +1,137 @@
-﻿---
+---
 export const prerender = false;
 import Base from '../../layouts/Base.astro';
-import HubHeader from '../../components/HubHeader.astro';
-import ArticleCard from '../../components/ArticleCard.astro';
 import Banner from '../../components/Banner.astro';
 import { getArticlesByCategory } from '../../lib/db';
 
 Astro.response.headers.set('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');
 
-const db = Astro.locals.runtime.env.DB;
-const articles = await getArticlesByCategory(db, 'news');
+const db = Astro.locals.runtime?.env?.DB;
+const articles = db ? await getArticlesByCategory(db, 'news') : [];
+const lead     = articles[0];
+
+const PER_PAGE = 8;
+const page = Math.max(1, parseInt(Astro.url.searchParams.get('page') ?? '1'));
+const totalPages = Math.max(1, Math.ceil((articles.length - 1) / PER_PAGE));
+const rest = articles.slice(1).slice((page - 1) * PER_PAGE, page * PER_PAGE);
+
 ---
 
-<Base title="PC Gaming News — RigGamer" description="Latest patch notes, update announcements, and gaming news — updated daily.">
+<Base title="PC Gaming News & Patch Radar — RigGamer" description="Verified patch notes, engine upgrades, free-to-play economy shifts, hardware requirement changes, and PC gaming industry reports from RigGamer's independent bench-testing desk." image="/media/star-trek-fleet-command-news.jpg">
 
-  <div style="background:#07080b;padding:22px 0 0;text-align:center;">
-    <div class="promo-desktop" style="display:inline-block;line-height:0;">
-      <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
-    </div>
-    <div class="promo-mobile" style="justify-content:center;">
-      <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
-    </div>
-  </div>
+  <div class="max-w-7xl mx-auto px-4 py-8 space-y-10">
 
-  <HubHeader
-    cat="news"
-    title="Gaming News"
-    desc="Patch notes, balance changes, event guides, and announcements from the biggest PC games."
-    count={articles.length}
-    bgImg="https://rigpeak.com/wp-content/uploads/2026/08/24/where-winds-meet-news.jpg"
-  />
-
-  <div class="wrap">
-    <div class="page-layout">
-      <div>
-        <div class="articles-grid">
-          {articles.map((a, i) => <ArticleCard {...a} num={i} />)}
+    <!-- HERO BANNER HEADER -->
+    <section class="border border-white/10 rounded-lg overflow-hidden mb-2">
+      <div class="relative min-h-[200px] flex items-end">
+        <img src="/media/star-trek-fleet-command-news.webp" alt="" class="absolute inset-0 w-full h-full object-cover object-center" loading="eager" />
+        <div class="absolute inset-0" style="background:linear-gradient(to right, rgba(8,9,11,0.92) 0%, rgba(8,9,11,0.75) 55%, rgba(8,9,11,0.35) 100%)"></div>
+        <div class="relative z-10 p-6 md:p-8 w-full">
+          <span class="inline-block bg-[#ff5500] text-white text-[10px] font-mono font-bold px-2.5 py-1 rounded mb-3 tracking-widest">CATEGORY</span>
+          <h1 class="text-3xl md:text-4xl font-bold text-white tracking-tight">
+            PC GAMING <span class="text-[#ff5500]">NEWS</span> &amp; PATCH RADAR
+          </h1>
+          <p class="text-sm text-white/60 mt-2 max-w-xl leading-relaxed">
+            Verified patch notes, engine upgrades, hardware requirements, and industry reports from our independent bench-testing desk.
+          </p>
         </div>
       </div>
-      <aside class="sidebar">
-        <Banner slug="nte" size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
-        <Banner slug="nte" size="sky" img="/media/nte-sky.gif" imgW={160} imgH={600} alt="NTE" />
-        <div class="trending-box">
-          <div class="trending-hd">Trending</div>
-          {articles.slice(0, 4).map((a, i) => (
-            <a href={`/news/${a.slug}/`} class="tr-item">
-              <span class="tr-num">{String(i+1).padStart(2,'0')}</span>
-              <div>
-                <div class="tr-title">{a.title}</div>
-                <span class="tr-cat" style="color:var(--cn);font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.06em;">News</span>
-              </div>
-            </a>
+    </section>
+
+
+    <!-- Filter tabs -->
+    <section class="border-b border-white/10 pb-6">
+      <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+        <span class="text-white/40 mr-2 flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+          </svg>
+          FILTER:
+        </span>
+        <a href="/news/" class="bg-[#ff5500] text-white px-3 py-1.5 rounded font-bold">ALL GAMES</a>
+        <a href="/guides/arknights-endfield-tier-list/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">ARKNIGHTS: ENDFIELD</a>
+        <a href="/guides/war-thunder-best-nation/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">WAR THUNDER</a>
+        <a href="/reviews/neverness-to-everness-review-2026/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">NEVERNESS TO EVERNESS</a>
+        <a href="/guides/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">WUTHERING WAVES</a>
+        <a href="/guides/enlisted-beginner-squad-guide/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">ENLISTED</a>
+        <a href="/setup/" class="bg-[#111318] hover:bg-[#1a1c20] border border-white/10 text-white/60 hover:text-white px-3 py-1.5 rounded transition-colors">FPS &amp; RIG BENCHMARKS</a>
+      </div>
+    </section>
+
+    <!-- Top Banner -->
+    <div class="text-center border-y border-white/5 py-4">
+      <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+    </div>
+
+    <!-- Main content -->
+    <div class="space-y-6">
+
+        <!-- Lead story -->
+        {lead && (
+          <article class="bg-[#111318] border border-white/10 rounded p-6 space-y-4">
+            {lead.img && (
+              <a href={`/news/${lead.slug}/`} class="relative h-56 rounded overflow-hidden block">
+                <img src={lead.img} alt={lead.title} class="w-full h-full object-cover" loading="eager" />
+                <span class="absolute top-3 left-3 bg-[#ff5500] text-black text-[10px] font-mono font-bold px-2 py-0.5 rounded uppercase">
+                  FEATURED DISPATCH
+                </span>
+              </a>
+            )}
+            <div class="text-xs font-mono text-[#ff5500]">// 001 · DISPATCH · {lead.readtime} MIN READ</div>
+            <h2 class="text-2xl font-bold text-white">{lead.title}</h2>
+            {lead.excerpt && <p class="text-xs text-white/60 leading-relaxed">{lead.excerpt}</p>}
+            <div class="flex items-center justify-between text-xs font-mono text-white/40 pt-2 border-t border-white/5">
+              <span>RIGGAMER · LATEST</span>
+              <a href={`/news/${lead.slug}/`} class="text-[#ff5500] hover:underline">[ READ FULL BRIEFING ] →</a>
+            </div>
+          </article>
+        )}
+
+        <!-- Secondary grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {rest.map((a, i) => (
+            <article class="bg-[#111318] border border-white/10 rounded p-4 space-y-2 hover:border-[#ff5500]/50 transition-colors">
+              {a.img && (
+                <a href={`/news/${a.slug}/`} class="relative h-32 rounded overflow-hidden block">
+                  <img src={a.img} alt={a.title} class="w-full h-full object-cover" loading="lazy" />
+                  <span class="absolute top-1.5 left-1.5 bg-black/70 text-[9px] font-mono px-1.5 py-0.5 rounded text-white uppercase">NEWS</span>
+                </a>
+              )}
+              <span class="text-[10px] font-mono text-[#ff5500]">// {String(i+2).padStart(3,'0')} · {a.readtime} MIN</span>
+              <h4 class="text-sm font-bold text-white leading-snug">{a.title}</h4>
+              {a.excerpt && <p class="text-xs text-white/50 line-clamp-2">{a.excerpt}</p>}
+              <a href={`/news/${a.slug}/`} class="text-xs font-mono text-[#ff5500] hover:underline block pt-1">READ ›</a>
+            </article>
           ))}
         </div>
-      </aside>
     </div>
-    <div class="mobile-mid-promo">
-      <Banner slug="nte" size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
-    </div>
-  </div>
 
+    <!-- PAGINATION -->
+    {totalPages > 1 && (
+      <div class="flex items-center justify-center gap-2 font-mono text-xs pt-4 border-t border-white/10">
+        {page > 1 ? (
+          <a href={`/news/?page=${page - 1}`} class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/10 hover:border-[#ff5500] text-white/60 hover:text-white transition-colors">←</a>
+        ) : (
+          <span class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/5 text-white/20 cursor-not-allowed">←</span>
+        )}
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+          <a href={`/news/?page=${p}`} class={`w-9 h-9 flex items-center justify-center border font-bold transition-colors ${p === page ? 'bg-[#ff5500] border-[#ff5500] text-white' : 'bg-[#111318] border-white/10 text-white/60 hover:border-[#ff5500] hover:text-white'}`}>
+            {String(p).padStart(2, '0')}
+          </a>
+        ))}
+        {page < totalPages ? (
+          <a href={`/news/?page=${page + 1}`} class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/10 hover:border-[#ff5500] text-white/60 hover:text-white transition-colors">→</a>
+        ) : (
+          <span class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/5 text-white/20 cursor-not-allowed">→</span>
+        )}
+        <span class="ml-4 text-white/30 tracking-widest">{articles.length - 1} TOTAL</span>
+      </div>
+    )}
+
+    <!-- Bottom banner -->
+    <div class="text-center border-t border-white/5 pt-6">
+      <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+    </div>
+
+  </div>
 </Base>

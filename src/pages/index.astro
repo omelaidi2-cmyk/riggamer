@@ -1,178 +1,344 @@
-﻿---
+---
 export const prerender = false;
 import Base from '../layouts/Base.astro';
-import ArticleCard from '../components/ArticleCard.astro';
 import Banner from '../components/Banner.astro';
 import { getArticlesByCategory, getLatestArticles } from '../lib/db';
 
 Astro.response.headers.set('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');
 
-const db = Astro.locals.runtime.env.DB;
-const [latest, guides, news] = await Promise.all([
-  getLatestArticles(db, 10),
-  getArticlesByCategory(db, 'guides'),
-  getArticlesByCategory(db, 'news'),
+const db = Astro.locals.runtime?.env?.DB;
+const [allLatest, reviews] = await Promise.all([
+  db ? getLatestArticles(db, 100) : Promise.resolve([]),
+  db ? getArticlesByCategory(db, 'reviews') : Promise.resolve([]),
 ]);
 
-const hero  = latest[0];
-const minis = latest.slice(1, 4);
-const latestGuides = guides.slice(0, 4);
-const latestNews   = news.slice(0, 4);
+const PER_PAGE = 9;
+const page = Math.max(1, parseInt(Astro.url.searchParams.get('page') ?? '1'));
+const totalPages = Math.max(1, Math.ceil(allLatest.length / PER_PAGE));
+const latest = allLatest.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+
+const topRated = [...reviews]
+  .filter(a => a.score)
+  .sort((a, b) => parseFloat(b.score!) - parseFloat(a.score!));
+
+const catLabel: Record<string,string> = { guides: 'GUIDE', news: 'NEWS', reviews: 'REVIEW', setup: 'SETUP' };
+
+function verdictLine(score: string, excerpt?: string | null): string {
+  const n = parseFloat(score);
+  if (excerpt && excerpt.length < 80) return excerpt;
+  if (n >= 9) return 'Essential — do not sleep on this one';
+  if (n >= 8.5) return 'Must play for the genre';
+  if (n >= 8) return 'Worth it, with caveats';
+  if (n >= 7.5) return 'Solid pick for the right player';
+  if (n >= 7) return "Decent, skip if the genre isn't your thing";
+  return 'Approach with low expectations';
+}
+
+const belt3d = [
+  { title: 'War Thunder',           genre: 'MILITARY SIM',    slug: 'war-thunder-review',                  cat: 'reviews', img: '/media/war-thunder-reviews.webp' },
+  { title: 'Arknights: Endfield',   genre: '3D ACTION RPG',   slug: 'arknights-endfield-review',           cat: 'reviews', img: '/media/arknights-endfield-review-2026.webp' },
+  { title: 'Neverness to Everness', genre: 'URBAN OPEN WORLD',slug: 'neverness-to-everness-review-2026',   cat: 'reviews', img: '/media/nte-review-keyart.webp' },
+  { title: 'Star Trek: FC',         genre: 'SCI-FI 4X',       slug: 'star-trek-fleet-command-review',      cat: 'reviews', img: '/media/star-trek-fleet-command-reviews.webp' },
+  { title: 'Enlisted',              genre: 'TACTICAL FPS',    slug: 'enlisted-review',                     cat: 'reviews', img: '/media/enlisted-guides.webp' },
+  { title: 'Raid: Shadow Legends',  genre: 'TURN-BASED RPG',  slug: 'raid-shadow-legends-review',          cat: 'reviews', img: '/media/raid-shadow-legends-guides.webp' },
+  { title: 'Rise of Kingdoms',      genre: 'STRATEGY 4X',     slug: 'rise-of-kingdoms-review',             cat: 'reviews', img: '/media/rise-of-kingdoms-guides.webp' },
+  { title: 'Where Winds Meet',      genre: 'OPEN WORLD RPG',  slug: 'where-winds-meet-review',             cat: 'reviews', img: '/media/where-winds-meet-reviews.webp' },
+];
 ---
 
-<Base preloadImg={hero?.img}>
+<Base
+  title="RigGamer — Find Your Next Free PC Game"
+  description="Honest reviews, PC setup guides, and tier lists for the free-to-play games worth your evening. Patch-verified builds, monetization audits, and rig benchmarks updated every week."
+  preloadImg="/media/hero-battlefield.png"
+>
 
-  <!-- ① LEADERBOARD -->
-  <div style="background:#07080b;padding:22px 0 0;text-align:center;">
-    <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+
+<!-- HERO -->
+<section class="relative min-h-[620px] flex items-center justify-center overflow-hidden border-b border-[#14171f] pb-10 pt-10">
+  <div class="absolute inset-0 z-0">
+    <img src="/media/hero-battlefield.png" alt="" class="w-full h-full object-cover object-center" style="filter:brightness(0.75) contrast(0.9) saturate(1.0)" />
+    <div class="absolute inset-0" style="background:linear-gradient(to bottom, rgba(8,9,11,0.45) 0%, rgba(8,9,11,0.35) 40%, rgba(8,9,11,0.65) 80%, rgba(8,9,11,0.95) 100%)"></div>
   </div>
-
-  <!-- FEATURED -->
-  <div class="wrap">
-    <div class="sec-hd"><div class="sec-title">Featured</div></div>
-    <div class="hero-grid">
-      {hero && (() => {
-        const heroBadge = { guides:'bg', news:'bn', reviews:'br', setup:'bs' }[hero.cat];
-        const heroLabel = { guides:'Guide', news:'News', reviews:'Review', setup:'Setup' }[hero.cat];
-        return (
-          <a href={`/${hero.cat}/${hero.slug}/`} class="card-hero">
-            {hero.img && <img class="card-hero-bg" src={hero.img} alt={hero.title} fetchpriority="high" loading="eager" decoding="sync" referrerpolicy="no-referrer" />}
-            <div class="card-hero-overlay"></div>
-            <div class="card-hero-body">
-              <div class="card-hero-meta">
-                <span class={`badge ${heroBadge}`}>{heroLabel}</span>
-              </div>
-              <h2 class="card-hero-title">{hero.title}</h2>
-            </div>
-          </a>
-        );
-      })()}
-      <div class="hero-sidebar">
-        {minis.map((a, i) => {
-          const miniBadge = { guides:'bg', news:'bn', reviews:'br', setup:'bs' }[a.cat];
-          const miniLabel = { guides:'Guide', news:'News', reviews:'Review', setup:'Setup' }[a.cat];
-          const miniGrad  = `g${(i % 8) + 1}`;
-          return (
-            <a href={`/${a.cat}/${a.slug}/`} class="card-mini">
-              <div class={`card-mini-thumb ${miniGrad}`} style="position:relative;">
-                {a.img && <img src={a.img} alt={a.title} loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" referrerpolicy="no-referrer" />}
-              </div>
-              <div class="card-mini-body">
-                <div class="card-mini-title">{a.title}</div>
-                <div class="card-mini-foot">
-                  <span class="card-mini-cat">{miniLabel}</span>
-                  <span class="card-mini-sep">·</span>
-                  <span class="card-mini-time">{a.readtime} MIN</span>
-                </div>
-              </div>
-            </a>
-          );
-        })}
-      </div>
+  <div class="relative z-10 max-w-4xl mx-auto px-4 py-10 text-center">
+    <h1 class="font-headline font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight text-white uppercase mb-5 leading-tight">
+      FIND YOUR NEXT<br>
+      <span class="italic font-black" style="color:#ff5500">FREE</span> PC GAME
+    </h1>
+    <p class="text-base text-[#94a1b2] max-w-2xl mx-auto mb-8 leading-relaxed">
+      Honest reviews, PC setup guides and tier lists for the free games worth your evening, kept current with every patch.
+    </p>
+    <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+      <a href="#games" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-mono font-bold text-xs uppercase tracking-wider px-8 py-3.5 transition-all duration-150 shadow-lg" style="background:#ff5500;color:white;font-weight:800">
+        <span>BROWSE GAMES</span><span>→</span>
+      </a>
+      <a href="#need" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#12141a]/85 hover:bg-[#1a1e27] text-gray-200 border border-[#2b303d] font-mono font-bold text-xs uppercase tracking-wider px-7 py-3.5 transition">
+        <span>WHAT DO YOU NEED?</span><span>↓</span>
+      </a>
     </div>
   </div>
+</section>
 
-  <!-- GAMES COVERED -->
-  <div class="wrap">
-    <div class="sec-hd">
-      <div class="sec-title">Games Covered</div>
-      <a href="/guides/" class="sec-lnk">All Guides →</a>
-    </div>
-    <div class="games-grid section" style="margin-top:14px;margin-bottom:18px;">
+<!-- GAME LOGOS MARQUEE -->
+<!-- LOGO BAND -->
+<style>
+.gx-band{--hot:#ff5500;--on-hot:#000;max-width:1200px;margin:0 auto;padding:2.2rem 0;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 9%,#000 91%,transparent 100%);
+          mask-image:linear-gradient(90deg,transparent 0%,#000 9%,#000 91%,transparent 100%);}
+.gx-row{display:flex;align-items:center;width:max-content;margin:0;padding:0;list-style:none;
+  animation:gx-scroll 45s linear infinite;}
+.gx-band:hover .gx-row,.gx-band:focus-within .gx-row{animation-play-state:paused;}
+@keyframes gx-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.gx-row li{flex:0 0 auto;display:flex;justify-content:center;padding:0 clamp(1.25rem,.75rem + 1.5vw,2.25rem);}
+.gx-item{position:relative;display:flex;align-items:center;justify-content:center;width:7rem;height:3.5rem;text-decoration:none;outline-offset:6px;}
+.gx-logo{display:block;width:100%;height:100%;object-fit:cover;border-radius:4px;
+  filter:brightness(.75) saturate(.85);opacity:.85;
+  transition:filter .45s ease,opacity .45s ease,transform .45s ease;}
+.gx-item:hover .gx-logo,.gx-item:focus-visible .gx-logo{
+  filter:brightness(1.05) saturate(1.2) drop-shadow(0 0 10px rgba(255,85,0,.7));
+  opacity:1;transform:translateY(-3px) scale(1.06);}
+.gx-tip{position:absolute;bottom:calc(100% + .7rem);left:50%;transform:translate(-50%,6px);
+  white-space:nowrap;padding:.3rem .6rem;font:700 11px/1.2 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--on-hot);background:var(--hot);box-shadow:0 0 18px rgba(255,85,0,.45);
+  opacity:0;pointer-events:none;transition:opacity .3s ease,transform .4s ease;}
+.gx-tip::after{content:"";position:absolute;top:100%;left:50%;width:8px;height:8px;background:var(--hot);
+  transform:translate(-50%,-50%) rotate(45deg);}
+.gx-item:hover .gx-tip,.gx-item:focus-visible .gx-tip{opacity:1;transform:translate(-50%,0);}
+@media (prefers-reduced-motion:reduce){.gx-row{animation:none;flex-wrap:wrap;width:auto;justify-content:center}.gx-row li[aria-hidden]{display:none}}
+</style>
+
+<div class="gx-band">
+  <ul class="gx-row">
+    <li><a class="gx-item" href="/reviews/arknights-endfield-review/"><img class="gx-logo" src="/media/arknights-endfield-review-2026.webp" alt="Arknights: Endfield" loading="lazy"><span class="gx-tip">Arknights: Endfield</span></a></li>
+    <li><a class="gx-item" href="/reviews/neverness-to-everness-review-2026/"><img class="gx-logo" src="/media/nte-review-keyart.webp" alt="Neverness to Everness" loading="lazy"><span class="gx-tip">Neverness to Everness</span></a></li>
+    <li><a class="gx-item" href="/reviews/star-trek-fleet-command-review/"><img class="gx-logo" src="/media/star-trek-fleet-command-reviews.webp" alt="Star Trek Fleet Command" loading="lazy"><span class="gx-tip">Star Trek Fleet Command</span></a></li>
+    <li><a class="gx-item" href="/reviews/war-thunder-review/"><img class="gx-logo" src="/media/war-thunder-reviews.webp" alt="War Thunder" loading="lazy"><span class="gx-tip">War Thunder</span></a></li>
+    <li><a class="gx-item" href="/reviews/enlisted-review/"><img class="gx-logo" src="/media/enlisted-guides.webp" alt="Enlisted" loading="lazy"><span class="gx-tip">Enlisted</span></a></li>
+    <li><a class="gx-item" href="/reviews/project-entropy-review/"><img class="gx-logo" src="/media/project-entropy-guides.webp" alt="Project Entropy" loading="lazy"><span class="gx-tip">Project Entropy</span></a></li>
+    <li><a class="gx-item" href="/reviews/raid-shadow-legends-review/"><img class="gx-logo" src="/media/raid-shadow-legends-guides.webp" alt="Raid Shadow Legends" loading="lazy"><span class="gx-tip">Raid Shadow Legends</span></a></li>
+    <li><a class="gx-item" href="/reviews/where-winds-meet-review/"><img class="gx-logo" src="/media/where-winds-meet-reviews.webp" alt="Where Winds Meet" loading="lazy"><span class="gx-tip">Where Winds Meet</span></a></li>
+    <li><a class="gx-item" href="/reviews/rise-of-kingdoms-review/"><img class="gx-logo" src="/media/rise-of-kingdoms-guides.webp" alt="Rise of Kingdoms" loading="lazy"><span class="gx-tip">Rise of Kingdoms</span></a></li>
+
+    <!-- Duplication pour boucle infinie fluide -->
+    <li aria-hidden="true"><a class="gx-item" href="/reviews/arknights-endfield-review/" tabindex="-1"><img class="gx-logo" src="/media/arknights-endfield-review-2026.webp" alt="" loading="lazy"></a></li>
+    <li aria-hidden="true"><a class="gx-item" href="/reviews/neverness-to-everness-review-2026/" tabindex="-1"><img class="gx-logo" src="/media/nte-review-keyart.webp" alt="" loading="lazy"></a></li>
+    <li aria-hidden="true"><a class="gx-item" href="/reviews/star-trek-fleet-command-review/" tabindex="-1"><img class="gx-logo" src="/media/star-trek-fleet-command-reviews.webp" alt="" loading="lazy"></a></li>
+    <li aria-hidden="true"><a class="gx-item" href="/reviews/war-thunder-review/" tabindex="-1"><img class="gx-logo" src="/media/war-thunder-reviews.webp" alt="" loading="lazy"></a></li>
+    <li aria-hidden="true"><a class="gx-item" href="/reviews/enlisted-review/" tabindex="-1"><img class="gx-logo" src="/media/enlisted-guides.webp" alt="" loading="lazy"></a></li>
+    <li aria-hidden="true"><a class="gx-item" href="/reviews/project-entropy-review/" tabindex="-1"><img class="gx-logo" src="/media/project-entropy-guides.webp" alt="" loading="lazy"></a></li>
+    <li aria-hidden="true"><a class="gx-item" href="/reviews/raid-shadow-legends-review/" tabindex="-1"><img class="gx-logo" src="/media/raid-shadow-legends-guides.webp" alt="" loading="lazy"></a></li>
+    <li aria-hidden="true"><a class="gx-item" href="/reviews/where-winds-meet-review/" tabindex="-1"><img class="gx-logo" src="/media/where-winds-meet-reviews.webp" alt="" loading="lazy"></a></li>
+    <li aria-hidden="true"><a class="gx-item" href="/reviews/rise-of-kingdoms-review/" tabindex="-1"><img class="gx-logo" src="/media/rise-of-kingdoms-guides.webp" alt="" loading="lazy"></a></li>
+  </ul>
+</div>
+
+
+<!-- 01 · START HERE -->
+<section id="need" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-[#14171f] py-10">
+  <div class="mb-8">
+    <div class="text-sm font-mono text-[#ff5500] uppercase tracking-widest font-bold mb-3">// 01 · START HERE</div>
+    <h2 class="font-headline text-4xl sm:text-5xl font-extrabold text-white tracking-tight uppercase leading-none mb-5">
+      What do you <span class="italic" style="color:#ff5500">need?</span>
+    </h2>
+    <p class="text-[#8a909a] text-sm leading-relaxed max-w-xl">Getting a game running, choosing who to play, or deciding whether it is worth installing at all.</p>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
+    <div class="lg:col-span-7 flex flex-col gap-4">
       {[
-        { name: 'NTE: Neverness to Everness',  url: '/guides/nte-pc-download-guide',              img: '/media/nte-guides.webp',                       gc: 'g1', count: '4 articles' },
-        { name: 'Arknights: Endfield',          url: '/guides/arknights-endfield-best-operators',  img: '/media/arknights-endfield-guides.webp',         gc: 'g2', count: '3 articles' },
-        { name: 'Enlisted',                     url: '/guides/enlisted-beginner-squad-guide',       img: '/media/enlisted-guides.webp',                   gc: 'g3', count: '3 articles' },
-        { name: 'Project Entropy',              url: '/guides/project-entropy-beginner-guide',      img: '/media/project-entropy-guides.webp',            gc: 'g4', count: '3 articles' },
-        { name: 'RAID: Shadow Legends',         url: '/guides/raid-shadow-legends-champion-guide',  img: '/media/raid-shadow-legends-guides.webp',        gc: 'g5', count: '3 articles' },
-        { name: 'Rise of Kingdoms',             url: '/guides/rise-of-kingdoms-beginner',           img: '/media/rise-of-kingdoms-guides.webp',           gc: 'g6', count: '3 articles' },
-        { name: 'Star Trek Fleet Command',      url: '/guides/star-trek-fleet-command-guide',       img: '/media/star-trek-fleet-command-guides.webp',   gc: 'g7', count: '3 articles' },
-        { name: 'War Thunder',                  url: '/guides/war-thunder-best-nation',             img: '/media/war-thunder-guides.webp',                gc: 'g8', count: '3 articles' },
-      ].map((g) => (
-        <a href={g.url} class="game-tile">
-          <div class={`game-cover ${g.gc}`}>
-            <img src={g.img} alt={g.name} loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+        { href: '/setup/',   icon: 'M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4', num: '01', title: 'Get it running',    desc: 'Download, install and system requirements for PC.' },
+        { href: '/guides/',  icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z', num: '02', title: 'Who to pick',       desc: 'Tier lists and best-of picks, dated to the patch.' },
+        { href: '/reviews/', icon: 'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z', num: '03', title: 'Worth your time?', desc: 'Scored reviews, with who should skip it.' },
+      ].map(c => (
+        <a href={c.href} class="group bg-[#0d0f14] hover:bg-[#12151c] border border-[#1a1e27] hover:border-[#ff5500]/60 p-6 sm:p-7 transition flex items-center justify-between flex-1">
+          <div class="flex items-start gap-4 sm:gap-5">
+            <div class="text-[#ff5500] text-xl mt-0.5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path d={c.icon} stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+              </svg>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="text-[10px] font-mono text-[#8a909a]">{c.num}</span>
+                <h3 class="font-headline text-base sm:text-lg font-bold text-white group-hover:text-[#ff5500] transition-colors">{c.title}</h3>
+              </div>
+              <p class="text-xs sm:text-sm text-[#8a909a] leading-relaxed">{c.desc}</p>
+            </div>
           </div>
-          <div class="game-info">
-            <div class="game-name">{g.name}</div>
-            <div class="game-count">{g.count}</div>
-          </div>
+          <div class="text-gray-400 group-hover:text-[#ff5500] transition-colors pl-4">→</div>
         </a>
       ))}
     </div>
-  </div>
-
-  <!-- ② INFEED BANNER -->
-  <div style="background:#07080b;text-align:center;padding:18px 0;border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);">
-    <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
-  </div>
-
-  <!-- LATEST GUIDES -->
-  <div class="wrap">
-    <div class="sec-hd">
-      <div class="sec-title">Latest Guides</div>
-      <a href="/guides/" class="sec-lnk">All Guides →</a>
-    </div>
-  </div>
-  <div class="wrap section">
-    <div class="page-layout">
-      <div>
-        <div class="articles-grid">
-          {latestGuides.map((a, i) => <ArticleCard {...a} num={i} />)}
+    <div class="lg:col-span-5">
+      <div class="relative overflow-hidden bg-[#0e1014] border border-[#262b35] hover:border-[#ff5500]/60 transition-all duration-300 shadow-2xl p-6 sm:p-7 flex flex-col justify-between h-full group">
+        <div class="absolute top-0 right-0 left-0 h-[2px] bg-gradient-to-r from-transparent via-[#ff5500] to-transparent opacity-75"></div>
+        <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-[#ff5500]/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="relative z-10">
+          <h4 class="font-headline text-white font-bold text-xl sm:text-2xl tracking-tight leading-tight mb-3">Near-Instant Level Loads &amp; Zero Asset Stutter</h4>
+          <p class="text-[#8a909a] text-xs font-mono leading-relaxed mb-6">DirectStorage architecture testing across 14 free-to-play PC engines on Samsung 990 PRO NVMe.</p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="text-[10px] font-mono uppercase px-2.5 py-1 bg-[#141720] border border-[#262b35] text-gray-300">PCIE 5.0 X4</span>
+            <span class="text-[10px] font-mono uppercase px-2.5 py-1 bg-[#141720] border border-[#262b35] text-gray-300">2,400K IOPS</span>
+            <span class="text-[10px] font-mono uppercase px-2.5 py-1 bg-[#141720] border border-[#262b35] text-[#ff5500]">DIRECTSTORAGE</span>
+          </div>
+        </div>
+        <div class="relative z-10 pt-4 border-t border-[#181c25] flex items-center justify-between">
+          <span class="text-[11px] font-mono text-[#8a909a]">VERIFIED TELEMETRY</span>
+          <a href="/setup/" class="inline-flex items-center gap-1.5 font-mono font-black text-xs uppercase tracking-wider px-4 py-2.5 rounded transition group-hover:scale-105 duration-150" style="background:#ff5500;color:white;font-weight:800"><span>⚡</span><span>VIEW BENCHMARK</span><span>→</span></a>
         </div>
       </div>
-      <aside class="sidebar">
-        <Banner slug="nte" size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
-        <div class="trending-box">
-          <div class="trending-hd">Trending</div>
-          {latestGuides.map((a, i) => (
-            <a href={`/guides/${a.slug}/`} class="tr-item">
-              <span class="tr-num">{String(i+1).padStart(2,'0')}</span>
-              <div>
-                <div class="tr-title">{a.title}</div>
-                <span class="tr-cat" style="color:var(--cg);font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.06em;">Guide</span>
-              </div>
-            </a>
-          ))}
-        </div>
-      </aside>
     </div>
+  </div>
+</section>
+
+<!-- BANNER 2 -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-center">
+  <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+</div>
+
+<!-- 02 · LATEST -->
+<section id="games" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-[#14171f] py-10">
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+    <div>
+      <div class="text-sm font-mono text-[#ff5500] uppercase tracking-widest font-bold mb-2">// 02 · LATEST</div>
+      <h2 class="font-headline text-3xl sm:text-4xl font-extrabold text-white tracking-tight uppercase">
+        Fresh off the <span style="color:#ff5500">desk</span>
+      </h2>
+    </div>
+    <a href="/guides/" class="text-xs font-mono text-[#8a909a] hover:text-[#ff5500] transition-colors uppercase tracking-wider">BROWSE EVERYTHING →</a>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {latest.map((a) => (
+      <article class="bg-[#0b0d12] border border-[#181c25] hover:border-[#2b3140] transition flex flex-col group overflow-hidden">
+        <div class="relative aspect-video w-full overflow-hidden bg-[#161a24]">
+          {a.img ? (
+            <img src={a.img} alt={a.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 brightness-90" loading="lazy" />
+          ) : (
+            <div class="w-full h-full bg-[#161a24]"></div>
+          )}
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0b0d12] via-transparent to-transparent"></div>
+        </div>
+        <div class="p-5 flex flex-col flex-1 justify-between">
+          <div>
+            <h3 class="font-headline text-lg font-bold text-white group-hover:text-[#ff5500] transition-colors leading-snug mb-4">
+              <a href={`/${a.cat}/${a.slug}/`}>{a.title}</a>
+            </h3>
+          </div>
+          <a href={`/${a.cat}/${a.slug}/`} class="pt-2 border-t border-[#161a24] flex items-center justify-between text-xs font-mono text-[#8a909a] hover:text-[#ff5500] transition-colors">
+            <span>READ {catLabel[a.cat] ?? 'ARTICLE'}</span>
+            <span>→</span>
+          </a>
+        </div>
+      </article>
+    ))}
   </div>
 
-  <!-- LATEST NEWS -->
-  <div class="wrap">
-    <div class="sec-hd">
-      <div class="sec-title">Latest News</div>
-      <a href="/news/" class="sec-lnk">All News →</a>
+  <!-- PAGINATION -->
+  {totalPages > 1 && (
+    <div class="flex items-center justify-center gap-2 font-mono text-xs pt-8 mt-4 border-t border-white/10">
+      {page > 1 ? (
+        <a href={`/?page=${page - 1}`} class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/10 hover:border-[#ff5500] text-white/60 hover:text-white transition-colors">←</a>
+      ) : (
+        <span class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/5 text-white/20 cursor-not-allowed">←</span>
+      )}
+      {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+        <a href={`/?page=${p}`} class={`w-9 h-9 flex items-center justify-center border font-bold transition-colors ${p === page ? 'bg-[#ff5500] border-[#ff5500] text-white' : 'bg-[#111318] border-white/10 text-white/60 hover:border-[#ff5500] hover:text-white'}`}>
+          {String(p).padStart(2, '0')}
+        </a>
+      ))}
+      {page < totalPages ? (
+        <a href={`/?page=${page + 1}`} class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/10 hover:border-[#ff5500] text-white/60 hover:text-white transition-colors">→</a>
+      ) : (
+        <span class="w-9 h-9 flex items-center justify-center bg-[#111318] border border-white/5 text-white/20 cursor-not-allowed">→</span>
+      )}
+      <span class="ml-4 text-white/30 tracking-widest">{allLatest.length} TOTAL</span>
     </div>
+  )}
+</section>
+
+
+
+<!-- BANNER 3 -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-center">
+  <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+</div>
+
+<!-- 03 · VERDICTS -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-[#14171f] py-10">
+  <div class="mb-10">
+    <div class="text-sm font-mono text-[#ff5500] uppercase tracking-widest font-bold mb-2">// 03 · VERDICTS</div>
+    <h2 class="font-headline text-3xl sm:text-5xl font-extrabold text-white tracking-tight uppercase">
+      Ranked by our <span class="italic" style="color:#ff5500">score</span>
+    </h2>
   </div>
-  <div class="wrap section">
-    <div class="page-layout">
-      <div>
-        <div class="articles-grid">
-          {latestNews.map((a, i) => <ArticleCard {...a} num={i} />)}
+  {topRated.length > 0 ? (
+    <div class="flex flex-col divide-y divide-[#161a24] border-t border-b border-[#161a24]">
+      {topRated.slice(0, 8).map((a, i) => (
+        <div class="py-4 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 hover:bg-[#0c0e14] px-3 transition">
+          <div class="flex items-start sm:items-center gap-3 sm:gap-4 sm:w-1/2">
+            <span class="text-xs font-mono text-[#8a909a] font-bold w-6 shrink-0">{String(i+1).padStart(2,'0')}</span>
+            <div>
+              <a href={`/reviews/${a.slug}/`} class="font-headline text-base sm:text-lg font-bold text-white hover:text-[#ff5500] transition-colors block">{a.title}</a>
+              <p class="text-xs text-[#8a909a]">{verdictLine(a.score!, a.excerpt)}</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4 sm:gap-6 sm:w-1/2 justify-end">
+            <div class="w-full max-w-[200px] sm:max-w-[280px] bg-[#1a1e29] h-1.5 rounded-full overflow-hidden">
+              <div class="h-full rounded-full" style={`width:${parseFloat(a.score!)*10}%;background:#ff5500`}></div>
+            </div>
+            <span class="font-headline text-lg sm:text-2xl font-black text-white w-10 text-right shrink-0">{a.score}</span>
+          </div>
         </div>
+      ))}
+    </div>
+  ) : (
+    <p class="text-[#8a909a] font-mono text-xs">No reviews yet.</p>
+  )}
+</section>
+
+<!-- 3D CINEMATIC BELT + CTA -->
+<section class="relative w-full min-h-[480px] sm:min-h-[520px] flex items-center justify-center overflow-hidden border-t border-b border-[#181c25] bg-[#07080a] py-10">
+  <div class="absolute rounded-full pointer-events-none z-0" style="width:900px;height:480px;background:radial-gradient(circle, rgba(255,85,0,0.18) 0%, rgba(255,85,0,0.06) 45%, transparent 75%);filter:blur(60px)"></div>
+  <div class="perspective-banner-container absolute inset-0 flex items-center justify-center overflow-hidden select-none z-10">
+    <div class="tilted-3d-strip">
+      <div class="animate-tilted-marquee flex items-center gap-5 sm:gap-7">
+        {[...belt3d, ...belt3d].map((g, idx) => (
+          <a
+            href={`/${g.cat}/${g.slug}/`}
+            class="w-56 h-80 sm:w-64 sm:h-96 rounded-lg overflow-hidden shrink-0 border border-white/20 hover:border-[#ff5500] shadow-[0_20px_50px_rgba(0,0,0,0.65)] relative bg-[#0d0f14] group transition-all duration-300 block"
+            aria-hidden={idx >= belt3d.length ? "true" : undefined}
+          >
+            <img
+              src={g.img}
+              alt={g.title}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              style="filter:brightness(1.1) contrast(1.08)"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4 text-left">
+              <span class="text-[10px] font-mono tracking-widest text-[#ff5500] uppercase font-bold block mb-1">{g.genre}</span>
+              <span class="text-base font-bold text-white font-headline tracking-tight block group-hover:text-[#ff5500] transition-colors">{g.title}</span>
+            </div>
+          </a>
+        ))}
       </div>
-      <aside class="sidebar">
-        <Banner slug="nte" size="box" img="/media/nte-b.webp" imgW={300} imgH={250} alt="NTE" />
-      </aside>
     </div>
   </div>
-
-  <!-- NEWSLETTER -->
-  <section class="newsletter">
-    <p class="nl-tag">// Stay Sharp</p>
-    <h2 class="nl-title">Never Miss a Patch</h2>
-    <p class="nl-sub">Tier lists, patch breakdowns, and setup guides — straight to your inbox.</p>
-    <form class="nl-form" onsubmit="return false;">
-      <input class="nl-input" type="email" placeholder="your@email.com" />
-      <button class="nl-btn" type="submit">Subscribe</button>
-    </form>
-  </section>
-
-  <!-- ④ BOTTOM BANNER -->
-  <div style="background:#07080b;text-align:center;padding:28px 0;border-top:1px solid var(--brd);">
-    <Banner slug="nte" size="wide" img="/media/nte-w.gif" imgW={728} imgH={146} alt="NTE — Play Free" />
+  <div class="absolute inset-0 bg-gradient-to-t from-[#08090b]/80 via-transparent to-[#08090b]/80 z-10 pointer-events-none"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-[#08090b]/90 via-transparent to-[#08090b]/90 z-10 pointer-events-none"></div>
+  <div class="relative z-20 max-w-4xl mx-auto px-4 sm:px-6 text-center flex flex-col items-center">
+    <h2 class="font-headline text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-1 drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+      Free to start,
+    </h2>
+    <div class="font-headline text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.08] mb-5 drop-shadow-[0_4px_24px_rgba(255,85,0,0.5)]" style="color:#ff5500;text-shadow:rgba(255,85,0,0.5) 0px 4px 24px">
+      built for PC
+    </div>
+    <p class="text-gray-100 text-sm sm:text-base leading-relaxed max-w-xl mx-auto mb-8 font-medium drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+      Every game here is free to download on Windows. Pick one and we will tell you whether it is worth your evening.
+    </p>
+    <a href="/guides/" class="inline-flex items-center justify-center gap-2 font-mono font-black text-xs uppercase px-8 py-4 tracking-wider transition shadow-2xl hover:scale-105 active:scale-95 duration-150" style="background:#ff5500;color:white">
+      <span>BROWSE GAMES</span><span class="text-sm">→</span>
+    </a>
   </div>
+</section>
 
 </Base>

@@ -9,14 +9,16 @@ export interface Props {
   image?: string;
   noindex?: boolean;
   preloadImg?: string;
+  noNav?: boolean;
 }
 
 const {
   title = 'RigGamer — PC Gaming Guides, News & Reviews',
-  description = 'The sharpest PC gaming coverage. Tier-list guides, patch notes, honest reviews, and setup intel — updated daily.',
-  image = '/og-default.jpg',
+  description = 'Authoritative PC performance engineering, hardware benchmarks, and verified desk setups.',
+  image = '/media/hero-battlefield.png',
   noindex = false,
   preloadImg,
+  noNav = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -24,7 +26,7 @@ const GTM_ID = Astro.locals.runtime?.env?.GTM_ID ?? 'GTM-58ZBC3HB';
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -45,46 +47,73 @@ const GTM_ID = Astro.locals.runtime?.env?.GTM_ID ?? 'GTM-58ZBC3HB';
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={image} />
 
-  <!-- Fonts — non-render-blocking -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" />
-  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" />
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" /></noscript>
-
-  <!-- LCP image preload — browser downloads hero before parsing body -->
+  <!-- LCP preload -->
   {preloadImg && <link rel="preload" as="image" href={preloadImg} fetchpriority="high" />}
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <!-- Critical CSS inline — prevents dark-bg flash before external CSS loads -->
-  <style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{background:#07080b}body{background:#07080b;color:#f2f4f8;font-family:'Inter',sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}main{display:block}</style>
+  <!-- Critical CSS — prevents dark flash -->
+  <style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{background:#08090b}body{background:#08090b;color:#fff;font-family:'Inter',sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}main{display:block}</style>
 
-  <!-- Google Tag Manager — deferred after load to reduce TBT -->
+  <!-- GTM deferred -->
   <script is:inline define:vars={{ GTM_ID }}>window.addEventListener('load',function(){(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',GTM_ID);});</script>
 </head>
-<body>
+<body class="bg-[#08090b] text-white min-h-screen flex flex-col antialiased selection:bg-[#ff5500] selection:text-black">
 
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`} height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<NavBar />
+{!noNav && <NavBar />}
 
-<main>
+<main class="flex-1">
   <slot />
 </main>
 
 <Footer />
 
-<!-- Affiliate links — open in new tab -->
+<!-- Cookie banner full-width bottom -->
+<aside id="rg-cookies" class="fixed bottom-0 left-0 right-0 z-50 bg-[#090b10] border-t border-[#1d222e] py-3.5 px-4 sm:px-8 shadow-2xl">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono">
+    <div class="text-[#8a909a] leading-relaxed pr-4">
+      <span class="inline-block w-2 h-2 mr-1.5" style="background:#ff5500"></span>
+      <strong class="text-white font-bold uppercase tracking-wide">ANALYTICS AND ADVERTISING COOKIES</strong> —
+      Rig Gamer uses cookies for analytics telemetry and non-invasive measurement to keep all benchmarks free of paywalls.
+      <a class="text-white underline hover:text-[#ff5500]" href="/privacy/">Details</a>
+    </div>
+    <div class="flex items-center gap-3 shrink-0">
+      <button id="rg-cookie-reject" class="px-5 py-2 text-xs font-bold uppercase font-mono bg-[#141720] hover:bg-[#1a1f2c] text-white border border-[#2b3140] transition">REJECT</button>
+      <button id="rg-cookie-accept" class="px-5 py-2 text-xs font-bold uppercase font-mono text-white transition" style="background:#ff5500">ACCEPT</button>
+    </div>
+  </div>
+</aside>
+<script>
+  const banner = document.getElementById('rg-cookies');
+  if (localStorage.getItem('rg-cookies')) banner?.remove();
+  document.getElementById('rg-cookie-accept')?.addEventListener('click', () => { localStorage.setItem('rg-cookies','1'); banner?.remove(); });
+  document.getElementById('rg-cookie-reject')?.addEventListener('click', () => { localStorage.setItem('rg-cookies','0'); banner?.remove(); });
+</script>
+
+<!-- Affiliate links + article links — open in new tab -->
 <script>
 document.addEventListener('click', function(e) {
-  const a = (e.target as Element).closest('a[href^="/play/"]');
+  const a = (e.target as Element).closest('a');
   if (!a) return;
-  e.preventDefault();
-  window.open((a as HTMLAnchorElement).href, '_blank', 'noopener');
+  const href = (a as HTMLAnchorElement).getAttribute('href') ?? '';
+
+  // Affiliate links /play/
+  if (href.startsWith('/play/')) {
+    e.preventDefault();
+    window.open((a as HTMLAnchorElement).href, '_blank', 'noopener');
+    return;
+  }
+
+  // Article links: /guides/slug/, /news/slug/, /reviews/slug/, /setup/slug/
+  // Exclude category index pages (/guides/, /news/, /reviews/, /setup/)
+  const articlePattern = /^\/(guides|news|reviews|setup)\/[^\/]+\//;
+  if (articlePattern.test(href)) {
+    e.preventDefault();
+    window.open((a as HTMLAnchorElement).href, '_blank', 'noopener');
+  }
 });
 </script>
 
