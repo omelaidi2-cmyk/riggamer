@@ -1,5 +1,12 @@
 import type { APIRoute } from 'astro';
-import { getLatestArticles, getArticlesByCategory } from '../lib/db';
+import { getArticlesByCategory } from '../lib/db';
+
+function toISODate(dateStr: string | undefined): string | null {
+  if (!dateStr) return null;
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return null;
+  return d.toISOString().split('T')[0];
+}
 
 export const prerender = false;
 
@@ -27,7 +34,7 @@ export const GET: APIRoute = async ({ locals }) => {
     loc: `${base}/${a.cat}/${a.slug}/`,
     priority: '0.7',
     changefreq: 'weekly',
-    lastmod: a.date,
+    lastmod: toISODate(a.date),
   }));
 
   const allUrls = [...staticUrls, ...articleUrls];
