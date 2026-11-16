@@ -37,3 +37,11 @@ export async function getLatestArticles(db: D1Database, limit = 10): Promise<Art
     .all<Article>();
   return r.results;
 }
+
+export async function getRelatedByGame(db: D1Database, game: string, excludeSlug: string): Promise<Article[]> {
+  const r = await db
+    .prepare('SELECT id, slug, title, cat, excerpt, date, readtime, img FROM articles WHERE game = ? AND slug != ? AND published = 1 ORDER BY id DESC LIMIT 5')
+    .bind(game, excludeSlug)
+    .all<Article>();
+  return r.results;
+}

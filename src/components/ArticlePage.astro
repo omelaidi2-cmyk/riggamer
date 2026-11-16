@@ -7,9 +7,10 @@ import type { Article } from '../lib/db';
 export interface Props {
   article: Article;
   readNext?: Article[];
+  crossLinks?: Article[];
 }
 
-const { article, readNext = [] } = Astro.props;
+const { article, readNext = [], crossLinks = [] } = Astro.props;
 const { slug, title, excerpt, cat, date, readtime, img, score, game, editor } = article;
 
 const GAME_SLUGS: Record<string, string> = {
@@ -130,7 +131,7 @@ const authorInitials = authorName.split(' ').map((n: string) => n[0]).join('').t
           {img && (
             <div class="rg-hero-col">
               <div class="rg-frame" style="aspect-ratio:16/9;background:#111;overflow:hidden;">
-                <a href={playUrl ?? `/play/nte`} target="_blank" rel="noopener noreferrer" style="display:block;line-height:0;">
+                <a href={playUrl ?? `/play/nte`} target="_blank" rel="noopener noreferrer" aria-label={`Play ${game ?? 'game'} free (opens in a new tab)`} style="display:block;line-height:0;">
                   <img src={img} alt={title} loading="eager" fetchpriority="high" decoding="sync"
                     referrerpolicy="no-referrer" width="1280" height="720"
                     style="width:100%;height:100%;object-fit:cover;display:block;cursor:pointer;" />
@@ -280,7 +281,19 @@ const authorInitials = authorName.split(' ').map((n: string) => n[0]).join('').t
 
       </div><!-- /rg-article-body -->
 
-      <!-- Read Next — 3 articles -->
+      <!-- More about this game — cross-category links -->
+      {crossLinks.length > 0 && (
+        <section class="rg-article-related" style="margin-bottom:2rem">
+          <div class="sec-hd">
+            <div class="sec-title">More about {game}</div>
+          </div>
+          <div class="rg-related-grid">
+            {crossLinks.slice(0, 4).map((a, i) => <ArticleCard {...a} num={i} />)}
+          </div>
+        </section>
+      )}
+
+      <!-- Read Next — 3 articles same category -->
       {readNext.length > 0 && (
         <section class="rg-article-related">
           <div class="sec-hd">

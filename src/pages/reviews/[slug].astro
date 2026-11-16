@@ -1,7 +1,7 @@
 ---
 export const prerender = false;
 import ArticlePage from '../../components/ArticlePage.astro';
-import { getArticleBySlug, getArticlesByCategory } from '../../lib/db';
+import { getArticleBySlug, getArticlesByCategory, getRelatedByGame } from '../../lib/db';
 
 Astro.response.headers.set('Cache-Control', 'public, max-age=86400, stale-while-revalidate=604800');
 
@@ -14,5 +14,9 @@ if (!article) return Astro.redirect('/');
 const readNext = (await getArticlesByCategory(db, article.cat))
   .filter(a => a.slug !== slug)
   .slice(0, 3);
+
+const crossLinks = article.game
+  ? await getRelatedByGame(db, article.game, slug!)
+  : [];
 ---
-<ArticlePage article={article} readNext={readNext} />
+<ArticlePage article={article} readNext={readNext} crossLinks={crossLinks} />
