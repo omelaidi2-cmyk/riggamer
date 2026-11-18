@@ -14,9 +14,14 @@ const PER_PAGE = 8;
 const page = Math.max(1, parseInt(Astro.url.searchParams.get('page') ?? '1'));
 const totalPages = Math.max(1, Math.ceil((articles.length - 1) / PER_PAGE));
 const rest = articles.slice(1).slice((page - 1) * PER_PAGE, page * PER_PAGE);
+
+const schemaBreadcrumb = { '@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[
+  {'@type':'ListItem',position:1,name:'Home',item:'https://riggamer.com/'},
+  {'@type':'ListItem',position:2,name:'Guides',item:'https://riggamer.com/guides/'},
+]};
 ---
 
-<Base title="PC Gaming Guides & Tier Lists — RigGamer" description="Rigorously field-tested PC walkthroughs, operator tier lists, F2P economy routes, and engine configs. Zero filler, patch-verified." image="/media/arknights-endfield-guides.jpg">
+<Base title="PC Gaming Guides & Tier Lists — RigGamer" schema={schemaBreadcrumb} description="Rigorously field-tested PC walkthroughs, operator tier lists, F2P economy routes, and engine configs. Zero filler, patch-verified." image="/media/arknights-endfield-guides.jpg">
 
   <div class="max-w-7xl mx-auto px-4 py-8 space-y-10">
 

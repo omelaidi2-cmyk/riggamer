@@ -15,9 +15,13 @@ const page = Math.max(1, parseInt(Astro.url.searchParams.get('page') ?? '1'));
 const totalPages = Math.max(1, Math.ceil((articles.length - 1) / PER_PAGE));
 const rest = articles.slice(1).slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
+const schemaBreadcrumb = { '@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[
+  {'@type':'ListItem',position:1,name:'Home',item:'https://riggamer.com/'},
+  {'@type':'ListItem',position:2,name:'News',item:'https://riggamer.com/news/'},
+]};
 ---
 
-<Base title="PC Gaming News & Patch Radar — RigGamer" description="Verified patch notes, engine upgrades, free-to-play economy shifts, hardware requirement changes, and PC gaming industry reports from RigGamer's independent bench-testing desk." image="/media/star-trek-fleet-command-news.jpg">
+<Base title="PC Gaming News & Patch Radar — RigGamer" schema={schemaBreadcrumb} description="Verified patch notes, engine upgrades, free-to-play economy shifts, hardware requirement changes, and PC gaming industry reports from RigGamer's independent bench-testing desk." image="/media/star-trek-fleet-command-news.jpg">
 
   <div class="max-w-7xl mx-auto px-4 py-8 space-y-10">
 

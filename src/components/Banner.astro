@@ -19,16 +19,24 @@ const cls = {
 
 const isGif = img?.endsWith('.gif');
 const aspectStyle = imgW && imgH ? `display:block;width:100%;aspect-ratio:${imgW}/${imgH};` : 'display:block;width:100%;';
+const webm = isGif ? img!.replace('.gif', '.webm') : '';
+const mp4  = isGif ? img!.replace('.gif', '.mp4')  : '';
 ---
 
 <div class={`blassa ${cls}${img ? ' filled' : ''}`}>
   {img ? (
     <a href={`/play/${slug}`} target="_blank" rel="noopener noreferrer" style="display:block;line-height:0;">
       {isGif ? (
-        <video autoplay loop muted playsinline width={imgW} height={imgH} style={aspectStyle}>
-          <source src={img.replace('.gif', '.webm')} type="video/webm" />
-          <source src={img.replace('.gif', '.mp4')} type="video/mp4" />
-        </video>
+        /* Placeholder div — vidéo injectée par JS pour éviter l'indexation Google */
+        <div
+          class="blassa-vid"
+          data-webm={webm}
+          data-mp4={mp4}
+          data-w={imgW}
+          data-h={imgH}
+          style={aspectStyle}
+          aria-label={alt}
+        ></div>
       ) : (
         <img src={img} alt={alt} width={imgW} height={imgH}
           style={aspectStyle}
@@ -39,3 +47,26 @@ const aspectStyle = imgW && imgH ? `display:block;width:100%;aspect-ratio:${imgW
     <span class="blassa-note">// {slug.toUpperCase()} AD {size.toUpperCase()}</span>
   )}
 </div>
+
+<script>
+  function mountBannerVideos() {
+    document.querySelectorAll<HTMLElement>('.blassa-vid:not([data-mounted])').forEach(el => {
+      const webm = el.dataset.webm;
+      const mp4  = el.dataset.mp4;
+      if (!webm && !mp4) return;
+      const v = document.createElement('video');
+      v.autoplay = true; v.loop = true; v.muted = true; v.playsInline = true;
+      if (el.dataset.w) v.width  = parseInt(el.dataset.w);
+      if (el.dataset.h) v.height = parseInt(el.dataset.h);
+      v.style.cssText = el.style.cssText;
+      if (webm) { const s = document.createElement('source'); s.src = webm; s.type = 'video/webm'; v.appendChild(s); }
+      if (mp4)  { const s = document.createElement('source'); s.src = mp4;  s.type = 'video/mp4';  v.appendChild(s); }
+      el.replaceWith(v);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mountBannerVideos);
+  } else {
+    mountBannerVideos();
+  }
+</script>
