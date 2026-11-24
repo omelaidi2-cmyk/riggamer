@@ -16,7 +16,12 @@ RigGamer is an independent PC gaming editorial desk covering free-to-play games,
 - Enlisted (Tactical FPS, PC)
 - RAID: Shadow Legends (Turn-Based RPG)
 - Rise of Kingdoms (Strategy 4X)
-- Star Trek Fleet Command (Sci-Fi 4X)
+- Star Trek Fleet Command (Sci-Fi 4X, Windows & Mac)
+  - Review 2026: https://riggamer.com/reviews/star-trek-fleet-command-review/
+  - Tier List 2026: https://riggamer.com/guides/star-trek-fleet-command-tier-list/
+  - Worth Playing 2026: https://riggamer.com/guides/star-trek-fleet-command-worth-playing-2026/
+  - F2P Guide 2026: https://riggamer.com/guides/star-trek-fleet-command-f2p-guide-2026/
+  - Beginners Guide 2026: https://riggamer.com/guides/star-trek-fleet-command-beginners-guide-2026/
 - Where Winds Meet (Open World RPG)
 - Wuthering Waves (Action RPG, PC)
 
@@ -25,7 +30,8 @@ RigGamer is an independent PC gaming editorial desk covering free-to-play games,
 - Marcus Steele — War Thunder, Enlisted, Military Sims
 - Yuki Chen — NTE, Wuthering Waves, Where Winds Meet
 - Elena Cross — RAID Shadow Legends, Project Entropy
-- Kai Brooks — Rise of Kingdoms, Star Trek Fleet Command
+- Commander Vance — Star Trek Fleet Command (STFC veteran, 2,000+ hours)
+- Kai Brooks — Rise of Kingdoms
 - Jason Bench — PC Hardware, Setup & Benchmarks
 
 ## Contact
